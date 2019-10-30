@@ -22,7 +22,7 @@ _C.MODEL.DEVICE = "cuda"
 # ID number of GPU
 _C.MODEL.DEVICE_ID = '0'
 # Name of backbone
-_C.MODEL.NAME = 'resnet50'
+_C.MODEL.NAME = 'se_resnet101'
 # Last stride of backbone
 _C.MODEL.LAST_STRIDE = 1
 # Path to pretrained model of backbone
@@ -133,7 +133,7 @@ _C.SOLVER.CHECKPOINT_PERIOD = 50
 # iteration of display training log
 _C.SOLVER.LOG_PERIOD = 100
 # epoch number of validation
-_C.SOLVER.EVAL_PERIOD = 50
+_C.SOLVER.EVAL_PERIOD = 2#50
 
 # Number of images per batch
 # This is global, so if we have 8 GPUs and IMS_PER_BATCH = 16, each GPU will
