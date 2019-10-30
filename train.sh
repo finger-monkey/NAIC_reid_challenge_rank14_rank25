@@ -8,5 +8,5 @@
 # last stride 1
 # bnneck on
 # with center loss
-python tools/train.py --config_file='configs/softmax_triplet_with_center.yml' MODEL.DEVICE_ID "('1,2')" DATASETS.NAMES "('dukemtmc')" DATASETS.ROOT_DIR "('/home/xiangan/code_and_data/train_split/split1')" OUTPUT_DIR "('./exps/Experiment1')"
+python tools/train.py --config_file='configs/softmax_triplet_with_center.yml' MODEL.DEVICE_ID "('0')" DATASETS.NAMES "('dukemtmc')" DATASETS.ROOT_DIR "('/home/xiangan/code_and_data/train_split/split1')" OUTPUT_DIR "('./exps/Experiment1')"
 
