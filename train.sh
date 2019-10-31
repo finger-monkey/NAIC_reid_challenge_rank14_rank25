@@ -9,9 +9,9 @@
 # bnneck on
 # with center loss
 python tools/train.py \
-  --config_file='configs/backbone_resnet50.yml' \
-  MODEL.DEVICE_ID "('4,5')" \
+  --config_file='configs/softmax_triplet_with_center_rgb.yml' \
+  MODEL.DEVICE_ID "('6,7')" \
   DATASETS.NAMES "('dukemtmc')" \
   DATASETS.ROOT_DIR "('/home/xiangan/code_and_data/train_split/split2')" \
-  OUTPUT_DIR "('/mnt/anxiang/models/reid_exp/experiment3_nopretrain')"
+  OUTPUT_DIR "('/mnt/anxiang/models/reid_exp/experiment4_rgb')"
 
