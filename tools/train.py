@@ -35,7 +35,7 @@ def train(cfg):
         # scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
         #                               cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
 
-        loss_func = make_loss(cfg, num_classes)     # modified by gu
+        loss_func = make_loss(cfg, num_classes)  # modified by gu
 
         # Add for using self trained model
         if cfg.MODEL.PRETRAIN_CHOICE == 'self':
@@ -51,6 +51,10 @@ def train(cfg):
             start_epoch = 0
             scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
                                           cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
+        elif cfg.MODEL.PRETRAIN_CHOICE == 'scratch':
+            start_epoch = 0
+            scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
+                                          cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
         else:
             print('Only support pretrain_choice for imagenet and self, but got {}'.format(cfg.MODEL.PRETRAIN_CHOICE))
 
@@ -62,10 +66,10 @@ def train(cfg):
             train_loader,
             val_loader,
             optimizer,
-            scheduler,      # modify for using self trained model
+            scheduler,  # modify for using self trained model
             loss_func,
             num_query,
-            start_epoch     # add for using self trained model
+            start_epoch  # add for using self trained model
         )
     elif cfg.MODEL.IF_WITH_CENTER == 'yes':
         print('Train with center loss, the loss type is', cfg.MODEL.METRIC_LOSS_TYPE)
@@ -96,6 +100,10 @@ def train(cfg):
             start_epoch = 0
             scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
                                           cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
+        elif cfg.MODEL.PRETRAIN_CHOICE == 'scratch':
+            start_epoch = 0
+            scheduler = WarmupMultiStepLR(optimizer, cfg.SOLVER.STEPS, cfg.SOLVER.GAMMA, cfg.SOLVER.WARMUP_FACTOR,
+                                          cfg.SOLVER.WARMUP_ITERS, cfg.SOLVER.WARMUP_METHOD)
         else:
             print('Only support pretrain_choice for imagenet and self, but got {}'.format(cfg.MODEL.PRETRAIN_CHOICE))
 
@@ -107,13 +115,14 @@ def train(cfg):
             val_loader,
             optimizer,
             optimizer_center,
-            scheduler,      # modify for using self trained model
+            scheduler,  # modify for using self trained model
             loss_func,
             num_query,
-            start_epoch     # add for using self trained model
+            start_epoch  # add for using self trained model
         )
     else:
-        print("Unsupported value for cfg.MODEL.IF_WITH_CENTER {}, only support yes or no!\n".format(cfg.MODEL.IF_WITH_CENTER))
+        print("Unsupported value for cfg.MODEL.IF_WITH_CENTER {}, only support yes or no!\n".format(
+            cfg.MODEL.IF_WITH_CENTER))
 
 
 def main():
@@ -149,7 +158,7 @@ def main():
     logger.info("Running with config:\n{}".format(cfg))
 
     if cfg.MODEL.DEVICE == "cuda":
-        os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID    # new add by gu
+        os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
     train(cfg)
 
