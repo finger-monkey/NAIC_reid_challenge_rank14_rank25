@@ -16,14 +16,13 @@ from torch.backends import cudnn
 
 sys.path.append('.')
 from config import cfg
-#from data import make_data_loader
-#from engine.trainer import do_train, do_train_with_center
+# from data import make_data_loader
+# from engine.trainer import do_train, do_train_with_center
 from modeling import build_model
-#from layers import make_loss, make_loss_with_center
-#from solver import make_optimizer, make_optimizer_with_center, WarmupMultiStepLR
+# from layers import make_loss, make_loss_with_center
+# from solver import make_optimizer, make_optimizer_with_center, WarmupMultiStepLR
 
 from utils.logger import setup_logger
-
 
 
 def main():
@@ -59,15 +58,15 @@ def main():
     logger.info("Running with config:\n{}".format(cfg))
 
     if cfg.MODEL.DEVICE == "cuda":
-        os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID    # new add by gu
+        os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
-    #model = train(cfg)
+    # model = train(cfg)
     model = build_model(cfg, 3815)
     model.load_state_dict(torch.load(cfg.MODEL.PRETRAIN_PATH))
     return model
 
-def get_image(filename,model):
 
+def get_image(filename, model):
     img = Image.open(filename).convert('RGB')
 
     mean = [0.485, 0.456, 0.406]
@@ -75,46 +74,47 @@ def get_image(filename,model):
     std = [0.229, 0.224, 0.225]
 
     img = transforms.Resize([256, 128])(img)
-    #img = transforms.Resize([300, 300])(img) 
+    # img = transforms.Resize([300, 300])(img)
     img = transforms.ToTensor()(img)
 
-    img = transforms.Normalize(mean,std)(img)
- 
+    img = transforms.Normalize(mean, std)(img)
+
     img = img.unsqueeze(0)
 
     img = img.cuda()
 
     feature = model(img)
-    
-    #print(feature)
+
+    # print(feature)
 
     return feature
+
 
 if __name__ == '__main__':
     model = main()
     model = model.eval()
 
     model = model.cuda()
- 
+
     result = []
 
-    #path = os.listdir('/data/fyf/MVB_val/Image/gallery')
-    #root = '/data/fyf/MVB_val/Image/gallery'
-    
-    root = '../DukeMTMC-reID/DukeMTMC-reID/bounding_box_test' 
-    #root = '../train_split/split2/bounding_box_test'
+    # path = os.listdir('/data/fyf/MVB_val/Image/gallery')
+    # root = '/data/fyf/MVB_val/Image/gallery'
+
+    root = '/home/xiangan/code_and_data/train_split/split2/bounding_box_test'
+    # root = '../train_split/split2/bounding_box_test'
     path = os.listdir(root)
     for i in range(len(path)):
         print(i)
-        name = os.path.join(root,path[i])
+        name = os.path.join(root, path[i])
 
-        feature = get_image(name,model)
+        feature = get_image(name, model)
 
         feature = feature.data.cpu().numpy()
-        #print(feature)
-        
-        result.append([feature, path[i]])
-    #print(cfg.OUTPUT_DIR)
-    pickle.dump(result, open(cfg.OUTPUT_DIR+'/gallery_train_feature.feat','wb'))
+        # print(feature)
 
-    #print(feature)
+        result.append([feature, path[i]])
+    # print(cfg.OUTPUT_DIR)
+    pickle.dump(result, open(cfg.OUTPUT_DIR + '/gallery_train_feature.feat', 'wb'))
+
+    # print(feature)
