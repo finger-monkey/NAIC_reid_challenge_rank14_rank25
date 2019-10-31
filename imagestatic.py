@@ -17,13 +17,16 @@ if __name__ == '__main__':
     r_std_list = []
     for r in root_list:
         for p in os.listdir(r):
-            image = cv2.imread(os.path.join(r, p)) / 255
-            b_mean_list.append(image[:, :, 0].mean())
-            g_mean_list.append(image[:, :, 1].mean())
-            r_mean_list.append(image[:, :, 2].mean())
-            b_std_list.append(image[:, :, 0].std())
-            g_std_list.append(image[:, :, 1].std())
-            r_std_list.append(image[:, :, 2].std())
+            try:
+                image = cv2.imread(os.path.join(r, p)) / 255
+                b_mean_list.append(image[:, :, 0].mean())
+                g_mean_list.append(image[:, :, 1].mean())
+                r_mean_list.append(image[:, :, 2].mean())
+                b_std_list.append(image[:, :, 0].std())
+                g_std_list.append(image[:, :, 1].std())
+                r_std_list.append(image[:, :, 2].std())
+            except:
+                print('error')
         print('b_mean', np.mean(b_mean_list))
         print('g_mean', np.mean(g_mean_list))
         print('r_mean', np.mean(r_mean_list))
