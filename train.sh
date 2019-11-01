@@ -9,9 +9,9 @@
 # bnneck on
 # with center loss
 python tools/train.py \
-  --config_file='configs/softmax_triplet_with_center_rgb.yml' \
-  MODEL.DEVICE_ID "('6,7')" \
+  --config_file='configs/softmax_triplet_with_center.yml' \
+  MODEL.DEVICE_ID "('0,1,2,3,4,5,6')" \
   DATASETS.NAMES "('dukemtmc')" \
   DATASETS.ROOT_DIR "('/home/xiangan/code_and_data/train_split/split2')" \
-  OUTPUT_DIR "('/mnt/anxiang/models/reid_exp/experiment4_rgb')"
+  OUTPUT_DIR "('/mnt/anxiang/models/reid_exp/experiment512_256')"
 
