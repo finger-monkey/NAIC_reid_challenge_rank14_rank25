@@ -63,8 +63,8 @@ def process_info(info):
     return feats, imgnames
 
 
-gallery_info = pickle.load(open('/home/xiangan/dgreid/exps/test/gallery_train_feature.feat', 'rb'))
-query_info = pickle.load(open('/home/xiangan/dgreid/exps/test/query_train_feature.feat', 'rb'))
+gallery_info = pickle.load(open('/home/xiangan/data_match/feat_11_1_300_300/gallery_a_feature.feat', 'rb'))
+query_info = pickle.load(open('/home/xiangan/data_match/feat_11_1_300_300/query_a_feature.feat', 'rb'))
 
 gallery_feats, gallery_imgnames = process_info(gallery_info)
 query_feats, query_imgnames = process_info(query_info)
