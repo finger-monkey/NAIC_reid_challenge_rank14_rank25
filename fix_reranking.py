@@ -3,6 +3,7 @@ import numpy as np
 from sklearn import preprocessing
 import pickle
 import re
+import torch
 
 
 def process_info(info):
@@ -22,6 +23,9 @@ query_info = pickle.load(open('/home/xiangan/dgreid/exps/test/gallery_train_feat
 
 gallery_feats, gallery_imgnames = process_info(gallery_info)
 query_feats, query_imgnames = process_info(query_info)
+
+query_feats = torch.from_numpy(query_feats)
+gallery_feats = torch.from_numpy(gallery_feats)
 
 a = R1_mAP(550, 200, 'yes')
 
