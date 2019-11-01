@@ -27,7 +27,10 @@ query_feats, query_imgnames = process_info(query_info)
 query_feats = torch.from_numpy(query_feats)
 gallery_feats = torch.from_numpy(gallery_feats)
 
-a = R1_mAP(550, 200, 'yes')
+print(query_feats.shape)
+
+
+a = R1_mAP(550, 100, 'yes')
 
 pattern = re.compile(r'([-\d]+)_c(\d)')
 for i in range(len(query_imgnames)):
@@ -42,4 +45,4 @@ for i in range(len(gallery_imgnames)):
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, [pid], [camid]))
 
-print(a.compute())
+print(a.compute()[0])
