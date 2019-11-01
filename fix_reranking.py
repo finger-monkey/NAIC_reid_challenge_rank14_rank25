@@ -96,7 +96,7 @@ for r in [1]:
     print("CMC curve, Rank-%d:%.4f" % (r, cmc[r - 1]))
 print(map)
 
-cmc, map = a.compute(re_ranking, k1=6, k2=20, l=0.3)
+cmc, map = a.compute(re_ranking, k1=3, k2=7, l=0.85)
 for r in [1]:
     print("CMC curve, Rank-%d:%.4f" % (r, cmc[r - 1]))
 print(map)
