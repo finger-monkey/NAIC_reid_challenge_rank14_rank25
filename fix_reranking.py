@@ -26,13 +26,13 @@ query_feats, query_imgnames = process_info(query_info)
 a = R1_mAP(550, 200, 'yes')
 
 pattern = re.compile(r'([-\d]+)_c(\d)')
-for i in range(query_feats):
+for i in range(query_feats.shape[0]):
     img_path = query_imgnames[i]
     feat = query_feats[i]
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, pid, camid))
 
-for i in range(gallery_feats):
+for i in range(gallery_feats.shape[0]):
     img_path = gallery_imgnames[i]
     feat = gallery_feats[i]
     pid, camid = map(int, pattern.search(img_path).groups())
