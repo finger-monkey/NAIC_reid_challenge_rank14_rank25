@@ -28,6 +28,7 @@ query_feats = torch.from_numpy(query_feats)
 gallery_feats = torch.from_numpy(gallery_feats)
 
 print(query_feats.shape)
+print(gallery_feats.shape)
 
 
 a = R1_mAP(550, 100, 'yes')
