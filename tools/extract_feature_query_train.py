@@ -101,7 +101,7 @@ if __name__ == '__main__':
     #path = os.listdir('/data/fyf/MVB_val/Image/gallery')
     #root = '/data/fyf/MVB_val/Image/gallery'
     
-    root = '../DukeMTMC-reID/DukeMTMC-reID/query' 
+    root = '/home/xiangan/code_and_data/train_split/split2/query'
     #root = '../train_split/split2/query' 
     path = os.listdir(root)
     for i in range(len(path)):
