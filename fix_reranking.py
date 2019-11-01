@@ -98,6 +98,7 @@ for r in [1]:
 for k1 in range(1, 10, 2):
     for k2 in range(5, 20, 3):
         for l in [0.1, 0.3, 0.5, 0.7, 0.9]:
-            cmc, map = a.compute(re_ranking, k1=3, k2=7, l=0.85)
+            print("====k1=%d=====k2=%d=====l=%f" % (k1, k2, l))
+            cmc, map = a.compute(re_ranking, k1=k1, k2=k2, l=l)
             for r in [1]:
                 print("CMC curve, Rank-%d:%.4f, map:%.4f" % (r, cmc[r - 1], map))
