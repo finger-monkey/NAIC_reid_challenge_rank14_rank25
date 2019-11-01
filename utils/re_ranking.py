@@ -34,7 +34,7 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
         original_dist = local_distmat
     else:
         feat = torch.cat([probFea,galFea])
-        print('using GPU to compute original distance')
+        # print('using GPU to compute original distance')
         distmat = torch.pow(feat,2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
                       torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
         distmat.addmm_(1,-2,feat,feat.t())
