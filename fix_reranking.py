@@ -33,12 +33,14 @@ pattern = re.compile(r'([-\d]+)_c(\d)')
 for i in range(len(query_imgnames)):
     img_path = query_imgnames[i]
     feat = query_feats[i]
+    feat.view(size=(1, -1))
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, [pid], [camid]))
 
 for i in range(len(gallery_imgnames)):
     img_path = gallery_imgnames[i]
     feat = gallery_feats[i]
+    feat.view(size=(1, -1))
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, [pid], [camid]))
 
