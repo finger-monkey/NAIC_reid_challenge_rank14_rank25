@@ -48,5 +48,5 @@ for i in range(len(gallery_imgnames)):
 
 cmc, map = a.compute()
 for r in [1, 5, 10]:
-    print("CMC curve, Rank-{%d}:{%.4f}" % (r, cmc[r - 1]))
+    print("CMC curve, Rank-%d:%.4f" % (r, cmc[r - 1]))
 print(map)
