@@ -46,4 +46,7 @@ for i in range(len(gallery_imgnames)):
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, [pid], [camid]))
 
-print(a.compute())
+cmc, map = a.compute()
+for r in [1, 5, 10]:
+    print("CMC curve, Rank-{%d}:{%.4f}" % (r, cmc[r - 1]))
+print(map)
