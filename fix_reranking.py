@@ -45,4 +45,4 @@ for i in range(len(gallery_imgnames)):
     pid, camid = map(int, pattern.search(img_path).groups())
     a.update((feat, [pid], [camid]))
 
-print(a.compute()[0])
+print(a.compute())
