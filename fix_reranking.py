@@ -29,7 +29,7 @@ class R1_mAP(Metric):
     def compute(self, rerank_func=None, **kwargs):
         feats = torch.cat(self.feats, dim=0)
         if self.feat_norm == 'yes':
-            print("The test feature is normalized")
+            # print("The test feature is normalized")
             feats = torch.nn.functional.normalize(feats, dim=1, p=2)
         # query
         qf = feats[:self.num_query]
@@ -93,10 +93,11 @@ for i in range(len(gallery_imgnames)):
 
 cmc, map = a.compute()
 for r in [1]:
-    print("CMC curve, Rank-%d:%.4f" % (r, cmc[r - 1]))
-print(map)
+    print("CMC curve, Rank-%d:%.4f, map:%.4f" % (r, cmc[r - 1], map))
 
-cmc, map = a.compute(re_ranking, k1=3, k2=7, l=0.85)
-for r in [1]:
-    print("CMC curve, Rank-%d:%.4f" % (r, cmc[r - 1]))
-print(map)
+for k1 in range(1, 10, 2):
+    for k2 in range(5, 20, 3):
+        for l in [0.1, 0.3, 0.5, 0.7, 0.9]:
+            cmc, map = a.compute(re_ranking, k1=3, k2=7, l=0.85)
+            for r in [1]:
+                print("CMC curve, Rank-%d:%.4f, map:%.4f" % (r, cmc[r - 1], map))
