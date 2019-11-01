@@ -30,12 +30,12 @@ for i in range(len(query_imgnames)):
     img_path = query_imgnames[i]
     feat = query_feats[i]
     pid, camid = map(int, pattern.search(img_path).groups())
-    a.update((feat, pid, camid))
+    a.update((feat, [pid], [camid]))
 
 for i in range(len(gallery_imgnames)):
     img_path = gallery_imgnames[i]
     feat = gallery_feats[i]
     pid, camid = map(int, pattern.search(img_path).groups())
-    a.update((feat, pid, camid))
+    a.update((feat, [pid], [camid]))
 
 print(a.compute())
