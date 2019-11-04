@@ -1,9 +1,9 @@
 python extraect_feature_test.py \
-  --config_file='configs/softmax_triplet_with_center_anxiang.yml' \
+  --config_file='configs/senet50.yml' \
   MODEL.DEVICE_ID "('1')" \
   DATASETS.NAMES "('dukemtmc')" \
   DATASETS.ROOT_DIR "('/home/xiangan/data_reid/testA')" \
   MODEL.PRETRAIN_CHOICE "('self')" \
-  MODEL.PRETRAIN_PATH "('/mnt/anxiang/models/reid_exp/experiment2/se_resnet101_model_120.pth')" \
-  OUTPUT_DIR "('./exps/test')"
+  MODEL.PRETRAIN_PATH "('/mnt/anxiang/models/reid_exp/all_11_4/se_resnet50_model_120.pth')" \
+  OUTPUT_DIR "('./exps/all_11_4')"
 
