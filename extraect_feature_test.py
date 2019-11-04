@@ -78,21 +78,23 @@ if __name__ == '__main__':
     result = []
 
     query_root = "/home/xiangan/data_reid/testA/query_a"
-    path = os.listdir(query_root)
-    for i in range(len(path)):
+    query_path = os.listdir(query_root)
+    for i in range(len(query_path)):
         print(i)
-        name = os.path.join(query_root, path[i])
+        name = os.path.join(query_root, query_path[i])
         feature = get_image(name, model)
         feature = feature.data.cpu().numpy()
-        result.append([feature, path[i]])
+        result.append([feature, query_path[i]])
     pickle.dump(result, open(cfg.OUTPUT_DIR + '/query_a_feature.feat', 'wb'))
 
+
+    result = []
     gallery_root = "/home/xiangan/data_reid/testA/gallery_a"
-    path = os.listdir(gallery_root)
-    for i in range(len(path)):
+    gallery_path = os.listdir(gallery_root)
+    for i in range(len(gallery_path)):
         print(i)
-        name = os.path.join(gallery_root, path[i])
+        name = os.path.join(gallery_root, gallery_path[i])
         feature = get_image(name, model)
         feature = feature.data.cpu().numpy()
-        result.append([feature, path[i]])
+        result.append([feature, gallery_path[i]])
     pickle.dump(result, open(cfg.OUTPUT_DIR + '/gallery_a_feature.feat', 'wb'))
