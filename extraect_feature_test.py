@@ -88,7 +88,7 @@ if __name__ == '__main__':
     pickle.dump(result, open(cfg.OUTPUT_DIR + '/query_a_feature.feat', 'wb'))
 
     gallery_root = "/home/xiangan/data_reid/testA/gallery_a"
-    path = os.listdir(query_root)
+    path = os.listdir(gallery_root)
     for i in range(len(path)):
         print(i)
         name = os.path.join(gallery_root, path[i])
