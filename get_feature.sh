@@ -1,4 +1,4 @@
-python tools/extract_feature_query_train.py \
+python tools/extract_feature.py \
 --config_file='configs/softmax_triplet_with_center_anxiang.yml' \
 MODEL.DEVICE_ID "('1')" \
 DATASETS.NAMES "('dukemtmc')" \
