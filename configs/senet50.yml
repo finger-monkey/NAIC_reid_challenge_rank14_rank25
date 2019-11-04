@@ -6,8 +6,6 @@ MODEL:
   IF_WITH_CENTER: 'yes'
 
 
-
-
 INPUT:
   SIZE_TRAIN: [256, 128]
   SIZE_TEST: [256, 128]
