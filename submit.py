@@ -47,5 +47,5 @@ for q_idx in range(num_q):
 submission_json = json.dumps(submission_key)
 print(type(submission_json))
 
-with open('rerank_11_1.json', 'w', encoding='utf-8') as f:
+with open('rerank_11_5.json', 'w', encoding='utf-8') as f:
     f.write(submission_json)
