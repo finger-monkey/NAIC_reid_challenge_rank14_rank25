@@ -4,7 +4,7 @@ MODEL:
   PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet50-ce0d4300.pth'
   METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'on'
-  IF_WITH_CENTER: 'yes'
+  IF_WITH_CENTER: 'no'
 
 
 INPUT:
