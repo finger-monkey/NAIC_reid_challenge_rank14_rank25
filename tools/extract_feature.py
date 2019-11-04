@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     result = []
 
-    root = '/home/xiangan/code_and_data/train_split/split2/query'
+    root = '/home/xiangan/code_and_data/train_split/all/bounding_box_train'
     path = os.listdir(root)
     for i in range(len(path)):
         name = os.path.join(root, path[i])
