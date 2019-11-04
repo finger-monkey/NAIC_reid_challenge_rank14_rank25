@@ -63,10 +63,18 @@ def get_image(filename, model):
     img = transforms.Resize([256, 128])(img)
     img = transforms.ToTensor()(img)
     img = transforms.Normalize(mean, std)(img)
+
+    img2 = transforms.RandomHorizontalFlip(p=1.0)(img)
+    img2 = img2.unsqueeze(0)
+    img2 = img2.cuda()
+
     img = img.unsqueeze(0)
     img = img.cuda()
-    feature = model(img)
 
+    feature = model(img)
+    feature2 = model(img2)
+
+    feature = torch.cat((feature, feature2), 1)
     return feature
 
 
@@ -86,7 +94,6 @@ if __name__ == '__main__':
         feature = feature.data.cpu().numpy()
         result.append([feature, query_path[i]])
     pickle.dump(result, open(cfg.OUTPUT_DIR + '/query_a_feature.feat', 'wb'))
-
 
     result = []
     gallery_root = "/home/xiangan/data_reid/testA/gallery_a"
