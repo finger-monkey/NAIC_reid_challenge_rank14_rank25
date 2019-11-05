@@ -36,7 +36,7 @@ def make_loss(cfg, num_classes):  # modified by gu
                     raise ValueError
                 else:
                     # return F.cross_entropy(score, target) + triplet(feat, target)[0]
-                    print("using MGN loss")
+                    # print("using MGN loss")
                     return sum(F.cross_entropy(s, target) for s in score) + sum(triplet(f, target)[0] for f in feat)
             else:
                 print('expected METRIC_LOSS_TYPE should be triplet'
