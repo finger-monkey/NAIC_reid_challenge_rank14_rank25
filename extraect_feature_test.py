@@ -60,7 +60,7 @@ def get_image(filename, model):
 
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
-    img = transforms.Resize([256, 128])(img)
+    img = transforms.Resize([384, 128])(img)
     # img2 = transforms.RandomHorizontalFlip(p=1.0)(img)
 
     img = transforms.ToTensor()(img)
