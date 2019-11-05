@@ -61,22 +61,22 @@ def get_image(filename, model):
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
     img = transforms.Resize([256, 128])(img)
-    img2 = transforms.RandomHorizontalFlip(p=1.0)(img)
+    # img2 = transforms.RandomHorizontalFlip(p=1.0)(img)
 
     img = transforms.ToTensor()(img)
     img = transforms.Normalize(mean, std)(img)
     img = img.unsqueeze(0)
     img = img.cuda()
 
-    img2 = transforms.ToTensor()(img2)
-    img2 = transforms.Normalize(mean, std)(img2)
-    img2 = img2.unsqueeze(0)
-    img2 = img2.cuda()
+    # img2 = transforms.ToTensor()(img2)
+    # img2 = transforms.Normalize(mean, std)(img2)
+    # img2 = img2.unsqueeze(0)
+    # img2 = img2.cuda()
 
     feature = model(img)
-    feature2 = model(img2)
+    # feature2 = model(img2)
 
-    feature = torch.cat((feature, feature2), 1)
+    # feature = torch.cat((feature, feature2), 1)
     return feature
 
 
