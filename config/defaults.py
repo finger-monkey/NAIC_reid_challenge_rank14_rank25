@@ -41,7 +41,7 @@ _C.MODEL.METRIC_LOSS_TYPE = 'triplet'
 # the setting should be: _C.MODEL.METRIC_LOSS_TYPE = 'triplet_center' and _C.MODEL.IF_WITH_CENTER = 'yes'
 
 # If train with label smooth, options: 'on', 'off'
-_C.MODEL.IF_LABELSMOOTH = 'on'
+_C.MODEL.IF_LABELSMOOTH = 'off'
 
 
 # -----------------------------------------------------------------------------
