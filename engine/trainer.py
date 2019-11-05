@@ -48,7 +48,7 @@ def create_supervised_trainer(model, optimizer, loss_fn,
         loss.backward()
         optimizer.step()
         # compute acc
-        acc = (score.max(1)[1] == target).float().mean()
+        acc = (score[0].max(1)[1] == target).float().mean()
         return loss.item(), acc.item()
 
     return Engine(_update)
