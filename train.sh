@@ -19,7 +19,8 @@ python extract.py \
     DATASETS.NAMES "('dukemtmc')" \
     DATASETS.ROOT_DIR "('/home/xiangan/data_reid/testA')" \
     MODEL.PRETRAIN_CHOICE "('self')" \
-    MODEL.PRETRAIN_PATH "('/mnt/anxiang/models/reid_exp/${1}/se_resnet50_model_120.pth')" \
+    MODEL.PRETRAIN_PATH "('/mnt/anxiang/models/reid_exp/${1}/se_resnet50_model_80.pth')" \
     OUTPUT_DIR "('./features/${1}')"
+
 
 python get_submission.py --name
