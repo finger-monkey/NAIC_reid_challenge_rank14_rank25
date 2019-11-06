@@ -1,5 +1,5 @@
-python extraect_feature_test.py \
-  --config_file='configs/senet50_MGN_2.yml' \
+python extract.py \
+  --config_file='configs/mgn.yml' \
   MODEL.DEVICE_ID "('1')" \
   DATASETS.NAMES "('dukemtmc')" \
   DATASETS.ROOT_DIR "('/home/xiangan/data_reid/testA')" \
