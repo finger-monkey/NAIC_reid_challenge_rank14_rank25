@@ -43,7 +43,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('submission_%s' % args.name, 'w', encoding='utf-8') as f:
+    with open('submission_%s.json' % args.name, 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
