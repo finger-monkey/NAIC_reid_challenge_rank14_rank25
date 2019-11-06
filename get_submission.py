@@ -22,8 +22,8 @@ def main():
         feats = preprocessing.normalize(feats)
         return feats, imgnames
 
-    gallery_info = pickle.load(open('exps/%s/gallery_a_feature.feat', 'rb' % args.name))
-    query_info = pickle.load(open('exps/%s/query_a_feature.feat', 'rb' % args.name))
+    gallery_info = pickle.load(open('exps/%s/gallery_a_feature.feat' % args.name, 'rb'))
+    query_info = pickle.load(open('exps/%s/query_a_feature.feat' % args.name, 'rb'))
 
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
