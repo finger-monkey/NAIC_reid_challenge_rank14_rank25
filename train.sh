@@ -1,7 +1,7 @@
 
 CONFIG_FILE = "configs/${s1}.yml"
 
-echo CONFIG_FILE
+echo ${CONFIG_FILE}
 
 
 
