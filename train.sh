@@ -23,4 +23,4 @@ python extract.py \
     OUTPUT_DIR "('./features/${1}')"
 
 
-python get_submission.py --name
+python get_submission.py --name ${1}
