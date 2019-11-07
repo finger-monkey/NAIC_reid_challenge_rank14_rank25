@@ -14,6 +14,12 @@ def make_loss(cfg, num_classes):  # modified by gu
     sampler = cfg.DATALOADER.SAMPLER
     if cfg.MODEL.METRIC_LOSS_TYPE == 'triplet':
         triplet = TripletLoss(cfg.SOLVER.MARGIN)  # triplet loss
+        if cfg.SOLVER.TRIPLET_NORM == 'yes':
+            triplet_norm = True
+        elif cfg.SOLVER.TRIPLET_NORM == 'no':
+            triplet_norm = False
+        else:
+            raise ValueError
     else:
         print('expected METRIC_LOSS_TYPE should be tripletbut got {}'.format(cfg.MODEL.METRIC_LOSS_TYPE))
 
@@ -33,7 +39,8 @@ def make_loss(cfg, num_classes):  # modified by gu
                 if cfg.MODEL.IF_LABELSMOOTH == 'on':
                     raise ValueError
                 else:
-                    return sum(F.cross_entropy(s, target) for s in score) + sum(triplet(f, target)[0] for f in feat)
+                    return sum(F.cross_entropy(s, target) for s in score) + sum(
+                        triplet(f, target, triplet_norm)[0] for f in feat)
             else:
                 print('expected METRIC_LOSS_TYPE should be triplet but got {}'.format(cfg.MODEL.METRIC_LOSS_TYPE))
     else:
@@ -41,6 +48,7 @@ def make_loss(cfg, num_classes):  # modified by gu
               'but got {}'.format(cfg.DATALOADER.SAMPLER))
 
     return loss_func
+
 
 def make_loss_with_center(cfg, num_classes):  # modified by gu
     if cfg.MODEL.NAME == 'resnet18' or cfg.MODEL.NAME == 'resnet34':
@@ -54,6 +62,10 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
     elif cfg.MODEL.METRIC_LOSS_TYPE == 'triplet_center':
         triplet = TripletLoss(cfg.SOLVER.MARGIN)  # triplet loss
         center_criterion = CenterLoss(num_classes=num_classes, feat_dim=feat_dim, use_gpu=True)  # center loss
+        if cfg.SOLVER.TRIPLET_NORM == 'yes':
+            triplet_norm = True
+        else:
+            triplet_norm = False
 
     else:
         print('expected METRIC_LOSS_TYPE with center should be center, triplet_center'

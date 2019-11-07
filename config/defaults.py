@@ -99,6 +99,8 @@ _C.SOLVER.BIAS_LR_FACTOR = 2
 _C.SOLVER.MOMENTUM = 0.9
 # Margin of triplet loss
 _C.SOLVER.MARGIN = 0.3
+# Feature Norm of triplet loss
+_C.SOLVER.TRIPLET_NORM = 'no'
 # Margin of cluster ;pss
 _C.SOLVER.CLUSTER_MARGIN = 0.3
 # Learning rate of SGD to learn the centers of center loss
