@@ -14,12 +14,12 @@ def make_loss(cfg, num_classes):  # modified by gu
     sampler = cfg.DATALOADER.SAMPLER
     if cfg.MODEL.METRIC_LOSS_TYPE == 'triplet':
         triplet = TripletLoss(cfg.SOLVER.MARGIN)  # triplet loss
-        if cfg.SOLVER.TRIPLET_NORM == 'yes':
-            triplet_norm = True
-        elif cfg.SOLVER.TRIPLET_NORM == 'no':
-            triplet_norm = False
-        else:
-            raise ValueError
+        # if cfg.SOLVER.TRIPLET_NORM == 'yes':
+        #     triplet_norm = True
+        # elif cfg.SOLVER.TRIPLET_NORM == 'no':
+        #     triplet_norm = False
+        # else:
+        #     raise ValueError
     else:
         print('expected METRIC_LOSS_TYPE should be tripletbut got {}'.format(cfg.MODEL.METRIC_LOSS_TYPE))
 
@@ -40,7 +40,7 @@ def make_loss(cfg, num_classes):  # modified by gu
                     raise ValueError
                 else:
                     return sum(F.cross_entropy(s, target) for s in score) + sum(
-                        triplet(f, target, triplet_norm)[0] for f in feat)
+                        triplet(f, target)[0] for f in feat)
             else:
                 print('expected METRIC_LOSS_TYPE should be triplet but got {}'.format(cfg.MODEL.METRIC_LOSS_TYPE))
     else:
