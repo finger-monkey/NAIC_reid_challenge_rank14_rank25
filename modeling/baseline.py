@@ -255,10 +255,13 @@ class Baseline(nn.Module):
         l1_p3 = self.fc_id_256_2_1(self.relu(f1_p3))
         l2_p3 = self.fc_id_256_2_2(self.relu(f2_p3))
 
+        #
+        final_feature = torch.cat([fg_p1, fg_p2, fg_p3, f0_p2, f1_p2, f0_p3, f1_p3, f2_p3], dim=1)
+
         if self.training:
-            return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3)
+            return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3, final_feature)
         else:
-            return torch.cat([fg_p1, fg_p2, fg_p3, f0_p2, f1_p2, f0_p3, f1_p3, f2_p3], dim=1)
+            return final_feature
 
 
 def load_param(self, trained_path):
