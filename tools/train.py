@@ -68,7 +68,6 @@ def train(cfg):
             start_epoch  # add for using self trained model
         )
     elif cfg.MODEL.IF_WITH_CENTER == 'yes':
-        raise ValueError
         print('Train with center loss, the loss type is', cfg.MODEL.METRIC_LOSS_TYPE)
         loss_func, center_criterion = make_loss_with_center(cfg, num_classes)  # modified by gu
         optimizer, optimizer_center = make_optimizer_with_center(cfg, model, center_criterion)
