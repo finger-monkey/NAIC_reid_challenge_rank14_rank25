@@ -166,7 +166,9 @@ class Baseline(nn.Module):
         self.maxpool_zp2 = pool2d(kernel_size=(12, 8))
         self.maxpool_zp3 = pool2d(kernel_size=(8, 8))
 
-        reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256), nn.ReLU())
+        # reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256), nn.ReLU())
+        reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256))
+        self.relu = nn.ReLU()
         self._init_reduction(reduction)
         self.reduction_0 = copy.deepcopy(reduction)
         self.reduction_1 = copy.deepcopy(reduction)
@@ -243,15 +245,15 @@ class Baseline(nn.Module):
         f1_p3 = self.reduction_6(z1_p3).squeeze(dim=3).squeeze(dim=2)
         f2_p3 = self.reduction_7(z2_p3).squeeze(dim=3).squeeze(dim=2)
 
-        l_p1 = self.fc_id_2048_0(fg_p1)
-        l_p2 = self.fc_id_2048_1(fg_p2)
-        l_p3 = self.fc_id_2048_2(fg_p3)
+        l_p1 = self.fc_id_2048_0(self.relu(fg_p1))
+        l_p2 = self.fc_id_2048_1(self.relu(fg_p2))
+        l_p3 = self.fc_id_2048_2(self.relu(fg_p3))
 
-        l0_p2 = self.fc_id_256_1_0(f0_p2)
-        l1_p2 = self.fc_id_256_1_1(f1_p2)
-        l0_p3 = self.fc_id_256_2_0(f0_p3)
-        l1_p3 = self.fc_id_256_2_1(f1_p3)
-        l2_p3 = self.fc_id_256_2_2(f2_p3)
+        l0_p2 = self.fc_id_256_1_0(self.relu(f0_p2))
+        l1_p2 = self.fc_id_256_1_1(self.relu(f1_p2))
+        l0_p3 = self.fc_id_256_2_0(self.relu(f0_p3))
+        l1_p3 = self.fc_id_256_2_1(self.relu(f1_p3))
+        l2_p3 = self.fc_id_256_2_2(self.relu(f2_p3))
 
         if self.training:
             return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3)
