@@ -51,7 +51,6 @@ def hard_example_mining(dist_mat, labels, return_inds=False):
     NOTE: Only consider the case in which all labels have same num of samples,
       thus we can cope with all anchors in parallel.
     """
-
     assert len(dist_mat.size()) == 2
     assert dist_mat.size(0) == dist_mat.size(1)
     N = dist_mat.size(0)
