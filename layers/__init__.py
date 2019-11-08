@@ -68,7 +68,7 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
         print("label smooth on, numclasses:", num_classes)
 
     def loss_func(score, feat, target):
-        final_feature = feat[4]
+        final_feature = feat[-1]
         feat = feat[0:3]
         if cfg.MODEL.METRIC_LOSS_TYPE == 'center':
             if cfg.MODEL.IF_LABELSMOOTH == 'on':
