@@ -91,7 +91,7 @@ def create_supervised_trainer_with_center(model, center_criterion, optimizer, op
         optimizer_center.step()
 
         # compute acc
-        acc = (score.max(1)[1] == target).float().mean()
+        acc = (score[0].max(1)[1] == target).float().mean()
         return loss.item(), acc.item()
 
     return Engine(_update)
