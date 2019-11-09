@@ -52,6 +52,38 @@ def main():
     # model = train(cfg)
     model = build_model(cfg, 4768)
     model.load_state_dict(torch.load(cfg.MODEL.PRETRAIN_PATH))
+
+    test_root = cfg.DATASETS.ROOT_DIR
+    print(test_root)
+
+    model = model.eval()
+    model = model.cuda()
+
+    result = []
+
+    # query_root = "/home/xiangan/data_reid/testA/query_a"
+    query_root = os.path.join(test_root, 'query_a')
+    query_path = os.listdir(query_root)
+    for i in range(len(query_path)):
+        print(i)
+        name = os.path.join(query_root, query_path[i])
+        feature = get_image(name, model)
+        feature = feature.data.cpu().numpy()
+        result.append([feature, query_path[i]])
+    pickle.dump(result, open(cfg.OUTPUT_DIR + '/query_a_feature.feat', 'wb'))
+
+    result = []
+    # gallery_root = "/home/xiangan/data_reid/testA/gallery_a"
+    gallery_root = os.path.join(test_root, 'gallery_a')
+    gallery_path = os.listdir(gallery_root)
+    for i in range(len(gallery_path)):
+        print(i)
+        name = os.path.join(gallery_root, gallery_path[i])
+        feature = get_image(name, model)
+        feature = feature.data.cpu().numpy()
+        result.append([feature, gallery_path[i]])
+    pickle.dump(result, open(cfg.OUTPUT_DIR + '/gallery_a_feature.feat', 'wb'))
+
     return model
 
 
@@ -77,33 +109,9 @@ def get_image(filename, model):
     # feature2 = model(img2)
 
     # feature = torch.cat((feature, feature2), 1)
+
     return feature
 
 
 if __name__ == '__main__':
     model = main()
-    model = model.eval()
-    model = model.cuda()
-
-    result = []
-
-    query_root = "/home/xiangan/data_reid/testA/query_a"
-    query_path = os.listdir(query_root)
-    for i in range(len(query_path)):
-        print(i)
-        name = os.path.join(query_root, query_path[i])
-        feature = get_image(name, model)
-        feature = feature.data.cpu().numpy()
-        result.append([feature, query_path[i]])
-    pickle.dump(result, open(cfg.OUTPUT_DIR + '/query_a_feature.feat', 'wb'))
-
-    result = []
-    gallery_root = "/home/xiangan/data_reid/testA/gallery_a"
-    gallery_path = os.listdir(gallery_root)
-    for i in range(len(gallery_path)):
-        print(i)
-        name = os.path.join(gallery_root, gallery_path[i])
-        feature = get_image(name, model)
-        feature = feature.data.cpu().numpy()
-        result.append([feature, gallery_path[i]])
-    pickle.dump(result, open(cfg.OUTPUT_DIR + '/gallery_a_feature.feat', 'wb'))
