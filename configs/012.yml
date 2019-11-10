@@ -12,12 +12,12 @@ MODEL:
 INPUT:
   SIZE_TRAIN: [384, 128]
   SIZE_TEST: [384, 128]
-  PROB: 0.5 # random horizontal flip
+  PROB: 0.2 # random horizontal flip
   RE_PROB: 0.0 # random erasing
   PADDING: 10
 
 DATASETS:
-  NAMES: ('market1501')
+  NAMES: ('dukemtmc')
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -54,9 +54,9 @@ SOLVER:
   WARMUP_ITERS: 10
   WARMUP_METHOD: 'linear'
 
-  CHECKPOINT_PERIOD: 10 #40
+  CHECKPOINT_PERIOD: 10
   LOG_PERIOD: 20
-  EVAL_PERIOD: 10 #40
+  EVAL_PERIOD: 10
 
 TEST:
   IMS_PER_BATCH: 128
@@ -64,6 +64,6 @@ TEST:
   WEIGHT: "path"
   FEAT_NORM: 'yes'
 
-OUTPUT_DIR: "/home/haoluo/log/gu/reid_baseline_review/Opensource_test/market1501/Experiment-all-tricks-tri_center-256x128-bs16x4-warmup10-erase0_5-labelsmooth_on-laststride1-bnneck_on-triplet_centerloss0_0005"
+OUTPUT_DIR: ""
 
 
