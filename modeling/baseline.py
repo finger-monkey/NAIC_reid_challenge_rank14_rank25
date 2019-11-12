@@ -215,9 +215,15 @@ class Baseline(nn.Module):
             # conv
             nn.init.kaiming_normal_(reduction[0].weight, mode='fan_in')
 
-        # bn
-        nn.init.normal_(reduction[1].weight, mean=1., std=0.02)
-        nn.init.constant_(reduction[1].bias, 0.)
+            # bn
+            nn.init.normal_(reduction[1].weight, mean=1., std=0.02)
+            nn.init.constant_(reduction[1].bias, 0.)
+        elif self.reduction == 'no':
+            # bn
+            nn.init.normal_(reduction[0].weight, mean=1., std=0.02)
+            nn.init.constant_(reduction[0].bias, 0.)
+        else:
+            raise ValueError
 
     def forward(self, x):
 
