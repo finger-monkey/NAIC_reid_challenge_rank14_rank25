@@ -52,6 +52,9 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
     else:
         feat_dim = 2048
 
+    if cfg.MODEL.REDUCTION == 'no':
+        feat_dim = feat_dim * 8
+
     if cfg.MODEL.METRIC_LOSS_TYPE == 'center':
         center_criterion = CenterLoss(num_classes=num_classes, feat_dim=feat_dim, use_gpu=True)  # center loss
 
@@ -72,12 +75,8 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
         feat = feat[0:3]
         if cfg.MODEL.METRIC_LOSS_TYPE == 'center':
             if cfg.MODEL.IF_LABELSMOOTH == 'on':
-                # return xent(score, target) + \
-                #        cfg.SOLVER.CENTER_LOSS_WEIGHT * center_criterion(feat, target)
                 raise ValueError
             else:
-                # return F.cross_entropy(score, target) + \
-                #        cfg.SOLVER.CENTER_LOSS_WEIGHT * center_criterion(feat, target)
                 raise ValueError
 
         elif cfg.MODEL.METRIC_LOSS_TYPE == 'triplet_center':

@@ -13,5 +13,7 @@ def build_model(cfg, num_classes):
         last_stride=cfg.MODEL.LAST_STRIDE,
         model_path=cfg.MODEL.PRETRAIN_PATH,
         model_name=cfg.MODEL.NAME,
-        pretrain_choice=cfg.MODEL.PRETRAIN_CHOICE)
+        pretrain_choice=cfg.MODEL.PRETRAIN_CHOICE,
+        reduction=cfg.MODEL.REDUCTION
+    )
     return model
