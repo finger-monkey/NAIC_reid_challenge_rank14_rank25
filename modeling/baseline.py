@@ -184,15 +184,23 @@ class Baseline(nn.Module):
         self.reduction_6 = copy.deepcopy(reduction)
         self.reduction_7 = copy.deepcopy(reduction)
 
-        self.fc_id_2048_0 = nn.Linear(256, num_classes)
-        self.fc_id_2048_1 = nn.Linear(256, num_classes)
-        self.fc_id_2048_2 = nn.Linear(256, num_classes)
+        feat_size = None
+        if self.reduction == 'yes':
+            feat_size = 256
+        elif self.reduction == 'no':
+            feat_size = 2048
+        else:
+            raise ValueError
 
-        self.fc_id_256_1_0 = nn.Linear(256, num_classes)
-        self.fc_id_256_1_1 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_0 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_1 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_2 = nn.Linear(256, num_classes)
+        self.fc_id_2048_0 = nn.Linear(feat_size, num_classes)
+        self.fc_id_2048_1 = nn.Linear(feat_size, num_classes)
+        self.fc_id_2048_2 = nn.Linear(feat_size, num_classes)
+
+        self.fc_id_256_1_0 = nn.Linear(feat_size, num_classes)
+        self.fc_id_256_1_1 = nn.Linear(feat_size, num_classes)
+        self.fc_id_256_2_0 = nn.Linear(feat_size, num_classes)
+        self.fc_id_256_2_1 = nn.Linear(feat_size, num_classes)
+        self.fc_id_256_2_2 = nn.Linear(feat_size, num_classes)
 
         self._init_fc(self.fc_id_2048_0)
         self._init_fc(self.fc_id_2048_1)
