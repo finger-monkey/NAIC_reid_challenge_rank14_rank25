@@ -6,7 +6,6 @@ MODEL:
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
   LAST_STRIDE: 2
-  REDUCTION: 'no'
 
 
 INPUT:
