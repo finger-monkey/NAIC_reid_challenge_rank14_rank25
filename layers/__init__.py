@@ -8,6 +8,7 @@ import torch.nn.functional as F
 
 from .triplet_loss import TripletLoss, CrossEntropyLabelSmooth
 from .center_loss import CenterLoss
+from .focal_loss import FocalLoss
 
 
 def make_loss(cfg, num_classes):  # modified by gu
@@ -55,6 +56,13 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
     if cfg.MODEL.REDUCTION == 'no':
         feat_dim = feat_dim * 8
 
+    if cfg.SOVLER.FOCAL_LOSS == 'yes':
+        flce = FocalLoss(
+            class_num=num_classes,
+            alpha=None,
+            gamma=cfg.SOVLER.FOCAL_LOSS_GAMMA,
+            size_average=True)
+
     if cfg.MODEL.METRIC_LOSS_TYPE == 'center':
         center_criterion = CenterLoss(num_classes=num_classes, feat_dim=feat_dim, use_gpu=True)  # center loss
 
@@ -82,6 +90,10 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
         elif cfg.MODEL.METRIC_LOSS_TYPE == 'triplet_center':
             if cfg.MODEL.IF_LABELSMOOTH == 'on':
                 raise ValueError
+            elif cfg.SOLVER.FOCAL_LOSS == 'yes':
+                return sum(flce(s, target) for s in score) + \
+                       sum(triplet(f, target)[0] for f in feat) + \
+                       cfg.SOLVER.CENTER_LOSS_WEIGHT * center_criterion(final_feature, target)
             else:
                 return sum(F.cross_entropy(s, target) for s in score) + \
                        sum(triplet(f, target)[0] for f in feat) + \
