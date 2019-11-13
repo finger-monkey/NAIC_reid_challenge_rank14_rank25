@@ -56,7 +56,7 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
     if cfg.MODEL.REDUCTION == 'no':
         feat_dim = feat_dim * 8
 
-    if cfg.SOVLER.FOCAL_LOSS == 'yes':
+    if cfg.SOLVER.FOCAL_LOSS == 'yes':
         flce = FocalLoss(
             class_num=num_classes,
             alpha=None,
