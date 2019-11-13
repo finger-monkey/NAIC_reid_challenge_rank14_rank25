@@ -250,6 +250,10 @@ class BNNeck_MGN(nn.Module):
         else:
             raise ValueError
 
+    def squeeze(self, x):
+        x = x.squeeze(dim=3).squeeze(dim=2)
+        return x
+
     def forward(self, x):
 
         x = self.backbone(x)
@@ -271,14 +275,14 @@ class BNNeck_MGN(nn.Module):
         z1_p3 = zp3[:, :, 1:2, :]
         z2_p3 = zp3[:, :, 2:3, :]
 
-        fg_p1 = self.reduction_0(zg_p1).squeeze(dim=3).squeeze(dim=2)
-        fg_p2 = self.reduction_1(zg_p2).squeeze(dim=3).squeeze(dim=2)
-        fg_p3 = self.reduction_2(zg_p3).squeeze(dim=3).squeeze(dim=2)
-        f0_p2 = self.reduction_3(z0_p2).squeeze(dim=3).squeeze(dim=2)
-        f1_p2 = self.reduction_4(z1_p2).squeeze(dim=3).squeeze(dim=2)
-        f0_p3 = self.reduction_5(z0_p3).squeeze(dim=3).squeeze(dim=2)
-        f1_p3 = self.reduction_6(z1_p3).squeeze(dim=3).squeeze(dim=2)
-        f2_p3 = self.reduction_7(z2_p3).squeeze(dim=3).squeeze(dim=2)
+        fg_p1 = self.reduction_0(zg_p1)
+        fg_p2 = self.reduction_1(zg_p2)
+        fg_p3 = self.reduction_2(zg_p3)
+        f0_p2 = self.reduction_3(z0_p2)
+        f1_p2 = self.reduction_4(z1_p2)
+        f0_p3 = self.reduction_5(z0_p3)
+        f1_p3 = self.reduction_6(z1_p3)
+        f2_p3 = self.reduction_7(z2_p3)
 
         fg_p1_bn = self.bn1(fg_p1)
         fg_p2_bn = self.bn2(fg_p2)
@@ -289,22 +293,24 @@ class BNNeck_MGN(nn.Module):
         f1_p3_bn = self.bn7(f1_p3)
         f2_p3_bn = self.bn8(f2_p3)
 
-        l_p1 = self.fc_id_2048_0(self.relu(fg_p1_bn))
-        l_p2 = self.fc_id_2048_1(self.relu(fg_p2_bn))
-        l_p3 = self.fc_id_2048_2(self.relu(fg_p3_bn))
+        l_p1 = self.fc_id_2048_0(self.squeeze(self.relu(fg_p1_bn)))
+        l_p2 = self.fc_id_2048_1(self.squeeze(self.relu(fg_p2_bn)))
+        l_p3 = self.fc_id_2048_2(self.squeeze(self.relu(fg_p3_bn)))
 
-        l0_p2 = self.fc_id_256_1_0(self.relu(f0_p2_bn))
-        l1_p2 = self.fc_id_256_1_1(self.relu(f1_p2_bn))
-        l0_p3 = self.fc_id_256_2_0(self.relu(f0_p3_bn))
-        l1_p3 = self.fc_id_256_2_1(self.relu(f1_p3_bn))
-        l2_p3 = self.fc_id_256_2_2(self.relu(f2_p3_bn))
+        l0_p2 = self.fc_id_256_1_0(self.squeeze(self.relu(f0_p2_bn)))
+        l1_p2 = self.fc_id_256_1_1(self.squeeze(self.relu(f1_p2_bn)))
+        l0_p3 = self.fc_id_256_2_0(self.squeeze(self.relu(f0_p3_bn)))
+        l1_p3 = self.fc_id_256_2_1(self.squeeze(self.relu(f1_p3_bn)))
+        l2_p3 = self.fc_id_256_2_2(self.squeeze(self.relu(f2_p3_bn)))
 
         #
-        final_feature = torch.cat([fg_p1_bn, fg_p2_bn, fg_p3_bn,
-                                   f0_p2_bn, f1_p2_bn, f0_p3_bn, f1_p3_bn, f2_p3_bn], dim=1)
+        final_feature = torch.cat([self.squeeze(fg_p1_bn), self.squeeze(fg_p2_bn), self.squeeze(fg_p3_bn),
+                                   self.squeeze(f0_p2_bn), self.squeeze(f1_p2_bn), self.squeeze(f0_p3_bn),
+                                   self.squeeze(f1_p3_bn), self.squeeze(f2_p3_bn)], dim=1)
 
         if self.training:
-            return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3, final_feature)
+            return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), \
+                   (self.squeeze(fg_p1), self.squeeze(fg_p2), self.squeeze(fg_p3), final_feature)
         else:
             return final_feature
 
