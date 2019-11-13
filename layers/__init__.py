@@ -60,7 +60,7 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
         flce = FocalLoss(
             class_num=num_classes,
             alpha=None,
-            gamma=cfg.SOVLER.FOCAL_LOSS_GAMMA,
+            gamma=cfg.SOLVER.FOCAL_LOSS_GAMMA,
             size_average=True)
 
     if cfg.MODEL.METRIC_LOSS_TYPE == 'center':
