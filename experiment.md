@@ -30,3 +30,11 @@ train-dev set is split2
 |     3      |  89.5  | 80.2  |   -    |
 |  average   |  90.0  | 80.6  |   -    |
 
+### 2019 11.13 
+### `raranking k1=7,k2=3,lambda=0.85`
+|     experiment      | rank-1(dev) | mAP(dev) | online | reranking |
+| :-----------------: | :---------: | :------: | :----: | :-------: |
+|      baseline       |    90.4     |   80.7   | 81.40  |   82.60   |
+|       +sample       |    90.7     |   82.2   | 82.92  |   84.12   |
+| +sample  +focalloss |    90.4     |   80.7   |   -    |     -     |
+|  +sample  +bnneck   |    86.9     |   76.1   |   -    |     -     |
