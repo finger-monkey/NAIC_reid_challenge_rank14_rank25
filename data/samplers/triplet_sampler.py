@@ -150,7 +150,7 @@ class RandomIdentitySampler_all(Sampler):
             if len(idxs) < self.num_instances:
                 idxs = np.random.choice(idxs, size=self.num_instances, replace=True)
             elif len(idxs) < 100:
-                idxs = np.random.choice(idxs, size=len(idxs) * 2, replace=True)
+                idxs = np.random.choice(idxs, size=len(idxs) * 3, replace=True)
             pidslib += [pid] * len(idxs)
             random.shuffle(idxs)
             batch_idxs = []
@@ -167,7 +167,7 @@ class RandomIdentitySampler_all(Sampler):
         while len(avai_pids) >= self.num_pids_per_batch:
             # selected_pids = random.sample(avai_pids, self.num_pids_per_batch)
             selected_pidset = set()
-            while (len(selected_pidset) < self.num_pids_per_batch):
+            while len(selected_pidset) < self.num_pids_per_batch:
                 selectedpid = pidslib.pop(0)
                 if selectedpid in avai_pids:
                     selected_pidset.add(selectedpid)
