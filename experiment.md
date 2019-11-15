@@ -1,5 +1,5 @@
 # Experiment
-### random erasing(online)
+### random erasing(online)  
 
 | erasing_prob |       1        |        2        | 3 |
 |:------------:|:--------------:|:---------------:|:-:|
@@ -46,3 +46,9 @@ train-dev set is split2
 |  baseline   |  90.7  | 82.2 | 82.92  |   84.12   |
 |    lr*10    |  91.6  | 83.6 | 83.62  |   84.67   |
 | lr*10 fixbn |  91.3  | 83.0 | 82.60  |     -     |
+
+### 2019 11.15
+### sample 3x
+### random erasing 0.2
+### random sized rect crop
+
