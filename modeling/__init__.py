@@ -4,22 +4,11 @@
 @contact: sherlockliao01@gmail.com
 """
 
-# from .baseline import Baseline
-from .bnneck_mgn import BNNeck_MGN
-from .mgn import Baseline
+from .baseline import Baseline
 
 
 def build_model(cfg, num_classes):
     if cfg.MODEL.BNNECK == 'yes':
-
-        model = BNNeck_MGN(
-            num_classes=num_classes,
-            last_stride=cfg.MODEL.LAST_STRIDE,
-            model_path=cfg.MODEL.PRETRAIN_PATH,
-            model_name=cfg.MODEL.NAME,
-            pretrain_choice=cfg.MODEL.PRETRAIN_CHOICE,
-            reduction=cfg.MODEL.REDUCTION
-        )
         raise ValueError
 
     elif cfg.MODEL.BNNECK == 'no':
