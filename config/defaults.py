@@ -44,6 +44,8 @@ _C.MODEL.METRIC_LOSS_TYPE = 'triplet'
 _C.MODEL.IF_LABELSMOOTH = 'off'
 # Reduction, options: 'yes', 'no'
 _C.MODEL.REDUCTION = 'yes'
+# MGN2048
+_C.MODEL.MGN_2048 = 'no'
 
 # BNNECK
 _C.MODEL.BNNECK = 'no'
