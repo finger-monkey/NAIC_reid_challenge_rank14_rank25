@@ -28,7 +28,7 @@ def main():
 
     count = 0
     for idx, distance_arr in enumerate(query_sim):
-        if sum(distance_arr > THRESHOLD):
+        if sum(distance_arr > THRESHOLD) > 1:
             count += 1
         # print(sum(distance_arr > THRESHOLD))
 
