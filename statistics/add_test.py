@@ -16,8 +16,14 @@ def process_info(info):
     return feats, imgnames
 
 
-gallery_info = pickle.load(open('/home/xiangan/dgreid/features/024', 'rb'))
-query_info = pickle.load(open('/home/xiangan/dgreid/features/024', 'rb'))
+def main():
+    #
+    QUERY_FEATURE_PATH = '/home/xiangan/dgreid/features/024/query_a_feature.feat'
+    #
+    THRESHOLD = 0.9
 
-gallery_feats, gallery_imgnames = process_info(gallery_info)
-query_feats, query_imgnames = process_info(query_info)
+    query_info = pickle.load(open(QUERY_FEATURE_PATH, 'rb'))
+    query_feats, query_imgnames = process_info(query_info)
+    query_sim = np.dot(query_feats, query_feats.T)
+
+    print(query_imgnames)
