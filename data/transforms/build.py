@@ -17,8 +17,8 @@ def build_transforms(cfg, is_train=True):
             T.Resize(cfg.INPUT.SIZE_TRAIN),
             T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
             T.Pad(cfg.INPUT.PADDING),
-            # T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
-            RandomSizedRectCrop(height=384, width=128),
+            T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
+            # RandomSizedRectCrop(height=384, width=128),
             T.ToTensor(),
             normalize_transform,
             RandomErasing(probability=cfg.INPUT.RE_PROB, mean=(0.0972, 0.1831, 0.2127))
