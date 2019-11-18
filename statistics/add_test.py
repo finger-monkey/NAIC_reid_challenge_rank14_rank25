@@ -26,7 +26,11 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
     query_sim = np.dot(query_feats, query_feats.T)
 
-    print(query_imgnames)
+    for idx, distance_arr in enumerate(query_sim):
+        print(sum(distance_arr > THRESHOLD))
+
+
+    # print(query_imgnames)
     print(len(query_imgnames))
 
 
