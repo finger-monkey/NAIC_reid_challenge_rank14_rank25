@@ -1,8 +1,9 @@
+import os
 import pickle
-import argparse
+
 import numpy as np
 from sklearn import preprocessing
-import json
+from tqdm import tqdm
 
 
 def process_info(info):
@@ -20,6 +21,8 @@ def main():
     #
     QUERY_FEATURE_PATH = '/home/xiangan/dgreid/features/024/query_a_feature.feat'
     GALLERY_FEATURE_PATH = '/home/xiangan/dgreid/features/024/gallery_a_feature.feat'
+    OUTPUT_PATH = '/home/xiangan/code_and_data/train_split/test_extra'
+    TEST_QUERY_PATH = '/home/xiangan/data_reid/testA/query_a'
     #
     THRESHOLD = 0.6
 
@@ -53,7 +56,12 @@ def main():
     # print(len(query_imgnames))
     print(len(dirty_id_set))
     print(len(clean_id_set))
-    for i in clean_id_set:
+    count = 4768
+    for clean_name in tqdm(clean_id_set):
+        input_path = os.path.join(TEST_QUERY_PATH, clean_name)
+        output_name = os.path.join(OUTPUT_PATH, "%d_c1_%s" % (count, clean_name))
+        open(output_name, 'wb').write(open(input_path, 'rb').read())
+        count += 1
 
 
 if __name__ == '__main__':
