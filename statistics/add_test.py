@@ -20,13 +20,17 @@ def main():
     #
     QUERY_FEATURE_PATH = '/home/xiangan/dgreid/features/024/query_a_feature.feat'
     #
-    THRESHOLD = 0.9
+    THRESHOLD = 0.6
 
     query_info = pickle.load(open(QUERY_FEATURE_PATH, 'rb'))
     query_feats, query_imgnames = process_info(query_info)
     query_sim = np.dot(query_feats, query_feats.T)
 
     count = 0
+    # 0.9 0
+    # 0.7 17
+    # 0.6 160
+    # 0.5 789
     for idx, distance_arr in enumerate(query_sim):
         if sum(distance_arr > THRESHOLD) > 1:
             count += 1
