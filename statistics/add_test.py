@@ -53,6 +53,8 @@ def main():
     # print(len(query_imgnames))
     print(len(dirty_id_set))
     print(len(clean_id_set))
+    for i in clean_id_set:
+
 
 if __name__ == '__main__':
     main()
