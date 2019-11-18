@@ -27,3 +27,7 @@ def main():
     query_sim = np.dot(query_feats, query_feats.T)
 
     print(query_imgnames)
+
+
+if __name__ == '__main__':
+    main()
