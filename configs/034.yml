@@ -13,6 +13,7 @@ INPUT:
   PROB: 0.5 # random horizontal flip
   RE_PROB: 0.0 # random erasing
   PADDING: 10
+  CROP: 'norm'
 
 DATASETS:
   NAMES: ('dukemtmc')
