@@ -24,9 +24,9 @@ def build_transforms(cfg, is_train=True):
                 T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
                 T.ToTensor(),
                 normalize_transform,
-                RandomPatch(
-                    prob_happen=cfg.INPUT.RandomPatch_PROB,
-                    patch_max_area=0.1677),
+                # RandomPatch(
+                #     prob_happen=cfg.INPUT.RandomPatch_PROB,
+                #     patch_max_area=0.1677),
                 RandomErasing(
                     probability=cfg.INPUT.RE_PROB,
                     mean=(0.0972, 0.1831, 0.2127))
@@ -40,9 +40,9 @@ def build_transforms(cfg, is_train=True):
                 Random2DTranslation(height=cfg.INPUT.SIZE_TRAIN[0], width=cfg.INPUT.SIZE_TRAIN[1]),
                 T.ToTensor(),
                 normalize_transform,
-                RandomPatch(
-                    prob_happen=cfg.INPUT.RandomPatch_PROB,
-                    patch_max_area=0.1677),
+                # RandomPatch(
+                #     prob_happen=cfg.INPUT.RandomPatch_PROB,
+                #     patch_max_area=0.1677),
                 RandomErasing(
                     probability=cfg.INPUT.RE_PROB,
                     mean=(0.0972, 0.1831, 0.2127))
