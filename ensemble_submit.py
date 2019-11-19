@@ -20,7 +20,7 @@ def process_info(info):
 
 
 def main():
-    FEATURE_1 = "/home/xiangan/dgreid/features/feature_BFE_52"
+    FEATURE_1 = "/home/xiangan/dgreid/features/024_extra"
     FEATURE_2 = "/home/xiangan/dgreid/features/026"
 
     # feature_1
