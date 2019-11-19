@@ -147,7 +147,7 @@ _C.SOLVER.CHECKPOINT_PERIOD = 50
 # iteration of display training log
 _C.SOLVER.LOG_PERIOD = 100
 # epoch number of validation
-_C.SOLVER.EVAL_PERIOD = 2#50
+_C.SOLVER.EVAL_PERIOD = 2  # 50
 
 # Number of images per batch
 # This is global, so if we have 8 GPUs and IMS_PER_BATCH = 16, each GPU will
