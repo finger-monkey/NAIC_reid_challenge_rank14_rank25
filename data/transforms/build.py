@@ -8,7 +8,7 @@ import torchvision.transforms as T
 
 from .transforms import RandomErasing
 from .transforms import Random2DTranslation
-
+from .transforms import RandomPatch
 
 def build_transforms(cfg, is_train=True):
     #
@@ -24,7 +24,12 @@ def build_transforms(cfg, is_train=True):
                 T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
                 T.ToTensor(),
                 normalize_transform,
-                RandomErasing(probability=cfg.INPUT.RE_PROB, mean=(0.0972, 0.1831, 0.2127))
+                RandomPatch(
+                    prob_happen=cfg.INPUT.RandomPatch_PROB,
+                    patch_max_area=0.1677),
+                RandomErasing(
+                    probability=cfg.INPUT.RE_PROB,
+                    mean=(0.0972, 0.1831, 0.2127))
             ])
         elif cfg.INPUT.CROP == 'random':
             print('using Random2DTranslation')
@@ -34,7 +39,12 @@ def build_transforms(cfg, is_train=True):
                 Random2DTranslation(height=cfg.INPUT.SIZE_TRAIN[0], width=cfg.INPUT.SIZE_TRAIN[1]),
                 T.ToTensor(),
                 normalize_transform,
-                RandomErasing(probability=cfg.INPUT.RE_PROB, mean=(0.0972, 0.1831, 0.2127))
+                RandomPatch(
+                    prob_happen=cfg.INPUT.RandomPatch_PROB,
+                    patch_max_area=0.1677),
+                RandomErasing(
+                    probability=cfg.INPUT.RE_PROB,
+                    mean=(0.0972, 0.1831, 0.2127))
             ])
         else:
             raise ValueError

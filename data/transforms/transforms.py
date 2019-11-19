@@ -6,8 +6,9 @@
 
 import math
 import random
-import torch
+from collections import deque
 
+import torch
 from PIL import Image
 
 
