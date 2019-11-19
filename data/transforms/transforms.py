@@ -73,17 +73,16 @@ class Random2DTranslation(object):
             ``PIL.Image.BILINEAR``
     """
 
-    def __init__(self, height, width, p=0.5, interpolation=Image.BILINEAR):
+    def __init__(self, height, width, interpolation=Image.BILINEAR):
         self.height = height
         self.width = width
-        self.p = p
         self.interpolation = interpolation
 
     def __call__(self, img):
-        if random.uniform(0, 1) > self.p:
-            return img.resize((self.width, self.height), self.interpolation)
+        # if random.uniform(0, 1) > self.p:
+        #     return img.resize((self.width, self.height), self.interpolation)
 
-        new_width, new_height = int(round(self.width * 1.125)), int(round(self.height * 1.125))
+        new_width, new_height = int(round(self.width * 1.08)), int(round(self.height * 1.08))
         resized_img = img.resize((new_width, new_height), self.interpolation)
         x_maxrange = new_width - self.width
         y_maxrange = new_height - self.height
