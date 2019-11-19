@@ -28,18 +28,28 @@ def main():
     query_info_1 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_1, 'rb'))
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
-
     # feature_2
     gallery_info_2 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_2, 'rb'))
     query_info_2 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_2, 'rb'))
     gallery_feats_2, gallery_imgnames_2 = process_info(gallery_info_2)
     query_feats_2, query_imgnames_2 = process_info(query_info_2)
     #
-    for i in range(len(query_imgnames_1)):
-        assert query_imgnames_1[i] == query_feats_1[i]
 
-    query_feats = np.concatenate((query_feats_1, query_feats_2), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gallery_feats_2), axis=1)
+    qf_2 = np.zeros_like(query_feats_2)
+    gf_2 = np.zeros_like(gallery_feats_2)
+    for i in range(len(query_imgnames_1)):
+        index = query_imgnames_2.index(query_imgnames_1[i])
+        qf_2[i] = query_feats_2[index]
+
+    for i in range(len(gallery_imgnames_1)):
+        index = gallery_imgnames_2.index(gallery_imgnames_1[i])
+        gf_2[i] = gallery_feats_2[index]
+
+    # for i in range(len(query_imgnames_1)):
+    #     assert query_imgnames_1[i] == query_feats_1[i]
+
+    query_feats = np.concatenate((query_feats_1, qf_2), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2), axis=1)
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
 
@@ -65,6 +75,7 @@ def main():
 
     with open('rerank_ensemble.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
+
 
 if __name__ == '__main__':
     main()
