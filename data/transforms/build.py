@@ -29,7 +29,7 @@ def build_transforms(cfg, is_train=True):
             T.Resize(cfg.INPUT.SIZE_TRAIN),
             T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
             T.Pad(cfg.INPUT.PADDING),
-            CROP(cfg.INPUT.SIZE_TRAIN),
+            CROP,
             # RandomSizedRectCrop(height=384, width=128),
             T.ToTensor(),
             normalize_transform,
