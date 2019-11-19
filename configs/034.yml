@@ -7,7 +7,6 @@
   IF_WITH_CENTER: 'yes'
   LAST_STRIDE: 2
 
-
 INPUT:
   SIZE_TRAIN: [384, 128]
   SIZE_TEST: [384, 128]
