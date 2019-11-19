@@ -12,8 +12,8 @@ INPUT:
   SIZE_TEST: [384, 128]
   PROB: 0.5 # random horizontal flip
   RE_PROB: 0.0 # random erasing
-  RandomPatch_PROB: 0.2 # random patch
-  CROP: 'random'
+  PADDING: 10
+  CROP: 'norm'
 
 DATASETS:
   NAMES: ('dukemtmc')
