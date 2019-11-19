@@ -62,3 +62,6 @@ def main():
 
     with open('rerank_ensemble.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
+
+if __name__ == '__main__':
+    main()
