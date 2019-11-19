@@ -14,6 +14,7 @@ INPUT:
   RE_PROB: 0.0 # random erasing
   PADDING: 10
   CROP: 'norm'
+  RandomPatch_PROB: 0.2 # random patch
 
 DATASETS:
   NAMES: ('dukemtmc')
