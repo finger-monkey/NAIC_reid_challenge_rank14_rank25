@@ -126,8 +126,7 @@ class ColorAugmentation(object):
 
 
 class RandomPatch(object):
-    """
-    Random patch data augmentation.
+    """Random patch data augmentation.
     There is a patch pool that stores randomly extracted pathces from person images.
 
     For each input image, RandomPatch
@@ -175,7 +174,9 @@ class RandomPatch(object):
         return patch
 
     def __call__(self, img):
-        W, H = img.size  # original image size
+        # W, H = img.size  # original image size
+        W = img.size()[1]
+        H = img.size()[2]
 
         # collect new patch
         w, h = self.generate_wh(W, H)
