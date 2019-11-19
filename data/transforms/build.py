@@ -16,30 +16,28 @@ def build_transforms(cfg, is_train=True):
 
     if is_train:
         if cfg.INPUT.CROP == 'norm':
-            print('using RandomCrop')
-            CROP = T.RandomCrop(cfg.INPUT.SIZE_TRAIN)
+            print('using RandomCrop...')
             transform = T.Compose([
                 T.Resize(cfg.INPUT.SIZE_TRAIN),
                 T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
                 T.Pad(cfg.INPUT.PADDING),
-                CROP,
+                T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
                 T.ToTensor(),
                 normalize_transform,
                 RandomErasing(probability=cfg.INPUT.RE_PROB, mean=(0.0972, 0.1831, 0.2127))
             ])
         elif cfg.INPUT.CROP == 'random':
             print('using Random2DTranslation')
-            CROP = Random2DTranslation(
-                height=cfg.INPUT.SIZE_TRAIN[0],
-                width=cfg.INPUT.SIZE_TRAIN[1])
             transform = T.Compose([
                 T.Resize(cfg.INPUT.SIZE_TRAIN),
                 T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
-                CROP,
+                Random2DTranslation(height=cfg.INPUT.SIZE_TRAIN[0], width=cfg.INPUT.SIZE_TRAIN[1]),
                 T.ToTensor(),
                 normalize_transform,
                 RandomErasing(probability=cfg.INPUT.RE_PROB, mean=(0.0972, 0.1831, 0.2127))
             ])
+        else:
+            raise ValueError
     else:
         transform = T.Compose([
             T.Resize(cfg.INPUT.SIZE_TEST),
