@@ -35,6 +35,9 @@ def main():
     gallery_feats_2, gallery_imgnames_2 = process_info(gallery_info_2)
     query_feats_2, query_imgnames_2 = process_info(query_info_2)
     #
+    for i in range(len(query_imgnames_1)):
+        assert query_imgnames_1[i] == query_feats_1[i]
+
     query_feats = np.concatenate((query_feats_1, query_feats_2), axis=1)
     gallery_feats = np.concatenate((gallery_feats_1, gallery_feats_2), axis=1)
     query_feats = preprocessing.normalize(query_feats)
