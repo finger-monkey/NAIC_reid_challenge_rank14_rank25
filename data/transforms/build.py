@@ -48,7 +48,9 @@ def build_transforms(cfg, is_train=True):
 
                 RandomErasing(
                     probability=cfg.INPUT.RE_PROB,
-                    mean=(0.0972, 0.1831, 0.2127))
+                    mean=(0.0972, 0.1831, 0.2127),
+                    sh=0.1
+                    )
             ])
             return transform
         else:

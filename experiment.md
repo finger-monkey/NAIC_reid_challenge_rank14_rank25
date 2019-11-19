@@ -78,3 +78,26 @@ https://github.com/lukemelas/EfficientNet-PyTorch
 https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e56228860221a4f8b06cdaad/torchreid/data/transforms.py#L134
 - [ ] 模型融合；
 - [ ] 训练集的清洗，消除掉类很相近的id、删除掉离群的样本；
+
+### 2019 11.17
+
+# 加入query的实验
+
+|  experiment   | rank-1 | mAP  | online | reranking |
+|:-------------:|:------:|:----:|:------:|:---------:|
+| baseline(021) |  91.6  | 83.6 | 83.62  |   84.67   |
+|  +query(034)  |   -    |  -   |   -    |     -     |
+
+# random crop的实验
+
+|    experiment    | rank-1 | mAP  | online | reranking |
+|:----------------:|:------:|:----:|:------:|:---------:|
+|  baseline(021)   |  91.6  | 83.6 | 83.62  |   84.67   |
+| random crop(035) |   -    |  -   |   -    |     -     |
+
+# random patch 的实验
+
+|    experiment     | rank-1 | mAP  | online | reranking |
+|:-----------------:|:------:|:----:|:------:|:---------:|
+|   baseline(021)   |  91.6  | 83.6 | 83.62  |   84.67   |
+| random patch(036) |   -    |  -   |   -    |     -     |
