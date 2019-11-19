@@ -21,7 +21,7 @@ def process_info(info):
 
 def main():
     FEATURE_1 = "/home/xiangan/dgreid/features/026"
-    FEATURE_2 = "/home/xiangan/dgreid/features/024_extra"
+    FEATURE_2 = "/home/xiangan/dgreid/features/feature_BFE_52"
 
     # feature_1
     gallery_info_1 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_1, 'rb'))
