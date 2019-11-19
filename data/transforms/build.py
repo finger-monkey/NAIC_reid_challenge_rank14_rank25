@@ -31,6 +31,7 @@ def build_transforms(cfg, is_train=True):
                     probability=cfg.INPUT.RE_PROB,
                     mean=(0.0972, 0.1831, 0.2127))
             ])
+            return transform
         elif cfg.INPUT.CROP == 'random':
             print('using Random2DTranslation')
             transform = T.Compose([
@@ -46,6 +47,7 @@ def build_transforms(cfg, is_train=True):
                     probability=cfg.INPUT.RE_PROB,
                     mean=(0.0972, 0.1831, 0.2127))
             ])
+            return transform
         else:
             raise ValueError
     else:
