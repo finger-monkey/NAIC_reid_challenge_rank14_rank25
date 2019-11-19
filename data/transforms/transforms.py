@@ -174,9 +174,7 @@ class RandomPatch(object):
         return patch
 
     def __call__(self, img):
-        # W, H = img.size  # original image size
-        W = img.size()[1]
-        H = img.size()[2]
+        W, H = img.size  # original image size
 
         # collect new patch
         w, h = self.generate_wh(W, H)
