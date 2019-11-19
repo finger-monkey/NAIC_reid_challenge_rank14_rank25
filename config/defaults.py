@@ -71,7 +71,7 @@ _C.INPUT.PADDING = 10
 # Crop method
 _C.INPUT.CROP = 'norm'
 # Random Patch
-_C.INPUT.RandomPatch_PROB = 0.2
+_C.INPUT.RandomPatch_PROB = 0.0
 # -----------------------------------------------------------------------------
 # Dataset
 # -----------------------------------------------------------------------------
