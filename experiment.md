@@ -86,18 +86,18 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 |  experiment   | rank-1 | mAP  | online | reranking |
 |:-------------:|:------:|:----:|:------:|:---------:|
 | baseline(021) |  91.6  | 83.6 | 83.62  |   84.67   |
-|  +query(034)  |   -    |  -   |   -    |     -     |
+|  +query(034)  |  91.5  | 82.8 | 83.73  |     -     |
 
 # random crop的实验
 
 |    experiment    | rank-1 | mAP  | online | reranking |
 |:----------------:|:------:|:----:|:------:|:---------:|
 |  baseline(021)   |  91.6  | 83.6 | 83.62  |   84.67   |
-| random crop(035) |   -    |  -   |   -    |     -     |
+| random crop(035) |  90.5  | 82.8 | 82.31  |     -     |
 
 # random patch 的实验
 
-|    experiment     | rank-1 | mAP  | online | reranking |
-|:-----------------:|:------:|:----:|:------:|:---------:|
-|   baseline(021)   |  91.6  | 83.6 | 83.62  |   84.67   |
-| random patch(036) |   -    |  -   |   -    |     -     |
+|    experiment     |       rank-1        |         mAP         |        online        |      reranking       |
+|:-----------------:|:-------------------:|:-------------------:|:--------------------:|:--------------------:|
+|   baseline(021)   |        91.6         |        83.6         |        83.62         |        84.67         |
+| random patch(036) | $\color{red}{91.8}$ | $\color{red}{83.8}$ | $\color{red}{84.60}$ | $\color{red}{85.73}$ |
