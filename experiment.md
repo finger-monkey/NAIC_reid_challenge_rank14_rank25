@@ -101,7 +101,7 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 |:----------------------------:|:-------------------:|:-------------------:|:--------------------:|:--------------------:|
 |        baseline(021)         |        91.6         |        83.6         |        83.62         |        84.67         |
 |      random patch(036)       | $\color{red}{91.8}$ | $\color{red}{83.8}$ | $\color{red}{84.60}$ | $\color{red}{85.73}$ |
-| random patch(038) repeat 036 |          -          |          -          |          -           |          -           |
-| random patch(039) repeat 036 |          -          |          -          |          -           |          -           |
-| random patch(040)  prob 0.3  |          -          |          -          |          -           |          -           |
-| random patch(041)  prob 0.4  |          -          |          -          |          -           |          -           |
+| random patch(038) repeat 036 |          -          |          -          |        84.48         |          -           |
+| random patch(039) repeat 036 |          -          |          -          |        84.92         |          -           |
+| random patch(040)  prob 0.3  |          -          |          -          |        84.83         |          -           |
+| random patch(041)  prob 0.4  |          -          |          -          |        84.95         |          -           |
