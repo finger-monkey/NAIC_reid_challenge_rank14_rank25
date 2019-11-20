@@ -68,13 +68,13 @@ train-dev set is split2
 - [ ] 让random erasing 稳定提点；
 - [ ] 在global feature 中采用随机抹去的实验；
 - [ ] 测试增强；
-- [ ] 目前只加入了测试集中的query、还没有加入gallery；
-- [ ] random crop的方式需要再考虑下，分析得出黑色应该是有语义的，直接pad0应该不对、可以pad均值，或者采用resize1.25再random crop的方式；
+- [x] 目前只加入了测试集中的query、还没有加入gallery；
+- [x] random crop的方式需要再考虑下，分析得出黑色应该是有语义的，直接pad0应该不对、可以pad均值，或者采用resize1.25再random crop的方式；
 - [ ] Efficient的加入，更好的baseline模型；   
 https://github.com/lukemelas/EfficientNet-PyTorch
 - [ ] k倒排编码也发现有着随机提点的情况，最高可以提高1.4个点，最低是0.5个点；
 - [ ] 颜色相关的数据增强还没有实现；
-- [ ] RandomPatch数据增强的实现，维护一个patch pool，然后再数据增强的时候随机选择一个patch粘贴再原图上，来模拟遮挡，代码有现成的;  
+- [x] RandomPatch数据增强的实现，维护一个patch pool，然后再数据增强的时候随机选择一个patch粘贴再原图上，来模拟遮挡，代码有现成的;  
 https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e56228860221a4f8b06cdaad/torchreid/data/transforms.py#L134
 - [ ] 模型融合；
 - [ ] 训练集的清洗，消除掉类很相近的id、删除掉离群的样本；
@@ -97,7 +97,11 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 
 # random patch 的实验
 
-|    experiment     |       rank-1        |         mAP         |        online        |      reranking       |
-|:-----------------:|:-------------------:|:-------------------:|:--------------------:|:--------------------:|
-|   baseline(021)   |        91.6         |        83.6         |        83.62         |        84.67         |
-| random patch(036) | $\color{red}{91.8}$ | $\color{red}{83.8}$ | $\color{red}{84.60}$ | $\color{red}{85.73}$ |
+|          experiment          |       rank-1        |         mAP         |        online        |      reranking       |
+|:----------------------------:|:-------------------:|:-------------------:|:--------------------:|:--------------------:|
+|        baseline(021)         |        91.6         |        83.6         |        83.62         |        84.67         |
+|      random patch(036)       | $\color{red}{91.8}$ | $\color{red}{83.8}$ | $\color{red}{84.60}$ | $\color{red}{85.73}$ |
+| random patch(038) repeat 036 |          -          |          -          |          -           |          -           |
+| random patch(039) repeat 036 |          -          |          -          |          -           |          -           |
+| random patch(040)  prob 0.3  |          -          |          -          |          -           |          -           |
+| random patch(041)  prob 0.4  |          -          |          -          |          -           |          -           |
