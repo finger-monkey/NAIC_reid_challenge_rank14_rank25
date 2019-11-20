@@ -7,6 +7,7 @@
 import copy
 
 import torch
+import random
 from torch import nn
 
 from .backbones.resnet import ResNet, BasicBlock, Bottleneck
@@ -35,6 +36,25 @@ def weights_init_classifier(m):
         nn.init.normal_(m.weight, std=0.001)
         if m.bias:
             nn.init.constant_(m.bias, 0.0)
+
+
+class BatchDrop(nn.Module):
+    def __init__(self, h_ratio, w_ratio):
+        super(BatchDrop, self).__init__()
+        self.h_ratio = h_ratio
+        self.w_ratio = w_ratio
+
+    def forward(self, x):
+        if self.training:
+            h, w = x.size()[-2:]
+            rh = round(self.h_ratio * h)
+            rw = round(self.w_ratio * w)
+            sx = random.randint(0, h - rh)
+            sy = random.randint(0, w - rw)
+            mask = x.new_ones(x.size())
+            mask[:, :, sx:sx + rh, sy:sy + rw] = 0
+            x = x * mask
+        return x
 
 
 class Baseline(nn.Module):
