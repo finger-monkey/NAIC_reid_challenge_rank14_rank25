@@ -67,7 +67,7 @@ def main():
     dic = json.loads(content)
     for id in dic.keys():
         if id in clean_query_id_set:
-            print(dic[id][:10])
+            print(id, dic[id][:10])
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
