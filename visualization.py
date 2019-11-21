@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import os
 from sklearn import preprocessing
+from tqdm import tqdm
 import json
 
 
@@ -37,7 +38,7 @@ def get_clean_query(query_feats, query_imgnames, threshold):
     dirty_id_set = set()
     clean_id_set = set()
     for idx, distance_arr in enumerate(query_sim):
-        if sum(distance_arr > threshold) > 1:
+        if query_imgnames[idx] in ["05901086", "693541397"] or sum(distance_arr > threshold) > 1:
             count += 1
             dirty_id_set.add(query_imgnames[idx])
         else:
@@ -119,6 +120,20 @@ def main():
     #     print(i)
     #     print(dic[i])
     # print(dic[dic.keys()])
+
+    count = 4768
+    for query, clean_list in tqdm(cleaned_rank_dict):
+        input_path = os.path.join("/home/xiangan/data_reid/testA", query)
+        output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
+                                   "%d_c1_%s" % (count, query))
+        open(output_name, 'wb').write(open(input_path, 'rb').read())
+        for clean_name in clean_list:
+            input_path = os.path.join("/home/xiangan/data_reid/testA", clean_name)
+            output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
+                                       "%d_c1_%s" % (count, clean_name))
+            open(output_name, 'wb').write(open(input_path, 'rb').read())
+
+        count += 1
 
 
 if __name__ == '__main__':
