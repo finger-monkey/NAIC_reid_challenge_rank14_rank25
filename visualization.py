@@ -62,11 +62,11 @@ def visualization(rank_dict, test_root, output_root):
     query_root = os.path.join(test_root, 'query_a')
     gallery_root = os.path.join(test_root, 'gallery_a')
     for query in rank_dict.keys():
-        query_folder = os.path.join(output_root, "%s_%d" % (query, len(rank_dict[query])))
+        query_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[query]), query))
         os.makedirs(query_folder)
         open(os.path.join(query_folder, query), 'wb').write(open(os.path.join(query_root, query), 'rb').read())
         for ranid, neighbor in enumerate(rank_dict[query]):
-            target_path = os.path.join(query_folder, "%s_%d" % (neighbor, ranid + 1))
+            target_path = os.path.join(query_folder, "%d_%s" % (ranid + 1, neighbor))
             source_path = os.path.join(gallery_root, neighbor)
             open(target_path, 'wb').write(open(source_path, 'rb').read())
 
