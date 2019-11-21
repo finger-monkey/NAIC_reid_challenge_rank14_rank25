@@ -1,11 +1,8 @@
 import pickle
-import argparse
+
 import numpy as np
 from sklearn import preprocessing
 import json
-import os
-from tqdm import tqdm
-
 
 def process_info(info):
     """
@@ -44,9 +41,6 @@ def get_clean_query(query_feats, query_imgnames, threshold):
         else:
             clean_id_set.add(query_imgnames[idx])
 
-    # print(count)
-    # print(query_imgnames)
-    # print(len(query_imgnames))
     print('dirty id num is:  ', len(dirty_id_set))
     print('clean id num is:  ', len(clean_id_set))
     # count = 4768
@@ -55,6 +49,7 @@ def get_clean_query(query_feats, query_imgnames, threshold):
     #     output_name = os.path.join(OUTPUT_PATH, "%d_c1_%s" % (count, clean_name))
     #     open(output_name, 'wb').write(open(input_path, 'rb').read())
     #     count += 1
+    return clean_id_set
 
 
 def main():
@@ -65,8 +60,14 @@ def main():
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
 
-    get_clean_query(query_feats, query_imgnames, 0.6)
+    clean_query_id_set = get_clean_query(query_feats, query_imgnames, 0.6)
 
+    f = open('ensemblex7.json', encoding='utf-8')
+    content = f.read()
+    dic = json.loads(content)
+    for id in dic.keys():
+        if id in clean_query_id_set:
+            print(dic[id])
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
