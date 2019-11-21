@@ -107,10 +107,10 @@ def main():
             cleaned_rank_dict[query_name] = cleaned_ranklist
             # print(cleaned_count)
 
-    visualization(
-        cleaned_rank_dict,
-        '/home/xiangan/data_reid/testA',
-        '/home/xiangan/data_reid/visualization/11_21')
+    # visualization(
+    #     cleaned_rank_dict,
+    #     '/home/xiangan/data_reid/testA',
+    #     '/home/xiangan/data_reid/visualization/11_21')
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
