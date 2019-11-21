@@ -123,12 +123,12 @@ def main():
 
     count = 4768
     for query, clean_list in tqdm(cleaned_rank_dict.items()):
-        input_path = os.path.join("/home/xiangan/data_reid/testA", query)
+        input_path = os.path.join("/home/xiangan/data_reid/testA/query_a", query)
         output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
-            input_path = os.path.join("/home/xiangan/data_reid/testA", clean_name)
+            input_path = os.path.join("/home/xiangan/data_reid/testA/gallery_a", clean_name)
             output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
