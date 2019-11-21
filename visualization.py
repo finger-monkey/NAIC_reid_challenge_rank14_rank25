@@ -76,7 +76,7 @@ def main():
             cleaned_ranklist = []
             cleaned_count = 0
             for gallery_name in origin_ranklist:
-                rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_imgnames)]
+                rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_name)]
                 score = np.dot(query_cur_feat, rank_cur_feat)
                 if score > dirty_threshold:
                     cleaned_ranklist.append(gallery_name)
