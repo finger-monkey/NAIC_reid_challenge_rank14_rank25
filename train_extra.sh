@@ -20,7 +20,7 @@ python tools/train.py \
     DATASETS.ROOT_DIR "('${train_root}')" \
     OUTPUT_DIR "('${output_dir}')"
 
-python extract.py \
+python extract_extra.py \
     --config_file=${config_file} \
     MODEL.DEVICE_ID "('0')" \
     DATASETS.ROOT_DIR ${test_root} \
