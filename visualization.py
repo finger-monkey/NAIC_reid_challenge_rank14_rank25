@@ -1,8 +1,10 @@
 import pickle
 
 import numpy as np
+import os
 from sklearn import preprocessing
 import json
+
 
 def process_info(info):
     """
@@ -52,6 +54,23 @@ def get_clean_query(query_feats, query_imgnames, threshold):
     return clean_id_set
 
 
+def gen_testdata():
+    pass
+
+
+def visualization(rank_dict, test_root, output_root):
+    query_root = os.path.join(test_root, 'query_a')
+    gallery_root = os.path.join(test_root, 'gallery_a')
+    for query in rank_dict.keys():
+        query_folder = os.path.join(output_root, "%s_%d" % (query, len(rank_dict[query])))
+        os.makedirs(query_folder)
+        open(os.path.join(query_folder, query), 'wb').write(open(os.path.join(query_root, query), 'rb').read())
+        for ranid, neighbor in enumerate(rank_dict[query]):
+            target_path = os.path.join(query_folder, "%s_%d" % (neighbor, ranid + 1))
+            source_path = os.path.join(gallery_root, neighbor)
+            open(target_path, 'wb').write(open(source_path, 'rb').read())
+
+
 def main():
     rank_dirty_threshold = 0.7
     query_dirty_threshold = 0.6
@@ -85,9 +104,12 @@ def main():
                 else:
                     break
             cleaned_rank_dict[query_name] = cleaned_ranklist
-            print(cleaned_count)
+            # print(cleaned_count)
 
-
+    visualization(
+        cleaned_rank_dict,
+        '/home/xiangan/data_reid/testA',
+        '/home/xiangan/data_reid/visualization/11_21')
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
@@ -97,10 +119,6 @@ def main():
     #     print(i)
     #     print(dic[i])
     # print(dic[dic.keys()])
-
-
-def visualization():
-    pass
 
 
 if __name__ == '__main__':
