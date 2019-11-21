@@ -67,7 +67,8 @@ def main():
     content = f.read()
     dic = json.loads(content)
     cleaned_rank_dict = {}
-    for query_name in dic.keys():
+    for query_name in list(dic.keys()):
+        print(query_name)
         if query_name in clean_query_id_set:
             origin_ranklist = dic[query_name][:10]
             query_cur_feat = query_feats[query_imgnames.index(query_name)]
