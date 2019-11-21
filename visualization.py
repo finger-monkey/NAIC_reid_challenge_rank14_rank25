@@ -53,6 +53,7 @@ def get_clean_query(query_feats, query_imgnames, threshold):
 
 
 def main():
+    dirty_threshold = 0.6
     #
     gallery_info = pickle.load(open('features/046/gallery_a_feature.feat', 'rb'))
     query_info = pickle.load(open('features/046/query_a_feature.feat', 'rb'))
@@ -65,9 +66,26 @@ def main():
     f = open('ensemblex7.json', encoding='utf-8')
     content = f.read()
     dic = json.loads(content)
-    for id in dic.keys():
-        if id in clean_query_id_set:
-            print(id, dic[id][:10])
+    cleaned_rank_dict = {}
+    for query_name in dic.keys():
+        if query_name in clean_query_id_set:
+            origin_ranklist = dic[query_name][:10]
+            query_cur_feat = query_feats[query_imgnames.index(query_name)]
+
+            cleaned_ranklist = []
+            cleaned_count = 0
+            for gallery_name in origin_ranklist:
+                rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_imgnames)]
+                score = np.dot(query_cur_feat, rank_cur_feat)
+                if score > dirty_threshold:
+                    cleaned_ranklist.append(gallery_name)
+                    cleaned_count += 1
+                else:
+                    break
+            cleaned_rank_dict[query_name] = cleaned_ranklist
+            print(cleaned_count)
+
+
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
