@@ -105,3 +105,17 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 | random patch(039) repeat 036 |          -          |          -          |        84.92         |          -           |
 | random patch(040)  prob 0.3  |          -          |          -          |        84.83         |          -           |
 | random patch(041)  prob 0.4  |          -          |          -          |        84.95         |          -           |
+
+
+# batch-dropblock 的实验
+
+|  experiment   | rank-1 | mAP | online | reranking |
+|:-------------:|:------:|:---:|:------:|:---------:|
+| baseline(040) |   -    |  -  | 84.83  |   86.00   |
+|      042      |   -    |  -  |   -    |     -     |
+|      043      |   -    |  -  |   -    |     -     |
+|      045      |   -    |  -  |   -    |     -     |
+|      046      |   -    |  -  |   -    |     -     |
+|      047      |   -    |  -  |   -    |     -     |
+|      048      |   -    |  -  |   -    |     -     |
+|      049      |   -    |  -  |   -    |     -     |

@@ -19,22 +19,12 @@ def process_info(info):
     return feats, imgnames
 
 
-def main():
-    FEATURE_1 = "/home/xiangan/dgreid/features/026"
-    FEATURE_2 = "/home/xiangan/dgreid/features/feature_BFE_52"
-
-    # feature_1
-    gallery_info_1 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_1, 'rb'))
-    query_info_1 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_1, 'rb'))
-    gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
-    query_feats_1, query_imgnames_1 = process_info(query_info_1)
-    # feature_2
-    gallery_info_2 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_2, 'rb'))
-    query_info_2 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_2, 'rb'))
+def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
+    gallery_info_2 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE, 'rb'))
+    query_info_2 = pickle.load(open('%s/query_a_feature.feat' % FEATURE, 'rb'))
     gallery_feats_2, gallery_imgnames_2 = process_info(gallery_info_2)
     query_feats_2, query_imgnames_2 = process_info(query_info_2)
     #
-
     qf_2 = np.zeros_like(query_feats_2)
     gf_2 = np.zeros_like(gallery_feats_2)
     for i in range(len(query_imgnames_1)):
@@ -45,11 +35,33 @@ def main():
         index = gallery_imgnames_2.index(gallery_imgnames_1[i])
         gf_2[i] = gallery_feats_2[index]
 
-    # for i in range(len(query_imgnames_1)):
-    #     assert query_imgnames_1[i] == query_feats_1[i]
+    return qf_2, gf_2
 
-    query_feats = np.concatenate((query_feats_1, qf_2), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_2), axis=1)
+
+def main():
+    FEATURE_1 = "/home/xiangan/dgreid/features/026"
+    FEATURE_2 = "/home/xiangan/dgreid/features/036"
+    FEATURE_3 = "/home/xiangan/dgreid/features/044"
+    FEATURE_4 = "/home/xiangan/dgreid/features/040"
+    FEATURE_5 = "/home/xiangan/dgreid/features/046"
+    FEATURE_6 = "/home/xiangan/dgreid/features/039"
+    FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
+
+    # feature_1
+    gallery_info_1 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_1, 'rb'))
+    query_info_1 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_1, 'rb'))
+    gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
+    query_feats_1, query_imgnames_1 = process_info(query_info_1)
+
+    qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
+    qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
+    qf_4, gf_4 = get(FEATURE_4, query_imgnames_1, gallery_imgnames_1)
+    qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
+    qf_6, gf_6 = get(FEATURE_6, query_imgnames_1, gallery_imgnames_1)
+    qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
+
+    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7), axis=1)
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
 
@@ -73,7 +85,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('rerank_ensemble.json', 'w', encoding='utf-8') as f:
+    with open('ensemblex7.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
