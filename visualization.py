@@ -122,7 +122,7 @@ def main():
     # print(dic[dic.keys()])
 
     count = 4768
-    for query, clean_list in tqdm(cleaned_rank_dict):
+    for query, clean_list in tqdm(cleaned_rank_dict.items()):
         input_path = os.path.join("/home/xiangan/data_reid/testA", query)
         output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
                                    "%d_c1_%s" % (count, query))
