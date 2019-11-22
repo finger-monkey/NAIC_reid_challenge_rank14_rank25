@@ -19,6 +19,7 @@ def process_info(info):
     feats = []
     imgnames = []
     for i in range(len(info)):
+        process_info(info[i])
         feats.append(info[i][0].flatten())
         imgnames.append(info[i][1])
     feats = np.array(feats)
@@ -37,8 +38,7 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
     train_feats, train_imgnames = process_info(train_info)
 
-    process_info(query_imgnames)
-
+    print(query_imgnames)
 
 if __name__ == '__main__':
     main()
