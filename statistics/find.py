@@ -41,7 +41,7 @@ def main():
     all_name = query_imgnames + train_imgnames + gallery_imgnames
 
     for i in all_name:
-        if i == query:
+        if query in i:
             print(i)
 
     feat = all_feat[all_name.index(query)]
