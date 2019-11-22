@@ -85,7 +85,7 @@ def main():
     cudnn.benchmark = True
 
     # models
-    model = build_model(cfg, 4768)
+    model = build_model(cfg, 5906)
     model.load_state_dict(torch.load(cfg.MODEL.PRETRAIN_PATH))
     model = model.eval()
     model = model.cuda()
