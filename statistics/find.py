@@ -19,7 +19,6 @@ def process_info(info):
     feats = []
     imgnames = []
     for i in range(len(info)):
-        process_info(info[i])
         feats.append(info[i][0].flatten())
         imgnames.append(info[i][1])
     feats = np.array(feats)
