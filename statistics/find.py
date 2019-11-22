@@ -38,3 +38,7 @@ def main():
     train_feats, train_imgnames = process_info(train_info)
 
     process_info(query_imgnames)
+
+
+if __name__ == '__main__':
+    main()
