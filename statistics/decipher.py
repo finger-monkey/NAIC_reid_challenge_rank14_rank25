@@ -80,22 +80,6 @@ def main():
     cfg.merge_from_list(args.opts)
     cfg.freeze()
 
-    output_dir = cfg.OUTPUT_DIR
-    if output_dir and not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # logs
-    logger = setup_logger("reid_baseline", output_dir, 0)
-    logger.info("Using {} GPUS".format(num_gpus))
-    logger.info(args)
-
-    if args.config_file != "":
-        logger.info("Loaded configuration file {}".format(args.config_file))
-        with open(args.config_file, 'r') as cf:
-            config_str = "\n" + cf.read()
-            logger.info(config_str)
-    logger.info("Running with config:\n{}".format(cfg))
-
     if cfg.MODEL.DEVICE == "cuda":
         os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
