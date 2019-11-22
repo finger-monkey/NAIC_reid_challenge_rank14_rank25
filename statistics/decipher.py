@@ -59,6 +59,7 @@ class FeatureMatrix:
         path_list = os.listdir(self.root)
         result = []
         for i, image_path in tqdm(enumerate(path_list)):
+            print(i)
             image_path_abs = os.path.join(self.root, image_path)
             feature = self.feature(image_path_abs)
             feature = feature.data.cpu().numpy()
