@@ -41,13 +41,14 @@ def main():
     query_feat = gallery_feats[gallery_imgnames.index(query)]
 
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
+    all_name = query_imgnames.extend(train_imgnames).extend(gallery_imgnames)
     sim = np.dot(query_feat, all_feat.T)
     indices = np.argsort(-sim, axis=1)
 
     order = indices[0][:50]
     query_gallery = []
     for gallery_index in order:
-        query_gallery.append(gallery_imgnames[gallery_index])
+        query_gallery.append(all_name[gallery_index])
     process_info(query_gallery)
 if __name__ == '__main__':
     main()
