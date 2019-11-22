@@ -41,7 +41,8 @@ def main():
 
 
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
-    all_name = query_imgnames.extend(train_imgnames).extend(gallery_imgnames)
+    all_name = query_imgnames + train_imgnames + gallery_imgnames
+
     feat = all_feat[all_name.index(query)]
 
     sim = np.dot(feat, all_feat.T)
