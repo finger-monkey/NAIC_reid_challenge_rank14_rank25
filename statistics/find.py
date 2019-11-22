@@ -40,11 +40,12 @@ def main():
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
     all_name = query_imgnames + train_imgnames + gallery_imgnames
 
+    name = None
     for i in all_name:
         if query in i:
-            print(i)
+            name = i
 
-    feat = all_feat[all_name.index(query)]
+    feat = all_feat[all_name.index(name)]
 
     sim = np.dot(feat, all_feat.T)
     indices = np.argsort(-sim, axis=1)
