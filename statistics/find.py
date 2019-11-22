@@ -29,9 +29,9 @@ def process_info(info):
 def main():
     query = "395592518"
 
-    gallery_info = pickle.load(open('/home/xiangan/reid_features/gallery.feat', 'rb').read())
-    query_info = pickle.load(open('/home/xiangan/reid_features/query.feat', 'rb').read())
-    train_info = pickle.loads(open('/home/xiangan/reid_features/train.feat', 'rb').read())
+    gallery_info = pickle.load(open('/home/xiangan/reid_features/gallery.feat', 'rb'))
+    query_info = pickle.load(open('/home/xiangan/reid_features/query.feat', 'rb'))
+    train_info = pickle.load(open('/home/xiangan/reid_features/train.feat', 'rb'))
 
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
