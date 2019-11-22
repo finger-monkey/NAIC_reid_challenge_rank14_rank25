@@ -50,7 +50,7 @@ def main():
     sim = np.dot(feat, all_feat.T)
     indices = np.argsort(-sim)
 
-    order = indices[0][:50]
+    order = indices[:50]
     query_gallery = []
     for gallery_index in order:
         query_gallery.append(all_name[gallery_index])
