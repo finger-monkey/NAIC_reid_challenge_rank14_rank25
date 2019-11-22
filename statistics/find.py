@@ -38,7 +38,16 @@ def main():
     train_feats, train_imgnames = process_info(train_info)
 
 
-    print(train_imgnames.index(query))
+    query_feat = gallery_feats[gallery_imgnames.index(query)]
 
+    all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
+    sim = np.dot(query_feat, all_feat.T)
+    indices = np.argsort(-sim, axis=1)
+
+    order = indices[0][:50]
+    query_gallery = []
+    for gallery_index in order:
+        query_gallery.append(gallery_imgnames[gallery_index])
+    process_info(query_gallery)
 if __name__ == '__main__':
     main()
