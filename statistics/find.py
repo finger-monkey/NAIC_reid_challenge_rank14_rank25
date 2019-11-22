@@ -37,11 +37,12 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
     train_feats, train_imgnames = process_info(train_info)
 
-
-
-
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
     all_name = query_imgnames + train_imgnames + gallery_imgnames
+
+    for i in all_name:
+        if i == query:
+            print(i)
 
     feat = all_feat[all_name.index(query)]
 
@@ -53,5 +54,7 @@ def main():
     for gallery_index in order:
         query_gallery.append(all_name[gallery_index])
     process_info(query_gallery)
+
+
 if __name__ == '__main__':
     main()
