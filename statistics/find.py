@@ -37,7 +37,8 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
     train_feats, train_imgnames = process_info(train_info)
 
-    print(query_imgnames.index(query))
+
+    print(train_imgnames.index(query))
 
 if __name__ == '__main__':
     main()
