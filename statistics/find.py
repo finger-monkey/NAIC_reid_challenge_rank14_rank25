@@ -38,11 +38,13 @@ def main():
     train_feats, train_imgnames = process_info(train_info)
 
 
-    train_feat = train_feats[train_imgnames.index(query)]
+
 
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
     all_name = query_imgnames.extend(train_imgnames).extend(gallery_imgnames)
-    sim = np.dot(query_feat, all_feat.T)
+    feat = all_feat[all_name.index(query)]
+
+    sim = np.dot(feat, all_feat.T)
     indices = np.argsort(-sim, axis=1)
 
     order = indices[0][:50]
