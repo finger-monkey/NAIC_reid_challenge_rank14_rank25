@@ -54,7 +54,7 @@ def main():
     query_gallery = []
     for gallery_index in order:
         query_gallery.append(all_name[gallery_index])
-    process_info(query_gallery)
+    print(query_gallery)
 
 
 if __name__ == '__main__':
