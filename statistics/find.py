@@ -28,7 +28,7 @@ def process_info(info):
 
 
 def main():
-    query = "395592518"
+    query = "395592518.png"
 
     gallery_info = pickle.load(open('/home/xiangan/reid_features/gallery.feat', 'rb'))
     query_info = pickle.load(open('/home/xiangan/reid_features/query.feat', 'rb'))
@@ -38,7 +38,7 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
     train_feats, train_imgnames = process_info(train_info)
 
-    print(query_imgnames)
+    print(query_imgnames.index(query))
 
 if __name__ == '__main__':
     main()
