@@ -48,7 +48,7 @@ def main():
     feat = all_feat[all_name.index(name)]
 
     sim = np.dot(feat, all_feat.T)
-    indices = np.argsort(-sim, axis=1)
+    indices = np.argsort(-sim)
 
     order = indices[0][:50]
     query_gallery = []
