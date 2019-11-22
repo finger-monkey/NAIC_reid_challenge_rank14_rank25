@@ -101,7 +101,7 @@ def main():
 
     def feature_save(path, name):
         f = open(os.path.join(OUTPUT, name), 'wb')
-        pickle.dump(FeatureMatrix(path, feature), f)
+        pickle.dump(FeatureMatrix(path, feature)(), f)
 
     feature_save(TRAIN, 'train.feat')
     feature_save(TEST_QUERY, 'query.feat')
