@@ -38,7 +38,7 @@ def main():
     train_feats, train_imgnames = process_info(train_info)
 
 
-    query_feat = gallery_feats[gallery_imgnames.index(query)]
+    query_feat = query_feats[query_imgnames.index(query)]
 
     all_feat = np.concatenate((query_feats, train_feats, gallery_feats))
     all_name = query_imgnames.extend(train_imgnames).extend(gallery_imgnames)
