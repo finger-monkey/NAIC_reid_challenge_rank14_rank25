@@ -42,7 +42,7 @@ def main():
     FEATURE_1 = "/home/xiangan/dgreid/features/054"
     FEATURE_2 = "/home/xiangan/dgreid/features/055"
     FEATURE_3 = "/home/xiangan/dgreid/features/056"
-    FEATURE_4 = "/home/xiangan/dgreid/features/0102"
+    FEATURE_4 = "/home/xiangan/dgreid/features/102"
     # FEATURE_5 = "/home/xiangan/dgreid/features/046"
     # FEATURE_6 = "/home/xiangan/dgreid/features/039"
     # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
