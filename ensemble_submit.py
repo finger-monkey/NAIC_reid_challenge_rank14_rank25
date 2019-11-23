@@ -43,8 +43,8 @@ def main():
     FEATURE_2 = "/home/xiangan/dgreid/features/055"
     FEATURE_3 = "/home/xiangan/dgreid/features/056"
     FEATURE_4 = "/home/xiangan/dgreid/features/102"
-    # FEATURE_5 = "/home/xiangan/dgreid/features/046"
-    # FEATURE_6 = "/home/xiangan/dgreid/features/039"
+    FEATURE_5 = "/home/xiangan/dgreid/features/fyf_001"
+    FEATURE_6 = "/home/xiangan/dgreid/features/fyf_002"
     # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
 
     # feature_1
@@ -56,18 +56,21 @@ def main():
     qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
     qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
     qf_4, gf_4 = get(FEATURE_4, query_imgnames_1, gallery_imgnames_1)
-    # qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
-    # qf_6, gf_6 = get(FEATURE_6, query_imgnames_1, gallery_imgnames_1)
+    qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
+    qf_6, gf_6 = get(FEATURE_6, query_imgnames_1, gallery_imgnames_1)
     # qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
 
-    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4), axis=1)
+    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6), axis=1)
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
 
     query_feats = torch.from_numpy(query_feats)
     gallery_feats = torch.from_numpy(gallery_feats)
     sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.85)
+    # rerank1 7 3 0.85
+    # rerank2 7 3 0.8
+    # rerank3 6 3 0.8
 
     # sim = np.dot(query_feats, gallery_feats.T)
     num_q, num_g = sim.shape
