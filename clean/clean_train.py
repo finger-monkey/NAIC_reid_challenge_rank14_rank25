@@ -5,6 +5,8 @@ import numpy as np
 from sklearn import preprocessing
 from tqdm import tqdm
 
+hreshold = 0.9
+
 
 def process_info(info):
     feats = []
@@ -86,10 +88,12 @@ def main():
 
         distance_matrix = np.dot(center_feat, np.array(pid_all_feats).T)
         print(pid)
-        print(np.sum(distance_matrix < 0.9))
-
+        print(np.sum(distance_matrix < hreshold))
 
         # print(pid, id_image_list)
+        id_image_array = np.array(id_image_list)
+        dirty_image_array = id_image_array[distance_matrix < hreshold]
+        print(dirty_image_array)
 
 
 if __name__ == '__main__':
