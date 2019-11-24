@@ -23,10 +23,10 @@ def main():
     # info
     feat_info = pickle.load(open(feature_path, 'rb'))
     # feats and names
-    feats, image_name_list = process_info(feat_info)
+    FEAT_MATRIX, IMAGE_NAME_LIST = process_info(feat_info)
 
     #
-    # for image_name in image_name_list:
+    # for image_name in IMAGE_NAME_LIST:
     #     print(image_name)
 
     ID_NUM_DICT = {
@@ -38,7 +38,7 @@ def main():
 
     # count and check
     count_dict = {}
-    for item in image_name_list:
+    for item in IMAGE_NAME_LIST:
         # 0057_c1_928644343.png
         pid = item.split('_')[0]
 
@@ -54,7 +54,7 @@ def main():
 
     # get image list
     id_image_list_dict = {}
-    for idx, image_name in enumerate(image_name_list):
+    for idx, image_name in enumerate(IMAGE_NAME_LIST):
         # 0057_c1_928644343.png
         pid = image_name.split('_')[0]
         if pid not in ID_NUM_DICT.keys():
@@ -67,8 +67,29 @@ def main():
 
     # for pid in ID_NUM_DICT.keys():
     #     print(pid)
+    # for pid, id_image_list in id_image_list_dict.items():
+    #     print(pid, id_image_list)
+
+    # going through all the pids
     for pid, id_image_list in id_image_list_dict.items():
-        print(pid, id_image_list)
+        center_feat = np.zeros_like(FEAT_MATRIX[0])
+
+        pid_all_feats = []
+
+        for id_image in id_image_list:
+            # id_image 0057_c1_928644343.png
+            center_feat += FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)]
+            pid_all_feats.append(FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)])
+
+        center_feat = center_feat / len(id_image_list)
+        center_feat = preprocessing.normalize(center_feat)
+
+        distance_matrix = np.dot(center_feat, np.array(pid_all_feats))
+        print(pid)
+        print(sum(distance_matrix < 0.5))
+
+
+        # print(pid, id_image_list)
 
 
 if __name__ == '__main__':
