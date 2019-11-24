@@ -82,7 +82,7 @@ def main():
             pid_all_feats.append(FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)])
 
         center_feat = center_feat / len(id_image_list)
-        center_feat = preprocessing.normalize(center_feat)
+        center_feat = preprocessing.normalize(center_feat.reshape(-1, 1))
 
         distance_matrix = np.dot(center_feat, np.array(pid_all_feats))
         print(pid)
