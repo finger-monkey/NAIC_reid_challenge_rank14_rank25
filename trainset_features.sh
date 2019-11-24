@@ -12,7 +12,7 @@ model_pretrain_path=${output_dir}/se_resnet50_model_80.pth
 echo "config files is ${config_file}"
 echo "save path is ${output_dir}"
 
-python clean/extract_train.py \
+python trainset_fetures.py \
 --config_file=${config_file} \
 MODEL.DEVICE_ID "('0')" \
 MODEL.PRETRAIN_CHOICE "('self')" \
