@@ -86,7 +86,7 @@ def main():
 
         distance_matrix = np.dot(center_feat, np.array(pid_all_feats).T)
         print(pid)
-        print(sum(distance_matrix < 0.5))
+        print(sum(distance_matrix < 0.8))
 
 
         # print(pid, id_image_list)
