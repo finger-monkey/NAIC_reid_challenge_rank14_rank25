@@ -4,7 +4,7 @@ import sys
 import numpy as np
 from sklearn import preprocessing
 
-threshold = float(sys.argv[0])
+threshold = 0.9
 
 
 def process_info(info):
