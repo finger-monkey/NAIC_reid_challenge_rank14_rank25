@@ -87,13 +87,12 @@ def main():
         center_feat = preprocessing.normalize(center_feat.reshape(1, -1))
 
         distance_matrix = np.dot(center_feat, np.array(pid_all_feats).T)
-        print(pid)
-        print(np.sum(distance_matrix < hreshold))
+        print(pid, np.sum(distance_matrix < hreshold))
 
         # print(pid, id_image_list)
         id_image_array = np.array(id_image_list)
         dirty_image_array = id_image_array[np.reshape(distance_matrix < hreshold, -1)]
-        print(dirty_image_array)
+        # print(dirty_image_array)
 
 
 if __name__ == '__main__':
