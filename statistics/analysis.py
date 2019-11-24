@@ -1,11 +1,8 @@
 import os
-import mxboard
-import numpy as np
-import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
     #
-    ROOT = r"C:\Users\Administrator\PycharmProjects\reid\all\bounding_box_train"
+    ROOT = "/home/xiangan/code_and_data/train_split/all_extra/bounding_box_train"
     image_path_list = os.listdir(ROOT)
 
     # persion id dict
@@ -17,8 +14,6 @@ if __name__ == '__main__':
             pid_dict[pid] = 1
         else:
             pid_dict[pid] += 1
-
-    # print(len(pid_dict.values()))
 
     rich_sum = 0
     for k, v in pid_dict.items():

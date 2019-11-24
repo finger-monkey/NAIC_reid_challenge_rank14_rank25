@@ -25,8 +25,12 @@ def main():
     # feats and names
     feats, image_name_list = process_info(feat_info)
 
-    for image_name in image_name_list:
-        print(image_name)
+    # for image_name in image_name_list:
+    #     print(image_name)
+
+
+
+
 
 
 if __name__ == '__main__':
