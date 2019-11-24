@@ -92,7 +92,7 @@ def main():
 
         # print(pid, id_image_list)
         id_image_array = np.array(id_image_list)
-        dirty_image_array = id_image_array[distance_matrix < hreshold]
+        dirty_image_array = id_image_array[np.reshape(distance_matrix < hreshold, -1)]
         print(dirty_image_array)
 
 
