@@ -36,6 +36,7 @@ def main():
         '1350': 291, '0651': 188, '0514': 122, '0112': 150
     }
 
+    # count and check
     count_dict = {}
     for item in image_name_list:
         # 0057_c1_928644343.png
@@ -51,8 +52,23 @@ def main():
     for pid, count in ID_NUM_DICT.items():
         assert count_dict[pid] == count
 
-    for pid in ID_NUM_DICT.keys():
-        print(pid)
+    # get image list
+    id_image_list_dict = {}
+    for idx, image_name in enumerate(image_name_list):
+        # 0057_c1_928644343.png
+        pid = image_name.split('_')[0]
+        if pid not in ID_NUM_DICT.keys():
+            continue
+        else:
+            if pid not in id_image_list_dict.keys():
+                id_image_list_dict[pid] = [image_name]
+            else:
+                id_image_list_dict[pid].append(image_name)
+
+    # for pid in ID_NUM_DICT.keys():
+    #     print(pid)
+    for pid, id_image_list in id_image_list_dict.items():
+        print(pid, id_image_list)
 
 
 if __name__ == '__main__':
