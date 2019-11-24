@@ -19,8 +19,8 @@ def process_info(info):
     return feats, imgnames
 
 
-gallery_info = pickle.load(open('/home/xiangan/dgreid/exps/all_11_4/gallery_a_feature.feat', 'rb'))
-query_info = pickle.load(open('/home/xiangan/dgreid/exps/all_11_4/query_a_feature.feat', 'rb'))
+gallery_info = pickle.load(open('/home/xiangan/dgreid/features/111/gallery_a_feature.feat', 'rb'))
+query_info = pickle.load(open('/home/xiangan/dgreid/features/111/query_a_feature.feat', 'rb'))
 
 gallery_feats, gallery_imgnames = process_info(gallery_info)
 query_feats, query_imgnames = process_info(query_info)
@@ -47,5 +47,5 @@ for q_idx in range(num_q):
 submission_json = json.dumps(submission_key)
 print(type(submission_json))
 
-with open('rerank_11_5.json', 'w', encoding='utf-8') as f:
+with open('rerank_111.json', 'w', encoding='utf-8') as f:
     f.write(submission_json)
