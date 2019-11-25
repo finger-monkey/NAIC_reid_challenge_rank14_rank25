@@ -43,7 +43,8 @@ if __name__ == '__main__':
 
     for dirty_file in dirty_file_list:
         target = os.path.join(target_root, dirty_file)
-        os.makedirs(target)
+        if not os.path.exists(target):
+            os.makedirs(target)
         CopyDirtyImage(
             source_root=source_root,
             target_root=str(target),
