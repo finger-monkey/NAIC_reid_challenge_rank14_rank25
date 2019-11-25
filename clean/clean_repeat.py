@@ -4,7 +4,7 @@ import sys
 import numpy as np
 from sklearn import preprocessing
 
-threshold = 0.9
+threshold = 0.98
 
 
 def process_info(info):
@@ -89,7 +89,7 @@ def main():
             curr_distance_matrix = np.dot(curr_feat, np.array(pid_all_feats).T)
 
             repeat_num = np.sum(curr_distance_matrix > threshold)
-            if repeat_num > 1:
+            if repeat_num > 3:
                 print(id_image, repeat_num)
 
 
