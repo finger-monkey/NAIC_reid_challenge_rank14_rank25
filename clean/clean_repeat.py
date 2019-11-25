@@ -94,7 +94,7 @@ def main():
 
             repeat_num = np.sum(curr_distance_matrix > threshold)
 
-            if repeat_num > 10:
+            if repeat_num > 5:
                 #
                 clean_id_set.add(id_image)
 
