@@ -45,6 +45,6 @@ if __name__ == '__main__':
         os.makedirs(target)
         CopyDirtyImage(
             source_root=source_root,
-            target_root=target,
+            target_root=str(target),
             dirty_file=os.path.join(dirty_file_root, dirty_file)
         )()
