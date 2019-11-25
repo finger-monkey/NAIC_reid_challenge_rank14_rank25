@@ -32,9 +32,19 @@ class CopyDirtyImage(Copy):
 
 
 if __name__ == '__main__':
-    CopyDirtyImage(
-        source_root="/home/xiangan/code_and_data/train_split/all_extra/bounding_box_train",
-        target_root="/home/xiangan/code_and_data/repeat_dirty",
-        dirty_file="/home/xiangan/dgreid/clean/repeat"
-    )()
 
+    #
+    source_root = "/home/xiangan/code_and_data/train_split/all_extra/bounding_box_train",
+    target_root = "/home/xiangan/code_and_data/repeat_dirty"
+    dirty_file_root = '/home/xiangan/dgreid/clean/dirty_0.99'
+
+    dirty_file_list = os.listdir(dirty_file_root)
+
+    for dirty_file in dirty_file_list:
+        target = os.path.join(target_root, dirty_file)
+        os.makedirs(target)
+        CopyDirtyImage(
+            source_root=source_root,
+            target_root=target,
+            dirty_file=os.path.join(dirty_file_root, dirty_file)
+        )()
