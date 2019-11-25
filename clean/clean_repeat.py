@@ -77,22 +77,18 @@ def main():
 
         pid_all_feats = []
 
+        # all_feats
         for id_image in id_image_list:
             # id_image 0057_c1_928644343.png
-            center_feat += FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)]
             pid_all_feats.append(FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)])
 
-        center_feat = center_feat / len(id_image_list)
-        center_feat = preprocessing.normalize(center_feat.reshape(1, -1))
-
-        distance_matrix = np.dot(center_feat, np.array(pid_all_feats).T)
-        # print(pid, np.sum(distance_matrix < threshold))
-        # print(pid, id_image_list)
-        id_image_array = np.array(id_image_list)
-        dirty_image_array = id_image_array[np.reshape(distance_matrix < threshold, -1)]
-        # print(dirty_image_array)
-        for i in dirty_image_array:
-            print(i)
+        for id_image in id_image_list:
+            # id_image 0057_c1_928644343.png
+            curr_feat = FEAT_MATRIX[IMAGE_NAME_LIST.index(id_image)]
+            curr_feat = curr_feat.reshape(1, -1)
+            #
+            curr_distance_matrix = np.dot(curr_feat, np.array(pid_all_feats).T)
+            print(pid, np.sum(curr_distance_matrix > threshold))
 
 
 if __name__ == '__main__':
