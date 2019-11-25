@@ -73,7 +73,6 @@ def main():
 
     # going through all the pids
     for pid, id_image_list in id_image_list_dict.items():
-        center_feat = np.zeros_like(FEAT_MATRIX[0])
 
         pid_all_feats = []
 
