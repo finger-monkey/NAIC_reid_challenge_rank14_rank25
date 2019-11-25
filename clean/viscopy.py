@@ -46,5 +46,5 @@ if __name__ == '__main__':
         CopyDirtyImage(
             source_root=source_root,
             target_root=str(target),
-            dirty_file=os.path.join(dirty_file_root, dirty_file)
+            dirty_file=str(os.path.join(dirty_file_root, dirty_file))
         )()
