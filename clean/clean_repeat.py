@@ -76,6 +76,10 @@ def main():
 
         pid_all_feats = []
 
+        #
+        clean_id_set = set()
+        dirty_id_set = set()
+
         # all_feats
         for id_image in id_image_list:
             # id_image 0057_c1_928644343.png
@@ -89,8 +93,19 @@ def main():
             curr_distance_matrix = np.dot(curr_feat, np.array(pid_all_feats).T)
 
             repeat_num = np.sum(curr_distance_matrix > threshold)
+
             if repeat_num > 3:
-                print(id_image, repeat_num)
+                #
+                clean_id_set.add(id_image)
+
+                #
+                id_image_array = np.array(id_image_list)
+                dirty_image_array = id_image_array[np.reshape(curr_distance_matrix > threshold, -1)]
+
+                for dirty_image in dirty_image_array:
+                    if dirty_image not in clean_id_set:
+                        print(dirty_image)
+                #
 
 
 if __name__ == '__main__':
