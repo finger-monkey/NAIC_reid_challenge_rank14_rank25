@@ -87,7 +87,10 @@ def main():
             curr_feat = curr_feat.reshape(1, -1)
             #
             curr_distance_matrix = np.dot(curr_feat, np.array(pid_all_feats).T)
-            print(pid, np.sum(curr_distance_matrix > threshold))
+
+            repeat_num = np.sum(curr_distance_matrix > threshold)
+            if repeat_num > 1:
+                print(id_image, repeat_num)
 
 
 if __name__ == '__main__':
