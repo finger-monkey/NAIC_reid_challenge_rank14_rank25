@@ -4,7 +4,7 @@ import sys
 import numpy as np
 from sklearn import preprocessing
 
-threshold = 0.98
+threshold = 0.99
 
 
 def process_info(info):
@@ -102,10 +102,16 @@ def main():
                 id_image_array = np.array(id_image_list)
                 dirty_image_array = id_image_array[np.reshape(curr_distance_matrix > threshold, -1)]
 
+                res = []
                 for dirty_image in dirty_image_array:
                     if dirty_image not in clean_id_set:
+                        res.append(dirty_image)
                         print(dirty_image)
-                #
+
+                with open('/home/xiangan/dgreid/clean/dirty_0.99/%s' % id_image, 'w') as f:
+                    f.write("\n".join(res))
+
+            #
 
 
 if __name__ == '__main__':
