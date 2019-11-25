@@ -37,7 +37,7 @@ class CopyDirtyImage(Copy):
 if __name__ == '__main__':
 
     #
-    source_root = '/home/xiangan/code_and_data/train_split/all_extra/bounding_box_train',
+    source_root = '/home/xiangan/code_and_data/train_split/all_extra/bounding_box_train'
     target_root = '/home/xiangan/code_and_data/repeat_dirty'
     dirty_file_root = '/home/xiangan/dgreid/clean/dirty_0.99'
 
