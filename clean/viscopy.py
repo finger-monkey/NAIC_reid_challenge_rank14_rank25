@@ -14,6 +14,8 @@ class Copy:
         #
         for idx, path in tqdm(enumerate(path_list)):
             # absolute path
+            print(self.source_root)
+            print(path)
             source_path = os.path.join(self.source_root, path)
             target_path = os.path.join(self.target_root, path)
             # copy
