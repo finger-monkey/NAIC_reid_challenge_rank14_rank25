@@ -10,6 +10,7 @@ class Copy:
     def __call__(self):
         #
         path_list = self.get_path_list()
+        print(path_list)
         #
         for idx, path in tqdm(enumerate(path_list)):
             # absolute path
