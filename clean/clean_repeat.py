@@ -72,14 +72,13 @@ def main():
     #     print(pid, id_image_list)
 
     # going through all the pids
+    clean_id_set = set()
+    dirty_id_set = set()
     for pid, id_image_list in id_image_list_dict.items():
 
         pid_all_feats = []
 
         #
-        clean_id_set = set()
-        dirty_id_set = set()
-
         # all_feats
         for id_image in id_image_list:
             # id_image 0057_c1_928644343.png
@@ -94,7 +93,7 @@ def main():
 
             repeat_num = np.sum(curr_distance_matrix > threshold)
 
-            if repeat_num > 3:
+            if repeat_num > 3 and id_image not in dirty_id_set:
                 #
                 clean_id_set.add(id_image)
 
@@ -105,13 +104,15 @@ def main():
                 res = []
                 for dirty_image in dirty_image_array:
                     if dirty_image not in clean_id_set:
+                        dirty_id_set.add(dirty_image)
                         res.append(dirty_image)
-                        print(dirty_image)
 
                 with open('/home/xiangan/dgreid/clean/dirty_0.99/%s' % id_image, 'w') as f:
                     f.write("\n".join(res))
 
             #
+    for i in dirty_id_set:
+        print(i)
 
 
 if __name__ == '__main__':
