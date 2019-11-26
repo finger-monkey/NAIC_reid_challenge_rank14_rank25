@@ -144,3 +144,13 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 |      103      |    -   |  -  |    -   |     -     |
 |      104      |    -   |  -  |    -   |     -     |
 |      105      |    -   |  -  |    -   |     -     |
+
+
+# remove repeat
+|     experiment     | rank-1 | mAP | online | reranking |
+|:------------------:|:------:|:---:|:------:|:---------:|
+|    baseline(056)   |    -   |  -  |  86.31 |   87.00   |
+| theshold=0.96(300) |    -   |  -  |  85.34 |     -     |
+| theshold=0.96(301) |    -   |  -  |  86.05 |     -     |
+| theshold=0.97(302) |    -   |  -  |  86.30 |     -     |
+| theshold=0.97(303) |    -   |  -  |  86.10 |     -     |
