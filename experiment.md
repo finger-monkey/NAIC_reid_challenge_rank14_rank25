@@ -154,3 +154,12 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 | theshold=0.96(301) |    -   |  -  |  86.05 |     -     |
 | theshold=0.97(302) |    -   |  -  |  86.30 |     -     |
 | theshold=0.97(303) |    -   |  -  |  86.10 |     -     |
+
+
+# increase epoch
+|   experiment  | rank-1 | mAP | online | reranking |
+|:-------------:|:------:|:---:|:------:|:---------:|
+| baseline(056) |    -   |  -  |  86.31 |   87.00   |
+|     (113)     |    -   |  -  |  86.39 |     -     |
+|     (114)     |    -   |  -  |  86.34 |     -     |
+|     (115)     |    -   |  -  |  86.15 |     -     |
