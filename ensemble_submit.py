@@ -71,8 +71,8 @@ def main():
     query_feats = np.max(query_feats, axis=0)
     gallery_feats = np.max(gallery_feats, axis=0)
 
-    query_feats = preprocessing.normalize(query_feats)
-    gallery_feats = preprocessing.normalize(gallery_feats)
+    query_feats = preprocessing.normalize(query_feats.reshape(1, -1))
+    gallery_feats = preprocessing.normalize(gallery_feats.reshape(1, -1))
 
     query_feats = torch.from_numpy(query_feats)
     gallery_feats = torch.from_numpy(gallery_feats)
