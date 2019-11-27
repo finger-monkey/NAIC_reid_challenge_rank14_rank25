@@ -72,8 +72,8 @@ def main():
     query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7, qf_8), axis=2)
     gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7, gf_8), axis=2)
 
-    query_feats = np.max(query_feats, axis=2)
-    gallery_feats = np.max(gallery_feats, axis=2)
+    query_feats = np.mean(query_feats, axis=2)
+    gallery_feats = np.mean(gallery_feats, axis=2)
 
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
@@ -101,7 +101,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('11_27_rerank7.json', 'w', encoding='utf-8') as f:
+    with open('11_27_rerank8.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
