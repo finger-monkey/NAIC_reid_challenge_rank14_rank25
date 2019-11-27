@@ -65,8 +65,12 @@ def main():
     qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
     qf_8, gf_8 = get(FEATURE_8, query_imgnames_1, gallery_imgnames_1)
 
-    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7, qf_8), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7, gf_8), axis=1)
+    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7, qf_8), axis=0)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7, gf_8), axis=0)
+
+    query_feats = np.max(query_feats, axis=0)
+    gallery_feats = np.max(gallery_feats, axis=0)
+
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
 
