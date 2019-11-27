@@ -39,11 +39,11 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
 
 
 def main():
-    FEATURE_1 = "/home/xiangan/dgreid/features/056"
-    FEATURE_2 = "/home/xiangan/dgreid/features/113"
+    FEATURE_1 = "/home/xiangan/dgreid/features/402"
+    FEATURE_2 = "/home/xiangan/dgreid/features/405"
     FEATURE_3 = "/home/xiangan/dgreid/features/114"
-    FEATURE_4 = "/home/xiangan/dgreid/features/402"
-    FEATURE_5 = "/home/xiangan/dgreid/features/404"
+    FEATURE_4 = "/home/xiangan/dgreid/features/113"
+    FEATURE_5 = "/home/xiangan/dgreid/features/056"
     # FEATURE_6 = "/home/xiangan/dgreid/features/111"
     # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
 
@@ -88,7 +88,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('11_27_rerank1.json', 'w', encoding='utf-8') as f:
+    with open('11_27_rerank4.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
