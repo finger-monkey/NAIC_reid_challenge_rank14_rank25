@@ -157,9 +157,27 @@ https://github.com/KaiyangZhou/deep-person-reid/blob/099b0ae7fcead522e5622886022
 
 
 # increase epoch
+```yml
+SOLVER:
+    MAX_EPOCHS: 160
+    STEPS: [80, 120, 140]
+```
 |   experiment  | rank-1 | mAP | online | reranking |
 |:-------------:|:------:|:---:|:------:|:---------:|
 | baseline(056) |    -   |  -  |  86.31 |   87.00   |
 |     (113)     |    -   |  -  |  86.39 |     -     |
 |     (114)     |    -   |  -  |  86.34 |     -     |
 |     (115)     |    -   |  -  |  86.15 |     -     |
+
+
+# triplet margin 1.2
+```yml
+SOLVER:
+    MARGIN: 1.20
+```
+|   experiment  | rank-1 | mAP | online | reranking |
+|:-------------:|:------:|:---:|:------:|:---------:|
+| baseline(056) |    -   |  -  |  86.31 |   87.00   |
+|     (402)     |    -   |  -  |  86.40 |     -     |
+|     (404)     |    -   |  -  |  85.60 |     -     |
+|     (405)     |    -   |  -  |  86.74 |     -     |
