@@ -58,6 +58,9 @@ def main():
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
+    query_feats_1 = np.expand_dims(query_feats_1, -1)
+    gallery_feats_1 = np.expand_dims(gallery_feats_1, -1)
+
     qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
     qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
     qf_4, gf_4 = get(FEATURE_4, query_imgnames_1, gallery_imgnames_1)
