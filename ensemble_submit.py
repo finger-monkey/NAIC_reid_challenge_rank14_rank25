@@ -35,7 +35,8 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
         index = gallery_imgnames_2.index(gallery_imgnames_1[i])
         gf_2[i] = gallery_feats_2[index]
 
-    return qf_2, gf_2
+
+    return np.expand_dims(qf_2, -1), np.expand_dims(gf_2, -1)
 
 
 def main():
