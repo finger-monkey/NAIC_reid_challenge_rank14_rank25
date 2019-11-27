@@ -5,7 +5,7 @@
 """
 
 import math
-
+from collections import OrderedDict
 import torch
 from torch import nn
 
@@ -91,11 +91,22 @@ class ResNet(nn.Module):
     def __init__(self, last_stride=2, block=Bottleneck, layers=[3, 4, 6, 3]):
         self.inplanes = 64
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
-                               bias=False)
-        self.bn1 = nn.BatchNorm2d(64)
-        # self.relu = nn.ReLU(inplace=True)   # add missed relu
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        # self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
+        #                        bias=False)
+        # self.bn1 = nn.BatchNorm2d(64)
+        # # self.relu = nn.ReLU(inplace=True)   # add missed relu
+        # self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+
+        layer0_modules = \
+            [
+                ('conv1', nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)),
+                ('bn1', nn.BatchNorm2d(64)),
+                ('maxpool', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
+            ]
+
+        self.layer0 = nn.Sequential(OrderedDict(layer0_modules))
+
+
         self.layer1 = self._make_layer(block, 64, layers[0])
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
