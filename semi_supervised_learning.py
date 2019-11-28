@@ -56,11 +56,20 @@ def get_clean_query(query_feats, query_imgnames, threshold):
     return clean_id_set
 
 
-def gen_testdata():
-    pass
+def visualization_a(rank_dict, test_root, output_root):
+    query_root = os.path.join(test_root, 'query_a')
+    gallery_root = os.path.join(test_root, 'gallery_a')
+    for query in rank_dict.keys():
+        query_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[query]), query))
+        os.makedirs(query_folder)
+        open(os.path.join(query_folder, query), 'wb').write(open(os.path.join(query_root, query), 'rb').read())
+        for ranid, neighbor in enumerate(rank_dict[query]):
+            target_path = os.path.join(query_folder, "%d_%s" % (ranid + 1, neighbor))
+            source_path = os.path.join(gallery_root, neighbor)
+            open(target_path, 'wb').write(open(source_path, 'rb').read())
 
 
-def visualization(rank_dict, test_root, output_root):
+def visualization_b(rank_dict, test_root, output_root):
     query_root = os.path.join(test_root, 'query_b')
     gallery_root = os.path.join(test_root, 'gallery_b')
     for query in rank_dict.keys():
@@ -78,7 +87,10 @@ def main():
     rank_dirty_threshold = 0.7
     query_dirty_threshold = 0.6
     #
-
+    # testA rank_list
+    testA_ranklist = 'results/rerank_503_testA.json'
+    # testB rank_list
+    testB_ranklist = 'results/rerank_503_testB.json'
     # testA
     testA_gallery_info = pickle.load(open('/home/xiangan/dgreid/features/503/gallery_a_feature.feat', 'rb'))
     testA_query_info = pickle.load(open('/home/xiangan/dgreid/features/503/query_a_feature.feat', 'rb'))
@@ -103,33 +115,61 @@ def main():
     IMAGE_NAME.extend(testB_query_imgnames)
     clean_query_id_set = get_clean_query(QUERY_FEAT, IMAGE_NAME, query_dirty_threshold)
 
-    # f = open('results/rerank_503.json', encoding='utf-8')
-    # content = f.read()
-    # dic = json.loads(content)
-    # cleaned_rank_dict = {}
-    # for query_name in list(dic.keys()):
-    #     print(query_name)
-    #     if query_name in clean_query_id_set:
-    #         origin_ranklist = dic[query_name][:10]
-    #         query_cur_feat = query_feats[query_imgnames.index(query_name)]
-    #
-    #         cleaned_ranklist = []
-    #         cleaned_count = 0
-    #         for gallery_name in origin_ranklist:
-    #             rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_name)]
-    #             score = np.dot(query_cur_feat, rank_cur_feat)
-    #             if score > rank_dirty_threshold:
-    #                 cleaned_ranklist.append(gallery_name)
-    #                 cleaned_count += 1
-    #             else:
-    #                 break
-    #         cleaned_rank_dict[query_name] = cleaned_ranklist
-    #         print(cleaned_count)
-    #
-    # visualization(
-    #     cleaned_rank_dict,
-    #     '/home/xiangan/data_reid/testB',
-    #     '/home/xiangan/data_reid/visualization/testB')
+    f = open(testA_ranklist, encoding='utf-8')
+    content = f.read()
+    dic = json.loads(content)
+    cleaned_rank_dict_testA = {}
+    for query_name in list(dic.keys()):
+        print(query_name)
+        if query_name in clean_query_id_set:
+            origin_ranklist = dic[query_name][:10]
+            query_cur_feat = testA_query_feats[testA_query_imgnames.index(query_name)]
+
+            cleaned_ranklist = []
+            cleaned_count = 0
+            for gallery_name in origin_ranklist:
+                rank_cur_feat = testA_gallery_feats[testA_gallery_imgnames.index(gallery_name)]
+                score = np.dot(query_cur_feat, rank_cur_feat)
+                if score > rank_dirty_threshold:
+                    cleaned_ranklist.append(gallery_name)
+                    cleaned_count += 1
+                else:
+                    break
+            cleaned_rank_dict_testA[query_name] = cleaned_ranklist
+            print(cleaned_count)
+
+    f = open(testB_ranklist, encoding='utf-8')
+    content = f.read()
+    dic = json.loads(content)
+    cleaned_rank_dict_testB = {}
+    for query_name in list(dic.keys()):
+        print(query_name)
+        if query_name in clean_query_id_set:
+            origin_ranklist = dic[query_name][:10]
+            query_cur_feat = testB_query_feats[testB_query_imgnames.index(query_name)]
+
+            cleaned_ranklist = []
+            cleaned_count = 0
+            for gallery_name in origin_ranklist:
+                rank_cur_feat = testB_gallery_feats[testB_gallery_imgnames.index(gallery_name)]
+                score = np.dot(query_cur_feat, rank_cur_feat)
+                if score > rank_dirty_threshold:
+                    cleaned_ranklist.append(gallery_name)
+                    cleaned_count += 1
+                else:
+                    break
+            cleaned_rank_dict_testB[query_name] = cleaned_ranklist
+            print(cleaned_count)
+
+    visualization_a(
+        cleaned_rank_dict_testA,
+        '/home/xiangan/data_reid/testA',
+        '/home/xiangan/data_reid/visualization/test')
+
+    visualization_b(
+        cleaned_rank_dict_testB,
+        '/home/xiangan/data_reid/testB',
+        '/home/xiangan/data_reid/visualization/test')
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')

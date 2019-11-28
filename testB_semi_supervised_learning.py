@@ -84,7 +84,7 @@ def main():
 
     clean_query_id_set = get_clean_query(query_feats, query_imgnames, query_dirty_threshold)
 
-    f = open('results/rerank_503.json', encoding='utf-8')
+    f = open('results/rerank_503_testB.json', encoding='utf-8')
     content = f.read()
     dic = json.loads(content)
     cleaned_rank_dict = {}
