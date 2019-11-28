@@ -60,8 +60,8 @@ def gen_testdata():
 
 
 def visualization(rank_dict, test_root, output_root):
-    query_root = os.path.join(test_root, 'query_a')
-    gallery_root = os.path.join(test_root, 'gallery_a')
+    query_root = os.path.join(test_root, 'query_b')
+    gallery_root = os.path.join(test_root, 'gallery_b')
     for query in rank_dict.keys():
         query_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[query]), query))
         os.makedirs(query_folder)
