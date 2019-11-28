@@ -99,7 +99,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('11_28_rerank3.json', 'w', encoding='utf-8') as f:
+    with open('11_28_rerank4.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
