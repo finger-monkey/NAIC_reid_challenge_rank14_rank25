@@ -36,7 +36,7 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
         gf_2[i] = gallery_feats_2[index]
 
 
-    return np.expand_dims(qf_2, -1), np.expand_dims(gf_2, -1)
+    return qf_2, gf_2
 
 
 def main():
@@ -58,8 +58,7 @@ def main():
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
-    query_feats_1 = np.expand_dims(query_feats_1, -1)
-    gallery_feats_1 = np.expand_dims(gallery_feats_1, -1)
+
 
     qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
     qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
@@ -69,11 +68,10 @@ def main():
     qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
     qf_8, gf_8 = get(FEATURE_8, query_imgnames_1, gallery_imgnames_1)
 
-    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7, qf_8), axis=2)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7, gf_8), axis=2)
+    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_7, qf_8), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_7, gf_8), axis=1)
 
-    query_feats = np.mean(query_feats, axis=2)
-    gallery_feats = np.mean(gallery_feats, axis=2)
+
 
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
