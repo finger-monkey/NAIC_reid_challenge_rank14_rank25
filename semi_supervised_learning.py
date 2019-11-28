@@ -161,15 +161,15 @@ def main():
             cleaned_rank_dict_testB[query_name] = cleaned_ranklist
             print(cleaned_count)
 
-    visualization_a(
-        cleaned_rank_dict_testA,
-        '/home/xiangan/data_reid/testA',
-        '/home/xiangan/data_reid/visualization/test')
-
-    visualization_b(
-        cleaned_rank_dict_testB,
-        '/home/xiangan/data_reid/testB',
-        '/home/xiangan/data_reid/visualization/test')
+    # visualization_a(
+    #     cleaned_rank_dict_testA,
+    #     '/home/xiangan/data_reid/testA',
+    #     '/home/xiangan/data_reid/visualization/test')
+    #
+    # visualization_b(
+    #     cleaned_rank_dict_testB,
+    #     '/home/xiangan/data_reid/testB',
+    #     '/home/xiangan/data_reid/visualization/test')
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
@@ -180,19 +180,32 @@ def main():
     #     print(dic[i])
     # print(dic[dic.keys()])
 
-    # count = 4768
-    # for query, clean_list in tqdm(cleaned_rank_dict.items()):
-    #     input_path = os.path.join("/home/xiangan/data_reid/testA/query_a", query)
-    #     output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
-    #                                "%d_c1_%s" % (count, query))
-    #     open(output_name, 'wb').write(open(input_path, 'rb').read())
-    #     for clean_name in clean_list:
-    #         input_path = os.path.join("/home/xiangan/data_reid/testA/gallery_a", clean_name)
-    #         output_name = os.path.join("/home/xiangan/code_and_data/train_split/test_extra",
-    #                                    "%d_c1_%s" % (count, clean_name))
-    #         open(output_name, 'wb').write(open(input_path, 'rb').read())
-    #
-    #     count += 1
+    count = 4768
+    for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
+        input_path = os.path.join("/home/xiangan/data_reid/testA/query_a", query)
+        output_name = os.path.join("/home/xiangan/code_and_data/train_split/all_final",
+                                   "%d_c1_%s" % (count, query))
+        open(output_name, 'wb').write(open(input_path, 'rb').read())
+        for clean_name in clean_list:
+            input_path = os.path.join("/home/xiangan/data_reid/testA/gallery_a", clean_name)
+            output_name = os.path.join("/home/xiangan/code_and_data/train_split/all_final",
+                                       "%d_c1_%s" % (count, clean_name))
+            open(output_name, 'wb').write(open(input_path, 'rb').read())
+
+        count += 1
+
+    for query, clean_list in tqdm(cleaned_rank_dict_testB.items()):
+        input_path = os.path.join("/home/xiangan/data_reid/testB/query_b", query)
+        output_name = os.path.join("/home/xiangan/code_and_data/train_split/all_final",
+                                   "%d_c1_%s" % (count, query))
+        open(output_name, 'wb').write(open(input_path, 'rb').read())
+        for clean_name in clean_list:
+            input_path = os.path.join("/home/xiangan/data_reid/testB/gallery_b", clean_name)
+            output_name = os.path.join("/home/xiangan/code_and_data/train_split/all_final",
+                                       "%d_c1_%s" % (count, clean_name))
+            open(output_name, 'wb').write(open(input_path, 'rb').read())
+
+        count += 1
 
 
 if __name__ == '__main__':
