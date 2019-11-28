@@ -98,7 +98,7 @@ def main():
     assert testB_gallery_feats.shape[0] == 13099
     assert testB_query_feats.shape[0] == 3147
 
-    QUERY_FEAT = np.append(testA_query_feats, testB_query_feats)
+    QUERY_FEAT = np.concatenate((testA_query_imgnames, testB_query_imgnames), axis=0)
     IMAGE_NAME = copy.deepcopy(testA_query_imgnames).append(testB_query_imgnames)
     clean_query_id_set = get_clean_query(QUERY_FEAT, IMAGE_NAME, query_dirty_threshold)
 
