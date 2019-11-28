@@ -84,33 +84,33 @@ def main():
 
     clean_query_id_set = get_clean_query(query_feats, query_imgnames, query_dirty_threshold)
 
-    # f = open('results/rerank_503.json', encoding='utf-8')
-    # content = f.read()
-    # dic = json.loads(content)
-    # cleaned_rank_dict = {}
-    # for query_name in list(dic.keys()):
-    #     print(query_name)
-    #     if query_name in clean_query_id_set:
-    #         origin_ranklist = dic[query_name][:10]
-    #         query_cur_feat = query_feats[query_imgnames.index(query_name)]
-    #
-    #         cleaned_ranklist = []
-    #         cleaned_count = 0
-    #         for gallery_name in origin_ranklist:
-    #             rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_name)]
-    #             score = np.dot(query_cur_feat, rank_cur_feat)
-    #             if score > rank_dirty_threshold:
-    #                 cleaned_ranklist.append(gallery_name)
-    #                 cleaned_count += 1
-    #             else:
-    #                 break
-    #         cleaned_rank_dict[query_name] = cleaned_ranklist
-            # print(cleaned_count)
+    f = open('results/rerank_503.json', encoding='utf-8')
+    content = f.read()
+    dic = json.loads(content)
+    cleaned_rank_dict = {}
+    for query_name in list(dic.keys()):
+        print(query_name)
+        if query_name in clean_query_id_set:
+            origin_ranklist = dic[query_name][:10]
+            query_cur_feat = query_feats[query_imgnames.index(query_name)]
 
-    # visualization(
-    #     cleaned_rank_dict,
-    #     '/home/xiangan/data_reid/testA',
-    #     '/home/xiangan/data_reid/visualization/11_21')
+            cleaned_ranklist = []
+            cleaned_count = 0
+            for gallery_name in origin_ranklist:
+                rank_cur_feat = gallery_feats[gallery_imgnames.index(gallery_name)]
+                score = np.dot(query_cur_feat, rank_cur_feat)
+                if score > rank_dirty_threshold:
+                    cleaned_ranklist.append(gallery_name)
+                    cleaned_count += 1
+                else:
+                    break
+            cleaned_rank_dict[query_name] = cleaned_ranklist
+            print(cleaned_count)
+
+    visualization(
+        cleaned_rank_dict,
+        '/home/xiangan/data_reid/testB',
+        '/home/xiangan/data_reid/visualization/testB')
     # a = open('ensemblex7.json')
     # print(a.readlines()[0])
     # f = open('ensemblex7.json', encoding='utf-8')
