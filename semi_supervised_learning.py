@@ -99,7 +99,8 @@ def main():
     assert testB_query_feats.shape[0] == 3147
 
     QUERY_FEAT = np.concatenate((testA_query_feats, testB_query_feats), axis=0)
-    IMAGE_NAME = copy.deepcopy(testA_query_imgnames).append(testB_query_imgnames)
+    IMAGE_NAME = copy.deepcopy(testA_query_imgnames)
+    IMAGE_NAME.append(testB_query_imgnames)
     clean_query_id_set = get_clean_query(QUERY_FEAT, IMAGE_NAME, query_dirty_threshold)
 
     # f = open('results/rerank_503.json', encoding='utf-8')
