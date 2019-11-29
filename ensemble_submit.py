@@ -20,8 +20,8 @@ def process_info(info):
 
 
 def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
-    gallery_info_2 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE, 'rb'))
-    query_info_2 = pickle.load(open('%s/query_a_feature.feat' % FEATURE, 'rb'))
+    gallery_info_2 = pickle.load(open('%s/gallery_b_feature.feat' % FEATURE, 'rb'))
+    query_info_2 = pickle.load(open('%s/query_b_feature.feat' % FEATURE, 'rb'))
     gallery_feats_2, gallery_imgnames_2 = process_info(gallery_info_2)
     query_feats_2, query_imgnames_2 = process_info(query_info_2)
     #
@@ -40,20 +40,20 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
 
 
 def main():
-    FEATURE_1 = "/home/xiangan/dgreid/features/fyf_extra_margin_2"
+    FEATURE_1 = "/home/xiangan/features_testB/1000"
     # FEATURE_2 = "/home/xiangan/dgreid/features/405"
     # FEATURE_3 = "/home/xiangan/dgreid/features/114"
-    FEATURE_4 = "/home/xiangan/dgreid/features/113"
+    FEATURE_4 = "/home/xiangan/features_testB/1001"
     # FEATURE_5 = "/home/xiangan/dgreid/features/056"
     # FEATURE_7 = "/home/xiangan/dgreid/features/102"
-    FEATURE_6 = "/home/xiangan/dgreid/features/503"
+    FEATURE_6 = "/home/xiangan/features_testB/1002"
     # FEATURE_8 = "/home/xiangan/dgreid/features/502"
 
     # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
 
     # feature_1
-    gallery_info_1 = pickle.load(open('%s/gallery_a_feature.feat' % FEATURE_1, 'rb'))
-    query_info_1 = pickle.load(open('%s/query_a_feature.feat' % FEATURE_1, 'rb'))
+    gallery_info_1 = pickle.load(open('%s/gallery_b_feature.feat' % FEATURE_1, 'rb'))
+    query_info_1 = pickle.load(open('%s/query_b_feature.feat' % FEATURE_1, 'rb'))
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
