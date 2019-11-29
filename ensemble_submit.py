@@ -47,7 +47,7 @@ def main():
     # FEATURE_5 = "/home/xiangan/dgreid/features/056"
     # FEATURE_7 = "/home/xiangan/dgreid/features/102"
     FEATURE_6 = "/home/xiangan/features_testB/1002"
-    # FEATURE_8 = "/home/xiangan/dgreid/features/502"
+    FEATURE_8 = "/home/xiangan/features_testB/anxiang_extra_margin_2_ibn_11_29"
 
     # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
 
@@ -65,12 +65,12 @@ def main():
     # qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
     qf_6, gf_6 = get(FEATURE_6, query_imgnames_1, gallery_imgnames_1)
     # qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
-    # qf_8, gf_8 = get(FEATURE_8, query_imgnames_1, gallery_imgnames_1)
+    qf_8, gf_8 = get(FEATURE_8, query_imgnames_1, gallery_imgnames_1)
 
     # query_feats = np.concatenate((query_feats_1, qf_2,qf_3,qf_4,qf_5, qf_6,qf_7, qf_8), axis=1)
     # gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3,gf_4,gf_5,gf_6,gf_7, gf_8), axis=1)
-    query_feats = np.concatenate((query_feats_1,qf_4, qf_6), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_4,gf_6), axis=1)
+    query_feats = np.concatenate((query_feats_1,qf_4, qf_6, qf_8), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_4,gf_6, gf_8), axis=1)
 
 
     query_feats = preprocessing.normalize(query_feats)
@@ -99,7 +99,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('rerank_final.json', 'w', encoding='utf-8') as f:
+    with open('rerank_final_2.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
