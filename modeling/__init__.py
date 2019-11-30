@@ -10,9 +10,9 @@ from .baseline import Baseline
 def build_model(cfg, num_classes):
     model = Baseline(
         num_classes=num_classes,
-        last_stride=cfg.MODEL.LAST_STRIDE,
         model_path=cfg.MODEL.PRETRAIN_PATH,
         model_name=cfg.MODEL.NAME,
         pretrain_choice=cfg.MODEL.PRETRAIN_CHOICE,
+        last_stride=1
     )
     return model
