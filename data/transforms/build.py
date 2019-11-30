@@ -19,7 +19,7 @@ def build_transforms(cfg, is_train=True):
             T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
             T.Pad(cfg.INPUT.PADDING),
             T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
-            RandomPatch(prob_happen=cfg.INPUT.RandomPatch_PROB, patch_max_area=0.1677),
+            RandomPatch(prob_happen=cfg.INPUT.RANDOM_PATCH_PROB, patch_max_area=0.1677),
             T.ToTensor(),
             normalize_transform
         ])
