@@ -5,7 +5,6 @@ MODEL:
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
-  LAST_STRIDE: 2
 
 INPUT:
   SIZE_TRAIN: [384, 128]
