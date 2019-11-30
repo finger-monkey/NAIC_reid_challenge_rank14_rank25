@@ -53,9 +53,6 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
     else:
         feat_dim = 2048
 
-    if cfg.MODEL.MGN_2048 == 'yes':
-        feat_dim = feat_dim * 8
-
     if cfg.SOLVER.FOCAL_LOSS == 'yes':
         flce = FocalLoss(
             class_num=num_classes,
