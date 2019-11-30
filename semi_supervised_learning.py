@@ -47,12 +47,6 @@ def get_clean_query(query_feats, query_imgnames, threshold):
 
     print('dirty id num is:  ', len(dirty_id_set))
     print('clean id num is:  ', len(clean_id_set))
-    # count = 4768
-    # for clean_name in tqdm(clean_id_set):
-    #     input_path = os.path.join(TEST_QUERY_PATH, clean_name)
-    #     output_name = os.path.join(OUTPUT_PATH, "%d_c1_%s" % (count, clean_name))
-    #     open(output_name, 'wb').write(open(input_path, 'rb').read())
-    #     count += 1
     return clean_id_set
 
 
@@ -160,25 +154,6 @@ def main():
                     break
             cleaned_rank_dict_testB[query_name] = cleaned_ranklist
             print(cleaned_count)
-
-    # visualization_a(
-    #     cleaned_rank_dict_testA,
-    #     '/home/xiangan/data_reid/testA',
-    #     '/home/xiangan/data_reid/visualization/test')
-    #
-    # visualization_b(
-    #     cleaned_rank_dict_testB,
-    #     '/home/xiangan/data_reid/testB',
-    #     '/home/xiangan/data_reid/visualization/test')
-    # a = open('ensemblex7.json')
-    # print(a.readlines()[0])
-    # f = open('ensemblex7.json', encoding='utf-8')
-    # content = f.read()
-    # dic = json.loads(content)
-    # for i in dic.keys():
-    #     print(i)
-    #     print(dic[i])
-    # print(dic[dic.keys()])
 
     count = 4768
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
