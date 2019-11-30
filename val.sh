@@ -12,4 +12,5 @@ echo "save path is ${output_dir}"
 
 python tools/train.py --config_file=${config_file} \
     DATASETS.ROOT_DIR "('${train_root}')" \
-    OUTPUT_DIR "('${output_dir}')"
+    OUTPUT_DIR "('${output_dir}')" \
+    MODEL.DEVICE_ID "('1,2')"

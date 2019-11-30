@@ -1,5 +1,4 @@
 MODEL:
-  DEVICE_ID: 1,2
   PRETRAIN_CHOICE: 'imagenet'
   NAME: 'se_resnet50'
   PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet50-ce0d4300.pth'
