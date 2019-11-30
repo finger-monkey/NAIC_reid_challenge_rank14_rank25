@@ -60,10 +60,8 @@ class BatchDrop(nn.Module):
 class Baseline(nn.Module):
     in_planes = 2048
 
-    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice,
-                 reduction):
+    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice, ):
         super(Baseline, self).__init__()
-        self.reduction = reduction
         if model_name == 'resnet18':
             self.in_planes = 512
             self.base = ResNet(last_stride=last_stride,
@@ -188,11 +186,8 @@ class Baseline(nn.Module):
         self.maxpool_zp2 = pool2d(kernel_size=(12, 8))
         self.maxpool_zp3 = pool2d(kernel_size=(8, 8))
 
-        # reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256), nn.ReLU())
-        if self.reduction == 'yes':
-            reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256))
-        else:
-            reduction = nn.Sequential(nn.BatchNorm2d(2048))
+        reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256))
+
         self.relu = nn.ReLU()
         self._init_reduction(reduction)
         self.reduction_0 = copy.deepcopy(reduction)
@@ -204,13 +199,7 @@ class Baseline(nn.Module):
         self.reduction_6 = copy.deepcopy(reduction)
         self.reduction_7 = copy.deepcopy(reduction)
 
-        feat_size = None
-        if self.reduction == 'yes':
-            feat_size = 256
-        elif self.reduction == 'no':
-            feat_size = 2048
-        else:
-            raise ValueError
+        feat_size = 256
 
         self.fc_id_2048_0 = nn.Linear(feat_size, num_classes)
         self.fc_id_2048_1 = nn.Linear(feat_size, num_classes)
@@ -238,19 +227,12 @@ class Baseline(nn.Module):
         nn.init.constant_(fc.bias, 0.)
 
     def _init_reduction(self, reduction):
-        if self.reduction == 'yes':
-            # conv
-            nn.init.kaiming_normal_(reduction[0].weight, mode='fan_in')
+        # conv
+        nn.init.kaiming_normal_(reduction[0].weight, mode='fan_in')
 
-            # bn
-            nn.init.normal_(reduction[1].weight, mean=1., std=0.02)
-            nn.init.constant_(reduction[1].bias, 0.)
-        elif self.reduction == 'no':
-            # bn
-            nn.init.normal_(reduction[0].weight, mean=1., std=0.02)
-            nn.init.constant_(reduction[0].bias, 0.)
-        else:
-            raise ValueError
+        # bn
+        nn.init.normal_(reduction[1].weight, mean=1., std=0.02)
+        nn.init.constant_(reduction[1].bias, 0.)
 
     def forward(self, x):
 
