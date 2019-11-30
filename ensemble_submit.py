@@ -35,21 +35,21 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
         index = gallery_imgnames_2.index(gallery_imgnames_1[i])
         gf_2[i] = gallery_feats_2[index]
 
-
     return qf_2, gf_2
 
 
 def main():
     FEATURE_1 = "/home/xiangan/features_testB/1000"
-    # FEATURE_2 = "/home/xiangan/dgreid/features/405"
-    # FEATURE_3 = "/home/xiangan/dgreid/features/114"
+
     FEATURE_4 = "/home/xiangan/features_testB/1001"
-    # FEATURE_5 = "/home/xiangan/dgreid/features/056"
-    # FEATURE_7 = "/home/xiangan/dgreid/features/102"
+
     FEATURE_6 = "/home/xiangan/features_testB/1002"
     FEATURE_8 = "/home/xiangan/features_testB/anxiang_extra_margin_2_ibn_11_29"
 
-    # FEATURE_7 = "/home/xiangan/dgreid/features/feature_BFE_52"
+    FEATURE_2 = "/home/xiangan/features_testB/anxiang_extra_margin_2_11_29"
+    FEATURE_3 = "/home/xiangan/features_testB/anxiang_extra_margin_2_deibing_11_29"
+    FEATURE_5 = "/home/xiangan/features_testB/anxiang_extra_margin_2_resnet50_11_29"
+    # FEATURE_7 = "/home/xiangan/features_testB"
 
     # feature_1
     gallery_info_1 = pickle.load(open('%s/gallery_b_feature.feat' % FEATURE_1, 'rb'))
@@ -57,21 +57,18 @@ def main():
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
-
-
-    # qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
-    # qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
+    qf_2, gf_2 = get(FEATURE_2, query_imgnames_1, gallery_imgnames_1)
+    qf_3, gf_3 = get(FEATURE_3, query_imgnames_1, gallery_imgnames_1)
     qf_4, gf_4 = get(FEATURE_4, query_imgnames_1, gallery_imgnames_1)
-    # qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
+    qf_5, gf_5 = get(FEATURE_5, query_imgnames_1, gallery_imgnames_1)
     qf_6, gf_6 = get(FEATURE_6, query_imgnames_1, gallery_imgnames_1)
     # qf_7, gf_7 = get(FEATURE_7, query_imgnames_1, gallery_imgnames_1)
     qf_8, gf_8 = get(FEATURE_8, query_imgnames_1, gallery_imgnames_1)
 
-    # query_feats = np.concatenate((query_feats_1, qf_2,qf_3,qf_4,qf_5, qf_6,qf_7, qf_8), axis=1)
-    # gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3,gf_4,gf_5,gf_6,gf_7, gf_8), axis=1)
-    query_feats = np.concatenate((query_feats_1,qf_4, qf_6, qf_8), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_4,gf_6, gf_8), axis=1)
-
+    query_feats = np.concatenate((query_feats_1, qf_2, qf_3, qf_4, qf_5, qf_6, qf_8), axis=1)
+    gallery_feats = np.concatenate((gallery_feats_1, gf_2, gf_3, gf_4, gf_5, gf_6, gf_8), axis=1)
+    # query_feats = np.concatenate((query_feats_1,qf_4, qf_6, qf_8), axis=1)
+    # gallery_feats = np.concatenate((gallery_feats_1, gf_4,gf_6, gf_8), axis=1)
 
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
@@ -99,7 +96,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('rerank_final_2.json', 'w', encoding='utf-8') as f:
+    with open('ensemble_x7.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
