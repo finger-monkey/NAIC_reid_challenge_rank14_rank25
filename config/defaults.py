@@ -23,16 +23,12 @@ _C.MODEL.DEVICE = "cuda"
 _C.MODEL.DEVICE_ID = '0'
 # Name of backbone
 _C.MODEL.NAME = 'se_resnet101'
-# Last stride of backbone
-_C.MODEL.LAST_STRIDE = 1
 # Path to pretrained model of backbone
 _C.MODEL.PRETRAIN_PATH = ''
 # Use ImageNet pretrained model to initialize backbone or use self trained model to initialize the whole model
 # Options: 'imagenet' or 'self'
 _C.MODEL.PRETRAIN_CHOICE = 'imagenet'
 # If train with BNNeck, options: 'bnneck' or 'no'
-_C.MODEL.NECK = 'bnneck'
-# If train loss include center loss, options: 'yes' or 'no'. Loss with center loss has different optimizer configuration
 _C.MODEL.IF_WITH_CENTER = 'no'
 # The loss type of metric loss
 # options:['triplet'](without center loss) or ['center','triplet_center'](with center loss)
@@ -42,13 +38,7 @@ _C.MODEL.METRIC_LOSS_TYPE = 'triplet'
 
 # If train with label smooth, options: 'on', 'off'
 _C.MODEL.IF_LABELSMOOTH = 'off'
-# Reduction, options: 'yes', 'no'
-_C.MODEL.REDUCTION = 'yes'
-# MGN2048
-_C.MODEL.MGN_2048 = 'no'
 
-# BNNECK
-_C.MODEL.BNNECK = 'no'
 
 # -----------------------------------------------------------------------------
 # INPUT
@@ -60,16 +50,14 @@ _C.INPUT.SIZE_TRAIN = [384, 128]
 _C.INPUT.SIZE_TEST = [384, 128]
 # Random probability for image horizontal flip
 _C.INPUT.PROB = 0.5
-# Random probability for random erasing
-_C.INPUT.RE_PROB = 0.5
+
 # Values to be used for image normalization
 _C.INPUT.PIXEL_MEAN = [0.485, 0.456, 0.406]
 # Values to be used for image normalization
 _C.INPUT.PIXEL_STD = [0.229, 0.224, 0.225]
 # Value of padding size
 _C.INPUT.PADDING = 10
-# Crop method
-_C.INPUT.CROP = 'norm'
+
 # Random Patch
 _C.INPUT.RandomPatch_PROB = 0.0
 # -----------------------------------------------------------------------------
@@ -77,9 +65,9 @@ _C.INPUT.RandomPatch_PROB = 0.0
 # -----------------------------------------------------------------------------
 _C.DATASETS = CN()
 # List of the dataset names for training, as present in paths_catalog.py
-_C.DATASETS.NAMES = ('market1501')
+_C.DATASETS.NAMES = ('')
 # Root directory where datasets should be used (and downloaded if not found)
-_C.DATASETS.ROOT_DIR = ('./data')
+_C.DATASETS.ROOT_DIR = ('')
 
 # -----------------------------------------------------------------------------
 # DataLoader
@@ -110,18 +98,10 @@ _C.SOLVER.MOMENTUM = 0.9
 _C.SOLVER.MARGIN = 0.3
 # Feature Norm of triplet loss
 _C.SOLVER.TRIPLET_NORM = 'no'
-# Margin of cluster ;pss
-_C.SOLVER.CLUSTER_MARGIN = 0.3
 # Learning rate of SGD to learn the centers of center loss
 _C.SOLVER.CENTER_LR = 0.5
 # Balanced weight of center loss
 _C.SOLVER.CENTER_LOSS_WEIGHT = 0.0005
-# Settings of range loss
-_C.SOLVER.RANGE_K = 2
-_C.SOLVER.RANGE_MARGIN = 0.3
-_C.SOLVER.RANGE_ALPHA = 0
-_C.SOLVER.RANGE_BETA = 1
-_C.SOLVER.RANGE_LOSS_WEIGHT = 1
 
 # Settings of focal loss
 _C.SOLVER.FOCAL_LOSS = 'no'
@@ -164,8 +144,6 @@ _C.TEST.IMS_PER_BATCH = 128
 _C.TEST.RE_RANKING = 'no'
 # Path to trained model
 _C.TEST.WEIGHT = ""
-# Which feature of BNNeck to be used for test, before or after BNNneck, options: 'before' or 'after'
-_C.TEST.NECK_FEAT = 'after'
 # Whether feature is nomalized before test, if yes, it is equivalent to cosine distance
 _C.TEST.FEAT_NORM = 'yes'
 
