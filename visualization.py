@@ -8,7 +8,7 @@ import numpy as np
 
 Q_ROOT = "D:\\reid\\testA\\query_a\\"
 G_ROOT = "D:\\reid\\testA\\gallery_a\\"
-ranklist = "results/rerank_503_testA.json"
+ranklist = "submission_baseline.json"
 
 
 def main():
@@ -29,7 +29,7 @@ def main():
         img_row = np.concatenate(img_row, axis=1)
         img_matrix.append(img_row)
 
-        if idx is not 0 and idx % 20 == 0:
+        if idx != 0 and idx % 20 == 0:
             img_matrix = np.concatenate(img_matrix, axis=0)
             cv2.imwrite("bad_case/%d.png" % idx, img_matrix)
             img_matrix = []
