@@ -9,6 +9,20 @@ from config import cfg
 from data import make_data_loader
 from modeling import build_model
 from utils.logger import setup_logger
+from data.transforms import build_transforms
+from data.datasets.dataset_loader import TestImageDataset
+from torch.utils.data import DataLoader
+import numpy as np
+import pickle
+
+Q_ROOT = ""
+G_ROOT = ""
+
+
+def test_collate_fn(batch):
+    """test data collate function"""
+    imgs, pids, camids, _ = zip(*batch)
+    return torch.stack(imgs, dim=0), pids, camids
 
 
 def main():
@@ -57,3 +71,45 @@ def main():
             model = nn.DataParallel(model)
         model.to(device)
 
+    # test data-loader
+    test_transforms = build_transforms(cfg, is_train=False)
+
+    query_name = os.listdir(Q_ROOT)
+    gallery_name = os.listdir(G_ROOT)
+
+    dataset = [os.path.join(Q_ROOT, x) for x in query_name] + \
+              [os.path.join(G_ROOT, x) for x in gallery_name]
+
+    test_set = TestImageDataset(
+        dataset=dataset,
+        transform=test_transforms
+    )
+
+    test_loader = DataLoader(
+        test_set, batch_size=cfg.TEST.IMS_PER_BATCH, shuffle=False,
+        num_workers=12, collate_fn=test_collate_fn
+    )
+
+    result = []
+
+    # _inference
+    def _inference(batch):
+        model.eval()
+        with torch.no_grad():
+            data = batch
+            data = data.to(device) if torch.cuda.device_count() >= 1 else data
+            feat = model(data)
+            feat = feat.data.cpu().numpy()
+            return feat
+
+    for batch in test_loader:
+        feat = _inference(batch)
+        result.append(feat)
+
+    result = np.concatenate(result, axis=0)
+
+    query_num = len(query_name)
+    query_feat = result[:query_num]
+    gallery_feat = result[query_num:]
+    pickle.dump([query_feat, query_name], open(cfg.OUTPUT_DIR + '/query_feature.feat', 'wb'))
+    pickle.dump([gallery_feat, gallery_name], open(cfg.OUTPUT_DIR + '/gallery_feature.feat', 'wb'))
