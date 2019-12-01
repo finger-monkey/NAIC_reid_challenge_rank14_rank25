@@ -282,10 +282,9 @@ class Baseline(nn.Module):
         else:
             return final_feature
 
-
-def load_param(self, trained_path):
-    param_dict = torch.load(trained_path)
-    for i in param_dict:
-        if 'classifier' in i:
-            continue
-        self.state_dict()[i].copy_(param_dict[i])
+    def load_param(self, trained_path):
+        param_dict = torch.load(trained_path)
+        for i in param_dict:
+            if 'classifier' in i:
+                continue
+            self.state_dict()[i].copy_(param_dict[i])
