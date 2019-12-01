@@ -21,8 +21,7 @@ G_ROOT = "/data/xiangan/reid_data/testA/gallery_a"
 
 def test_collate_fn(batch):
     """test data collate function"""
-    imgs, pids, camids, _ = zip(*batch)
-    return torch.stack(imgs, dim=0), pids, camids
+    return torch.stack(batch, dim=0)
 
 
 def main():
