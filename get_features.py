@@ -114,3 +114,6 @@ def main():
 
     pickle.dump([query_feat, query_name], open(cfg.OUTPUT_DIR + '/query_feature.feat', 'wb'))
     pickle.dump([gallery_feat, gallery_name], open(cfg.OUTPUT_DIR + '/gallery_feature.feat', 'wb'))
+
+if __name__ == '__main__':
+    main()
