@@ -12,6 +12,7 @@ sys.path.append('.')
 from config import cfg
 from modeling import build_model
 from utils.logger import setup_logger
+from data import make_data_loader
 
 
 def main():
@@ -31,6 +32,8 @@ def main():
     cfg.merge_from_list(args.opts)
     cfg.freeze()
 
+
+
     output_dir = cfg.OUTPUT_DIR
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -49,9 +52,14 @@ def main():
     if cfg.MODEL.DEVICE == "cuda":
         os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
-    # model = train(cfg)
-    model = build_model(cfg, 5906)
+
+    _1, _2, _3, num_classes = make_data_loader(cfg)
+    model = build_model(cfg, num_classes)
+    model.load_param(cfg.TEST.WEIGHT)
+
+
     model.load_state_dict(torch.load(cfg.MODEL.PRETRAIN_PATH))
+
 
     test_root = cfg.DATASETS.ROOT_DIR
     print(test_root)
