@@ -4,21 +4,21 @@
 config_file=configs/${1}.yml
 # output_dir
 output_dir=/mnt/anxiang/models/reid_exp/${1}
-# test_root
-test_root=/home/xiangan/data_reid/testB
-# model_pretrain_path
-model_pretrain_path=${output_dir}/se_resnet50_model_120.pth
+# train_root
+train_root=/data/xiangan/reid_data/trainset
+# model_path
+model_path=${output_dir}/se_resnet50_model_120.pth
 
 echo "config files is ${config_file}"
 echo "save path is ${output_dir}"
 
 
-python extract_final.py \
+python get_features.py \
     --config_file=${config_file} \
-    MODEL.DEVICE_ID "('0')" \
-    DATASETS.ROOT_DIR ${test_root} \
+    MODEL.DEVICE_ID "('7,8')" \
+    DATASETS.ROOT_DIR ${train_root} \
     MODEL.PRETRAIN_CHOICE "('self')" \
-    MODEL.PRETRAIN_PATH "('${model_pretrain_path}')" \
-    OUTPUT_DIR "('./features_testB/${1}')"
+    TEST.WEIGHT "('${model_path}')" \
+    OUTPUT_DIR "('./features/${1}')"
 
 python get_submission.py --name "${1}"

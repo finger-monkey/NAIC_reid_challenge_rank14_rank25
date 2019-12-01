@@ -15,8 +15,8 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-Q_ROOT = ""
-G_ROOT = ""
+Q_ROOT = "/data/xiangan/reid_data/testA/query_a"
+G_ROOT = "/data/xiangan/reid_data/testA/gallery_a"
 
 
 def test_collate_fn(batch):
@@ -111,5 +111,6 @@ def main():
     query_num = len(query_name)
     query_feat = result[:query_num]
     gallery_feat = result[query_num:]
+
     pickle.dump([query_feat, query_name], open(cfg.OUTPUT_DIR + '/query_feature.feat', 'wb'))
     pickle.dump([gallery_feat, gallery_name], open(cfg.OUTPUT_DIR + '/gallery_feature.feat', 'wb'))
