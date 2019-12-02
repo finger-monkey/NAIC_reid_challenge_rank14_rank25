@@ -1,7 +1,7 @@
 import os
 
 # all dataset root
-ALL_ROOT = "/train/trainset/1/datasets/trainset"
+ALL_ROOT = "/train/trainset/1/datasets/trainset/bounding_box_train"
 SPLIT_ROOT = "/train/trainset/1/datasets/"
 LABEL_COUNT = {}
 
