@@ -26,9 +26,9 @@ def main():
         _gallery_list = []
         _query_id_set = set()
         for _img_name in img_name_list:
-            label = int(_img_name.split('_')[0])
-            if label % 4 == lucky_num:  # lucky id
-                if label not in _query_id_set and LABEL_COUNT[str(label)] != 1:
+            label = _img_name.split('_')[0]
+            if int(label) % 4 == lucky_num:  # lucky id
+                if label not in _query_id_set and LABEL_COUNT[label] != 1:
                     _query_list.append(_img_name)
                     _query_id_set.add(label)
                 else:

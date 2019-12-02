@@ -3,7 +3,7 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=/data/xiangan/models/reid/${1}_val
+output_dir=/data/xiangan/models/reid/${1}_split2
 # train_root
 train_root=/data/xiangan/reid_data/split2
 
@@ -13,4 +13,4 @@ echo "save path is ${output_dir}"
 python tools/train.py --config_file=${config_file} \
     DATASETS.ROOT_DIR "('${train_root}')" \
     OUTPUT_DIR "('${output_dir}')" \
-    MODEL.DEVICE_ID "('1,2')"
+    MODEL.DEVICE_ID "('2,3')"
