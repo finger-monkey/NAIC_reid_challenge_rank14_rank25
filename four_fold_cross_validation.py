@@ -14,8 +14,10 @@ def main():
     img_name_list = os.listdir(ALL_ROOT)
     for img_name in img_name_list:
         _label = img_name.split('_')[0]
-        if _label in LABEL_COUNT:
+        if _label in LABEL_COUNT.keys():
             LABEL_COUNT[_label] += 1
+        else:
+            LABEL_COUNT[_label] = 1
 
     # shuffle image_list
     random.shuffle(img_name_list)
