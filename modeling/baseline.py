@@ -179,12 +179,18 @@ class Baseline(nn.Module):
         self.p2 = nn.Sequential(copy.deepcopy(res_conv4), copy.deepcopy(res_p_conv5))
         self.p3 = nn.Sequential(copy.deepcopy(res_conv4), copy.deepcopy(res_p_conv5))
 
-        pool2d = nn.MaxPool2d
-        self.maxpool_zg_p1 = pool2d(kernel_size=(12, 4))
-        self.maxpool_zg_p2 = pool2d(kernel_size=(24, 8))
-        self.maxpool_zg_p3 = pool2d(kernel_size=(24, 8))
-        self.maxpool_zp2 = pool2d(kernel_size=(12, 8))
-        self.maxpool_zp3 = pool2d(kernel_size=(8, 8))
+        # pool2d = nn.MaxPool2d
+        # self.maxpool_zg_p1 = pool2d(kernel_size=(12, 4))
+        # self.maxpool_zg_p2 = pool2d(kernel_size=(24, 8))
+        # self.maxpool_zg_p3 = pool2d(kernel_size=(24, 8))
+        # self.maxpool_zp2 = pool2d(kernel_size=(12, 8))
+        # self.maxpool_zp3 = pool2d(kernel_size=(8, 8))
+
+        self.maxpool_zg_p1 = nn.AdaptiveMaxPool2d(output_size=1)
+        self.maxpool_zg_p2 = nn.AdaptiveMaxPool2d(output_size=1)
+        self.maxpool_zg_p3 = nn.AdaptiveMaxPool2d(output_size=1)
+        self.maxpool_zp2 = nn.AdaptiveMaxPool2d(output_size=1)
+        self.maxpool_zp3 = nn.AdaptiveMaxPool2d(output_size=1)
 
         reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256))
 
