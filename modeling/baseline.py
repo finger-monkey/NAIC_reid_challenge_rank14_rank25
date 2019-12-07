@@ -189,8 +189,8 @@ class Baseline(nn.Module):
         self.maxpool_zg_p1 = nn.AdaptiveMaxPool2d(output_size=1)
         self.maxpool_zg_p2 = nn.AdaptiveMaxPool2d(output_size=1)
         self.maxpool_zg_p3 = nn.AdaptiveMaxPool2d(output_size=1)
-        self.maxpool_zp2 = nn.AdaptiveMaxPool2d(output_size=1)
-        self.maxpool_zp3 = nn.AdaptiveMaxPool2d(output_size=1)
+        self.maxpool_zp2 = nn.AdaptiveMaxPool2d(output_size=(2, 1))
+        self.maxpool_zp3 = nn.AdaptiveMaxPool2d(output_size=(3, 1))
 
         reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256))
 
