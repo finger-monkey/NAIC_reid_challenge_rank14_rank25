@@ -29,8 +29,20 @@ INPUT:
 |     001    |      82.5/92.8     | 81.3/93.0 | 80.8/92.2 | 83.6/93.9 | 82.05/92.97 |    -   |
 
 
-### Margin
-
+### Experiment Margin
+```yml
+INPUT:
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, -0.224, -0.225]
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 80
+  BASE_LR: 0.005
+  CENTER_LR: 0.5
+  CENTER_LOSS_WEIGHT: 0.0005
+  MARGIN: ???
+  STEPS: [50, 70]
+```
 |       experiment      | split1(mAP/Rank-1) |   split2  |   split3  |   split4  |     avg     | result |
 |:---------------------:|:------------------:|:---------:|:---------:|:---------:|:-----------:|:------:|
 |  (margin=1.0)baseline |      83.6/93.8     | 82.2/92.3 | 80.9/91.8 | 84.2/93.7 | 82.73/92.90 |    -   |
@@ -42,7 +54,20 @@ INPUT:
 
 
 
-### Center loss weight
+### Experiment Center loss weight  
+```yml
+INPUT:
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, -0.224, -0.225]
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 80
+  BASE_LR: 0.005
+  CENTER_LR: 0.5
+  CENTER_LOSS_WEIGHT: ???
+  MARGIN: 1.0
+  STEPS: [50, 70]
+```
 
 |     experiment    | split1(mAP/Rank-1) |   split2  |   split3  |   split4  |     avg     | result |
 |:-----------------:|:------------------:|:---------:|:---------:|:---------:|:-----------:|:------:|
@@ -59,7 +84,20 @@ INPUT:
 |   (cw=1e-e)cw010  |      83.4/93.1     | 81.2/91.6 | 80.7/91.7 | 84.5/94.8 | 82.45/92.80 | better |
  
 
-### Learning rate
+### Learning rate  
+```yml
+INPUT:
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, -0.224, -0.225]
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 80
+  BASE_LR: ???
+  CENTER_LR: 0.5
+  CENTER_LOSS_WEIGHT: 5e-4
+  MARGIN: 1.0
+  STEPS: [50, 70]
+```
 
 |     experiment    | split1(mAP/Rank-1) |   split2  |   split3  |   split4  |     avg     | result |
 |:-----------------:|:------------------:|:---------:|:---------:|:---------:|:-----------:|:------:|
@@ -77,8 +115,21 @@ INPUT:
 
 
 
-### RandomPatch Prob
-
+### RandomPatch Prob  
+```yml
+INPUT:
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, -0.224, -0.225]
+  RANDOM_PATCH_PROB: ???
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 80
+  BASE_LR: 5e-3
+  CENTER_LR: 0.5
+  CENTER_LOSS_WEIGHT: 5e-4
+  MARGIN: 1.0
+  STEPS: [50, 70]
+```
 |      experiment     | split1(mAP/Rank-1) |   split2  |   split3  |   split4  |     avg     | result |
 |:-------------------:|:------------------:|:---------:|:---------:|:---------:|:-----------:|:------:|
 | (prob=0.10)patch001 |      82.9/93.4     | 81.5/92.6 | 80.3/91.4 | 82.7/92.6 | 81.85/92.50 |  worse |
