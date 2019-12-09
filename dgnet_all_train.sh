@@ -3,7 +3,7 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=./${1}_all
+output_dir=/train/trainset/1/models/reid_exp/${1}_all
 # train_root
 train_root=/root/all
 
