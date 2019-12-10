@@ -18,6 +18,8 @@ python get_features.py \
     DATASETS.ROOT_DIR ${train_root} \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model_path}')" \
+    TEST.IMS_PER_BATCH 512 \
     OUTPUT_DIR "('./features/${1}')"
+
 
 python get_submission.py --name "${1}"
