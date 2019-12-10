@@ -93,7 +93,7 @@ def make_loss_with_center(cfg, num_classes):  # modified by gu
                        cfg.SOLVER.CENTER_LOSS_WEIGHT * center_criterion(final_feature, target)
             else:
                 return sum(F.cross_entropy(s, target) for s in score) + \
-                       sum(triplet(f, target)[0] for f in feat) + \
+                       cfg.SOLVER.TRIPLET_LOSS_WEIGHT * sum(triplet(f, target)[0] for f in feat) + \
                        cfg.SOLVER.CENTER_LOSS_WEIGHT * center_criterion(final_feature, target)
 
         else:
