@@ -6,8 +6,8 @@ import numpy as np
 # Q_ROOT = "/data/xiangan/reid_data/testA/query_a"
 # G_ROOT = "/data/xiangan/reid_data/testA/gallery_a"
 
-Q_ROOT = "D:\\reid_final\\test_set\\query_a"
-G_ROOT = "D:\\reid_final\\test_set\\gallery_a\\"
+Q_ROOT = "D:/reid_final/test_set/query_a/"
+G_ROOT = "D:/reid_final/test_set/gallery_a/"
 
 ranklist = "results/rerank_all001.json"
 
