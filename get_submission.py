@@ -16,8 +16,8 @@ def main():
         feats = preprocessing.normalize(feats)
         return feats, imgnames
 
-    gallery_info = pickle.load(open('features_test/%s/gallery_feature.feat' % args.name, 'rb'))
-    query_info = pickle.load(open('features_test/%s/query_feature.feat' % args.name, 'rb'))
+    gallery_info = pickle.load(open('features/%s/gallery_feature.feat' % args.name, 'rb'))
+    query_info = pickle.load(open('features/%s/query_feature.feat' % args.name, 'rb'))
 
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)

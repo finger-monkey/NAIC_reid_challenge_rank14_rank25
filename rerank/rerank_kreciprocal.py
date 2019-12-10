@@ -22,7 +22,7 @@ Minibatch: avaliable when 'MemorySave' is 'True'
 
 import numpy as np
 import torch
-
+from tqdm import tqdm
 
 def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_local=False):
     # if feature vector is numpy, you should use 'torch.tensor' transform it to tensor
@@ -45,7 +45,7 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
     V = np.zeros_like(original_dist).astype(np.float16)
     initial_rank = np.argsort(original_dist).astype(np.int32)
 
-    for i in range(all_num):
+    for i in tqdm(range(all_num)):
         # k-reciprocal neighbors
         forward_k_neigh_index = initial_rank[i, :k1 + 1]
         backward_k_neigh_index = initial_rank[forward_k_neigh_index, :k1 + 1]
@@ -69,18 +69,18 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
     original_dist = original_dist[:query_num, ]
     if k2 != 1:
         V_qe = np.zeros_like(V, dtype=np.float16)
-        for i in range(all_num):
+        for i in tqdm(range(all_num)):
             V_qe[i, :] = np.mean(V[initial_rank[i, :k2], :], axis=0)
         V = V_qe
         del V_qe
     del initial_rank
     invIndex = []
-    for i in range(gallery_num):
+    for i in tqdm(range(gallery_num)):
         invIndex.append(np.where(V[:, i] != 0)[0])
 
     jaccard_dist = np.zeros_like(original_dist, dtype=np.float16)
 
-    for i in range(query_num):
+    for i in tqdm(range(query_num)):
         temp_min = np.zeros(shape=[1, gallery_num], dtype=np.float16)
         indNonZero = np.where(V[i, :] != 0)[0]
         indImages = [invIndex[ind] for ind in indNonZero]

@@ -15,8 +15,8 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-Q_ROOT = "/data/xiangan/reid_data/testA/query_a"
-G_ROOT = "/data/xiangan/reid_data/testA/gallery_a"
+Q_ROOT = "/data/xiangan/reid_final/test/query_a"
+G_ROOT = "/data/xiangan/reid_final/test/gallery_a"
 
 
 def test_collate_fn(batch):
@@ -101,9 +101,14 @@ def main():
             feat = feat.data.cpu().numpy()
             return feat
 
+    count = 0
     for batch in test_loader:
+        count += 1
         feat = _inference(batch)
         result.append(feat)
+
+        if count % 100 == 0:
+            print(count)
 
     result = np.concatenate(result, axis=0)
 
@@ -113,6 +118,7 @@ def main():
 
     pickle.dump([query_feat, query_name], open(cfg.OUTPUT_DIR + '/query_feature.feat', 'wb'))
     pickle.dump([gallery_feat, gallery_name], open(cfg.OUTPUT_DIR + '/gallery_feature.feat', 'wb'))
+
 
 if __name__ == '__main__':
     main()
