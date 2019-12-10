@@ -64,7 +64,7 @@ def main():
     dic = json.loads(content)
     cleaned_rank_dict_testA = {}
     for query_name in list(dic.keys()):
-        print(query_name)
+        # print(query_name)
         if query_name in clean_query_id_set:
             origin_ranklist = dic[query_name][:10]
             query_cur_feat = testA_query_feats[testA_query_imgnames.index(query_name)]
@@ -80,7 +80,7 @@ def main():
                 else:
                     break
             cleaned_rank_dict_testA[query_name] = cleaned_ranklist
-            print(cleaned_count)
+            # print(cleaned_count)
 
     count = 9968
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
