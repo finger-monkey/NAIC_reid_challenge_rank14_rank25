@@ -6,21 +6,17 @@ import torch
 from sklearn import preprocessing
 from rerank.rerank_kreciprocal import re_ranking
 
+NAME = "all001"
+
 
 def process_info(info):
-    feats = []
-    imgnames = []
-    for i in range(len(info)):
-        # print(info[i][0].flatten().shape)
-        feats.append(info[i][0].flatten())
-        imgnames.append(info[i][1])
-    feats = np.array(feats)
+    feats, imgnames = info
     feats = preprocessing.normalize(feats)
     return feats, imgnames
 
 
-gallery_info = pickle.load(open('/home/xiangan/dgreid/features/111/gallery_a_feature.feat', 'rb'))
-query_info = pickle.load(open('/home/xiangan/dgreid/features/111/query_a_feature.feat', 'rb'))
+gallery_info = pickle.load(open('features/%s/gallery_feature.feat' % NAME, 'rb'))
+query_info = pickle.load(open('features/%s/query_feature.feat' % NAME, 'rb'))
 
 gallery_feats, gallery_imgnames = process_info(gallery_info)
 query_feats, query_imgnames = process_info(query_info)
@@ -29,7 +25,6 @@ query_feats, query_imgnames = process_info(query_info)
 query_feats = torch.from_numpy(query_feats)
 gallery_feats = torch.from_numpy(gallery_feats)
 sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.85)
-
 
 # sim = np.dot(query_feats, gallery_feats.T)
 num_q, num_g = sim.shape
@@ -47,5 +42,5 @@ for q_idx in range(num_q):
 submission_json = json.dumps(submission_key)
 print(type(submission_json))
 
-with open('rerank_111.json', 'w', encoding='utf-8') as f:
+with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
     f.write(submission_json)
