@@ -22,7 +22,7 @@ Minibatch: avaliable when 'MemorySave' is 'True'
 
 import numpy as np
 import torch
-
+from tqdm import tqdm
 
 def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_local=False):
     # if feature vector is numpy, you should use 'torch.tensor' transform it to tensor
@@ -45,7 +45,7 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
     V = np.zeros_like(original_dist).astype(np.float16)
     initial_rank = np.argsort(original_dist).astype(np.int32)
 
-    for i in range(all_num):
+    for i in tqdm(range(all_num)):
         # k-reciprocal neighbors
         forward_k_neigh_index = initial_rank[i, :k1 + 1]
         backward_k_neigh_index = initial_rank[forward_k_neigh_index, :k1 + 1]
