@@ -291,7 +291,10 @@ class Baseline(nn.Module):
     def load_param(self, trained_path):
 
         param_dict = torch.load(trained_path)
-        print(type(param_dict))
+
+        if not isinstance(param_dict, dict):
+            param_dict = param_dict.state_dict()
+
         for i in param_dict:
             if 'classifier' in i:
                 continue
