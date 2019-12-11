@@ -82,7 +82,7 @@ def create_supervised_trainer_with_center(cfg, model, center_criterion, optimize
     if device:
         if torch.cuda.device_count() > 1:
             if cfg.MODEL.FP16_level != "none":
-                model = apex.DistributedDataParallel(model)
+                model = apex.parallel.DistributedDataParallel(model)
             else:
                 model = nn.DataParallel(model)
         model.to(device)
