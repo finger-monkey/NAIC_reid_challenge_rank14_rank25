@@ -11,11 +11,12 @@ import torch.nn as nn
 from ignite.engine import Engine, Events
 from ignite.handlers import ModelCheckpoint, Timer
 from ignite.metrics import RunningAverage
-
+from apex import amp
 from utils.reid_metric import R1_mAP
 
 global ITER
 ITER = 0
+
 
 def create_supervised_trainer(model, optimizer, loss_fn,
                               device=None):
@@ -45,6 +46,7 @@ def create_supervised_trainer(model, optimizer, loss_fn,
         target = target.to(device) if torch.cuda.device_count() >= 1 else target
         score, feat = model(img)
         loss = loss_fn(score, feat, target)
+
         loss.backward()
         optimizer.step()
         # compute acc
@@ -54,8 +56,9 @@ def create_supervised_trainer(model, optimizer, loss_fn,
     return Engine(_update)
 
 
-def create_supervised_trainer_with_center(model, center_criterion, optimizer, optimizer_center, loss_fn, cetner_loss_weight,
-                              device=None):
+def create_supervised_trainer_with_center(cfg, model, center_criterion, optimizer, optimizer_center, loss_fn,
+                                          cetner_loss_weight,
+                                          device=None):
     """
     Factory function for creating a trainer for supervised models
 
@@ -69,6 +72,12 @@ def create_supervised_trainer_with_center(model, center_criterion, optimizer, op
     Returns:
         Engine: a trainer engine with supervised update function
     """
+    model = model.cuda()
+    if cfg.MODEL.FP16_level != "none":
+        model, [optimizer, optimizer_center] = amp.initialize(
+            model, [optimizer, optimizer_center], opt_level=cfg.MODEL.FP16_level)
+        print('fp16****************************')
+
     if device:
         if torch.cuda.device_count() > 1:
             model = nn.DataParallel(model)
@@ -84,7 +93,14 @@ def create_supervised_trainer_with_center(model, center_criterion, optimizer, op
         score, feat = model(img)
         loss = loss_fn(score, feat, target)
         # print("Total loss is {}, center loss is {}".format(loss, center_criterion(feat, target)))
-        loss.backward()
+
+        if cfg.MODEL.FP16_level != "none":
+            with amp.scale_loss(loss, [optimizer, optimizer_center]) as scaled_loss:
+                scaled_loss.backward()
+        else:
+            loss.backward()
+
+        # loss.backward()
         optimizer.step()
         for param in center_criterion.parameters():
             param.grad.data *= (1. / cetner_loss_weight)
@@ -152,7 +168,8 @@ def do_train(
     logger = logging.getLogger("reid_baseline.train")
     logger.info("Start training")
     trainer = create_supervised_trainer(model, optimizer, loss_fn, device=device)
-    evaluator = create_supervised_evaluator(model, metrics={'r1_mAP': R1_mAP(num_query, max_rank=50, feat_norm=cfg.TEST.FEAT_NORM)}, device=device)
+    evaluator = create_supervised_evaluator(model, metrics={
+        'r1_mAP': R1_mAP(num_query, max_rank=50, feat_norm=cfg.TEST.FEAT_NORM)}, device=device)
     checkpointer = ModelCheckpoint(output_dir, cfg.MODEL.NAME, checkpoint_period, n_saved=10, require_empty=False)
     timer = Timer(average=True)
 
@@ -230,8 +247,10 @@ def do_train_with_center(
 
     logger = logging.getLogger("reid_baseline.train")
     logger.info("Start training")
-    trainer = create_supervised_trainer_with_center(model, center_criterion, optimizer, optimizer_center, loss_fn, cfg.SOLVER.CENTER_LOSS_WEIGHT, device=device)
-    evaluator = create_supervised_evaluator(model, metrics={'r1_mAP': R1_mAP(num_query, max_rank=200, feat_norm=cfg.TEST.FEAT_NORM)}, device=device)
+    trainer = create_supervised_trainer_with_center(cfg, model, center_criterion, optimizer, optimizer_center, loss_fn,
+                                                    cfg.SOLVER.CENTER_LOSS_WEIGHT, device=device)
+    evaluator = create_supervised_evaluator(model, metrics={
+        'r1_mAP': R1_mAP(num_query, max_rank=200, feat_norm=cfg.TEST.FEAT_NORM)}, device=device)
     checkpointer = ModelCheckpoint(output_dir, cfg.MODEL.NAME, checkpoint_period, n_saved=1000, require_empty=False)
     timer = Timer(average=True)
 
