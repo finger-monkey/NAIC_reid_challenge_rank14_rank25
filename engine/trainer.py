@@ -81,6 +81,9 @@ def create_supervised_trainer_with_center(cfg, model, center_criterion, optimize
 
     if device:
         if torch.cuda.device_count() > 1:
+
+            torch.distributed.init_process_group(backend='nccl', init_method='env://')
+
             if cfg.MODEL.FP16_level != "none":
                 model = apex.parallel.DistributedDataParallel(model)
             else:
