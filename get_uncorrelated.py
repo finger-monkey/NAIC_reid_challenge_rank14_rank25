@@ -10,7 +10,7 @@ PATH_TARGET = "/data/xiangan/reid_final/uncorrelated"
 def main():
 
     def c(source_root, target_root):
-        image_list = os.path.join(source_root)
+        image_list = os.listdir(source_root)
         for img_path in image_list:
             source_path = os.path.join(source_root, img_path)
             target_path = os.path.join(target_root, "9999_c2_%s" % img_path[6:])
