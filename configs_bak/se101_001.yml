@@ -1,10 +1,11 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  NAME: 'se_resnet50'
-  PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet50-ce0d4300.pth'
+  NAME: 'se_resnet101'
+  PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet101-7e38fcc6.pth'
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
+  FP16_level: "O1"
 
 INPUT:
   SIZE_TRAIN: [384, 128]
@@ -23,7 +24,7 @@ DATASETS:
 DATALOADER:
   SAMPLER: 'softmax_triplet'
   NUM_INSTANCE: 4
-  NUM_WORKERS: 24
+  NUM_WORKERS: 16
 
 SOLVER:
   OPTIMIZER_NAME: 'SGD'
@@ -32,9 +33,9 @@ SOLVER:
 
   # center loss
   CENTER_LR: 0.5
-  CENTER_LOSS_WEIGHT: 1e-4
+  CENTER_LOSS_WEIGHT: 8e-5
 
-  MARGIN: 1.0
+  MARGIN: 10.0
 
   # LR
   BIAS_LR_FACTOR: 1
@@ -49,8 +50,8 @@ SOLVER:
   WARMUP_ITERS: 10
   WARMUP_METHOD: 'linear'
 
-  CHECKPOINT_PERIOD: 80
-  LOG_PERIOD: 100
+  CHECKPOINT_PERIOD: 10
+  LOG_PERIOD: 500
   EVAL_PERIOD: 80
 
 TEST:
