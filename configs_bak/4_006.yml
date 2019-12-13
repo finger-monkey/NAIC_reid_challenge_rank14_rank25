@@ -32,7 +32,7 @@ SOLVER:
 
   # center loss
   CENTER_LR: 0.5
-  CENTER_LOSS_WEIGHT: 1e-4
+  CENTER_LOSS_WEIGHT: 5e-4
 
   MARGIN: 1.0
 

@@ -218,4 +218,61 @@ SOLVER:
 
 
 
+### Epoch Experiment
+```yml
+INPUT:
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, -0.224, -0.225]
+  RANDOM_PATCH_PROB: 0.3
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: ??????????????????????
+  BASE_LR: 5e-3
+  CENTER_LR: 
+  CENTER_LOSS_WEIGHT: 1e-4
+  MARGIN: 10.0
+  STEPS: ?????????????????????
+```
 
+|   experiment  | split1(mAP/Rank-1) | split2 | split3 | split4 | avg | result |
+|:-------------:|:------------------:|:------:|:------:|:------:|:---:|:------:|
+| (lr=0.1)ep001 |        85.1           | 83.0       |        |        |     |        |
+| (lr=0.2)ep002 |        84.9           | 83.4       |        |        |     |        |
+| (lr=0.3)ep003 |        85.4           | 83.1       |        |        |     |        |
+| (lr=0.4)ep004 |        84.8           | 82.0       |        |        |     |        |
+| (lr=0.5)ep005 |        85.0           | 83.5       |        |        |     |        |
+| (lr=0.6)ep006 |        84.5           | 82.8       |        |        |     |        |
+| (lr=0.6)ep007 |        85.6           | 83.8       |        |        |     |        |
+
+ep001_split1/log.txt:2019-12-07 08:08:08,769 reid_baseline.train INFO: mAP: 85.1%
+ep002_split1/log.txt:2019-12-07 13:36:38,032 reid_baseline.train INFO: mAP: 84.9%
+ep003_split1/log.txt:2019-12-07 19:02:18,328 reid_baseline.train INFO: mAP: 85.4%
+ep004_split1/log.txt:2019-12-08 00:19:27,231 reid_baseline.train INFO: mAP: 84.8%
+ep005_split1/log.txt:2019-12-08 05:47:33,717 reid_baseline.train INFO: mAP: 85.0%
+ep006_split1/log.txt:2019-12-08 11:01:08,802 reid_baseline.train INFO: mAP: 84.5%
+ep007_split1/log.txt:2019-12-08 18:59:32,232 reid_baseline.train INFO: mAP: 85.6%
+(base) xiangan@10-55-0-227:/mnt/anxiang/models/reid_exp$ grep mAP ep*2/*t
+ep001_split2/log.txt:2019-12-07 08:06:52,833 reid_baseline.train INFO: mAP: 83.0%
+ep002_split2/log.txt:2019-12-07 13:33:19,824 reid_baseline.train INFO: mAP: 83.4%
+ep003_split2/log.txt:2019-12-07 19:03:31,682 reid_baseline.train INFO: mAP: 83.1%
+ep004_split2/log.txt:2019-12-08 00:18:36,597 reid_baseline.train INFO: mAP: 82.0%
+ep005_split2/log.txt:2019-12-08 05:44:54,938 reid_baseline.train INFO: mAP: 83.5%
+ep006_split2/log.txt:2019-12-08 10 :56:27,991 reid_baseline.train INFO: mAP: 82.8%
+ep007_split2/log.txt:2019-12-08 18:51:14,676 reid_baseline.train INFO: mAP: 83.8%
+(base) xiangan@10-55-0-227:/mnt/anxiang/models/reid_exp$ grep mAP ep*3/*t
+ep001_split3/log.txt:2019-12-07 07:52:32,052 reid_baseline.train INFO: mAP: 82.9%
+ep002_split3/log.txt:2019-12-07 12:48:40,750 reid_baseline.train INFO: mAP: 83.3%
+ep003_split3/log.txt:2019-12-07 17:42:35,465 reid_baseline.train INFO: mAP: 83.4%
+ep004_split3/log.txt:2019-12-07 22:34:55,465 reid_baseline.train INFO: mAP: 82.3%
+ep005_split3/log.txt:2019-12-08 03:29:09,188 reid_baseline.train INFO: mAP: 82.3%
+ep006_split3/log.txt:2019-12-08 08:21:17,559 reid_baseline.train INFO: mAP: 82.8%
+ep007_split3/log.txt:2019-12-08 15:36:00,605 reid_baseline.train INFO: mAP: 83.8%
+ep008_split3/log.txt:2019-12-09 01:13:15,242 reid_baseline.train INFO: mAP: 83.6%
+(base) xiangan@10-55-0-227:/mnt/anxiang/models/reid_exp$ grep mAP ep*4/*t
+ep001_split4/log.txt:2019-12-07 08:32:43,484 reid_baseline.train INFO: mAP: 85.9%
+ep002_split4/log.txt:2019-12-07 14:06:39,115 reid_baseline.train INFO: mAP: 85.6%
+ep003_split4/log.txt:2019-12-07 19:42:26,451 reid_baseline.train INFO: mAP: 86.0%
+ep004_split4/log.txt:2019-12-08 01:13:41,329 reid_baseline.train INFO: mAP: 85.6%
+ep005_split4/log.txt:2019-12-08 06:47:30,646 reid_baseline.train INFO: mAP: 85.3%
+ep006_split4/log.txt:2019-12-08 12:15:20,916 reid_baseline.train INFO: mAP: 85.1%
+ep007_split4/log.txt:2019-12-08 20:28:19,862 reid_baseline.train INFO: mAP: 86.6%
