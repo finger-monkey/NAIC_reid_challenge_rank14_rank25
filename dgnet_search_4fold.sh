@@ -17,7 +17,6 @@ for split in {"split1","split2","split3","split4"}; do
     DATASETS.ROOT_DIR "('${train_root}/${split}')" \
     OUTPUT_DIR "('${output_dir}_${split}')" \
     MODEL.DEVICE_ID "('0,1,2,3')" \
-    SOLVER.IMS_PER_BATCH "256" \
     MODEL.PRETRAIN_PATH 'se_resnet50-ce0d4300.pth'
 done
 
