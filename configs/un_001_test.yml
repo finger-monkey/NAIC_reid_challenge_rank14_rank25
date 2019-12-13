@@ -50,7 +50,7 @@ SOLVER:
 
   CHECKPOINT_PERIOD: 80                                       #
   LOG_PERIOD: 100
-  EVAL_PERIOD: 20                                             #
+  EVAL_PERIOD: 1                                              #
 
 TEST:
   IMS_PER_BATCH: 128
