@@ -13,7 +13,7 @@ def main():
         image_list = os.listdir(source_root)
         for img_path in image_list:
             source_path = os.path.join(source_root, img_path)
-            target_path = os.path.join(target_root, "9999_c2_%s" % img_path[6:])
+            target_path = os.path.join(target_root, "9999_c2_%s" % img_path)
             open(target_path, 'wb').write(open(source_path, 'rb').read())
 
     c(PATH_SOURCE_QUERY, PATH_TARGET)
