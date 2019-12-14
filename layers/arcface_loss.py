@@ -36,6 +36,7 @@ class ArcfaceLoss(Module):
 
     def forward(self, embbedings, label):
         # feat_norm
+        # add by anxiang
         embbedings = l2_norm(embbedings, axis=1)
 
         # weights norm
