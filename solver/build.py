@@ -20,7 +20,7 @@ def make_optimizer(cfg, model):
         params += [{"params": [value], "lr": lr, "weight_decay": weight_decay}]
 
         # add by niu
-        if "fc_id" in key or "reduction" in key:
+        if "fc_id" in key or "reduction" in key or "arcface" in key:
             lr = cfg.SOLVER.BASE_LR * 10
 
     if cfg.SOLVER.OPTIMIZER_NAME == 'SGD':
@@ -42,7 +42,7 @@ def make_optimizer_with_center(cfg, model, center_criterion):
             weight_decay = cfg.SOLVER.WEIGHT_DECAY_BIAS
 
         # add by niu
-        if "fc_id" in key or "reduction" in key:
+        if "fc_id" in key or "reduction" in key or "arcface" in key:
             lr = cfg.SOLVER.BASE_LR * 10
 
         params += [{"params": [value], "lr": lr, "weight_decay": weight_decay}]

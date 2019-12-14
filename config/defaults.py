@@ -170,3 +170,6 @@ _C.SOLVER.TRIPLET_LOSS_WEIGHT = 1.0
 
 # FP16
 _C.MODEL.FP16_level = "none"
+
+# Arc-face Loss
+_C.MODEL.IF_WITH_ARC_FACE_LOSS = 'no'
