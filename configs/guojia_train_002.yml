@@ -6,9 +6,10 @@ MODEL:
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
 
+
 INPUT:
-  SIZE_TRAIN: [768, 256]
-  SIZE_TEST: [768, 256]
+  SIZE_TRAIN: [576, 192]
+  SIZE_TEST: [576, 192]
   # random horizontal flip
   PROB: 0.5
   PADDING: 10
