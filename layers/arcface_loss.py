@@ -17,7 +17,7 @@ class ArcfaceLoss(Module):
     def __init__(self, embedding_size=512, class_num=51332, s=64., m=0.5):
         super(ArcfaceLoss, self).__init__()
         self.class_num = class_num
-        self.kernel = Parameter(torch.Tensor(embedding_size, class_num))
+        self.kernel = Parameter(torch.Tensor(embedding_size, class_num)).cuda()
 
         # initial kernel
         self.kernel.data.uniform_(-1, 1).renorm_(2, 1, 1e-5).mul_(1e5)
