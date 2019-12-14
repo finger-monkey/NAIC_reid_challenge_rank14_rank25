@@ -3,9 +3,9 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=/data/xiangan/models/reid/${1}_all
+output_dir=/root/deepglint/models/${1}_all
 # train_root
-train_root=/data/xiangan/reid_final/all
+train_root=/gpu/data2/deepglint/dgreid/dataset/train_split4_rematch/all
 
 echo "config files is ${config_file}"
 echo "save path is ${output_dir}"
