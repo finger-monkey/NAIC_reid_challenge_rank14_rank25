@@ -2,7 +2,7 @@ MODEL:
   PRETRAIN_CHOICE: 'imagenet'
   NAME: 'se_resnet50'
   PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet50-ce0d4300.pth'
-  METRIC_LOSS_TYPE: 'triplet_center'
+  METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'no'
   # Arc-face Loss, add by anxiang
