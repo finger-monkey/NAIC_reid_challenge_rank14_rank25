@@ -3,7 +3,7 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=/root/deepglint/models/${1}_all
+output_dir=/gpu/data2/deepglint/models${1}_all
 # train_root
 train_root=/gpu/data2/deepglint/dgreid/dataset/train_split4_rematch/all
 
