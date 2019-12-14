@@ -5,7 +5,6 @@ MODEL:
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
-  FP16_level: "O1"
 
 INPUT:
   SIZE_TRAIN: [576, 192]
