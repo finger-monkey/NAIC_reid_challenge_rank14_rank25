@@ -35,6 +35,9 @@ class ArcfaceLoss(Module):
         self.threshold = math.cos(math.pi - m)
 
     def forward(self, embbedings, label):
+        # feat_norm
+        embbedings = l2_norm(embbedings, axis=1)
+
         # weights norm
         nB = len(embbedings)
         kernel_norm = l2_norm(self.kernel, axis=0)
