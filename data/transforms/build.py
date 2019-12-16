@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 import torchvision.transforms as T
-
+import PIL
 from .transforms import RandomPatch
 
 
@@ -14,6 +14,14 @@ def build_transforms(cfg, is_train=True):
             T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
             T.Pad(cfg.INPUT.PADDING),
             T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
+            # add by anxiang
+            T.ColorJitter(
+                brightness=cfg.INPUT.BRIGHTNESS,
+                contrast=cfg.INPUT.CONTRAST,
+                saturation=cfg.INPUT.SATURATION,
+                hue=cfg.INPUT.HUE
+            ),
+            # add by anxiang
             RandomPatch(
                 prob_happen=cfg.INPUT.RANDOM_PATCH_PROB,
                 patch_max_area=cfg.INPUT.RANDOM_PATCH_AREA),
