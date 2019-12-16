@@ -24,7 +24,7 @@ def make_loss(cfg, num_classes):  # modified by gu
             embedding_size=2048,
             class_num=num_classes,
             s=64,
-            m=0.5
+            m=cfg.SOLVER.ARC_FACE_MARGIN
         )
 
     if cfg.MODEL.IF_LABELSMOOTH == 'on':

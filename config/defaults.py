@@ -173,3 +173,4 @@ _C.MODEL.FP16_level = "none"
 
 # Arc-face Loss
 _C.MODEL.IF_WITH_ARC_FACE_LOSS = 'no'
+_C.SOLVER.ARC_FACE_MARGIN = 0.5
