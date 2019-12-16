@@ -3,7 +3,7 @@
 import torchvision.transforms as T
 import PIL
 from .transforms import RandomPatch
-
+from .transforms import RandomGaussianBlur
 
 def build_transforms(cfg, is_train=True):
     normalize_transform = T.Normalize(mean=cfg.INPUT.PIXEL_MEAN, std=cfg.INPUT.PIXEL_STD)
@@ -14,6 +14,11 @@ def build_transforms(cfg, is_train=True):
             T.RandomHorizontalFlip(p=cfg.INPUT.PROB),
             T.Pad(cfg.INPUT.PADDING),
             T.RandomCrop(cfg.INPUT.SIZE_TRAIN),
+            # add by anxiang
+            RandomGaussianBlur(
+                prob_happen=cfg.INPUT.GAUSSIAN_BLUR_PROB,
+                radius=cfg.INPUT.GAUSSIAN_BLUR_RADIUS
+            ),
             # add by anxiang
             T.ColorJitter(
                 brightness=cfg.INPUT.BRIGHTNESS,
