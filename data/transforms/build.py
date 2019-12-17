@@ -40,10 +40,10 @@ def build_transforms(cfg, is_train=True):
             #     saturation=cfg.INPUT.SATURATION,
             #     hue=cfg.INPUT.HUE
             # ),
-            RandomRotation(
-                prob_happen=cfg.INPUT.ROTATE_PROB,
-                degrees=cfg.INPUT.ROTATE_DEGREE,
-            ),
+            # RandomRotation(
+            #     prob_happen=cfg.INPUT.ROTATE_PROB,
+            #     degrees=cfg.INPUT.ROTATE_DEGREE,
+            # ),
             # add by anxiang
             RandomPatch(
                 prob_happen=cfg.INPUT.RANDOM_PATCH_PROB,
