@@ -85,6 +85,7 @@ def main():
     content = f.read()
     dic = json.loads(content)
     cleaned_rank_dict_testA = {}
+    gallery_set = set()
     cleaned_count = 0
     for i in LABEL_DICT.keys():
         cur_query_name = LABEL_DICT[i][0]
@@ -97,6 +98,13 @@ def main():
             rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
             score = np.dot(query_cur_feat, rank_cur_feat)
             if score > rank_dirty_threshold:
+                #
+                if gallery_name in gallery_set:
+                    continue
+                else:
+                    gallery_set.add(gallery_name)
+
+                #
                 cleaned_ranklist.append(gallery_name)
                 cleaned_count += 1
             else:
