@@ -104,11 +104,11 @@ def main():
         cleaned_rank_dict_testA[cur_query_name] = cleaned_ranklist
     print(cleaned_count)
 
-    visualization_a(
-        cleaned_rank_dict_testA,
-        "/data/xiangan/reid_final/test/",
-        "/data/xiangan/vis_query"
-    )
+    # visualization_a(
+    #     cleaned_rank_dict_testA,
+    #     "/data/xiangan/reid_final/test/",
+    #     "/data/xiangan/vis_query"
+    # )
     count = 10000
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
