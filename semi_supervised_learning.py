@@ -74,7 +74,9 @@ def main():
 
     cls = AgglomerativeClustering(
         n_clusters=None,
-        linkage='average'
+        linkage='average',
+        affinity="cosine",
+        distance_threshold=0.6
     )
 
     cls.fit(testA_query_feats)
