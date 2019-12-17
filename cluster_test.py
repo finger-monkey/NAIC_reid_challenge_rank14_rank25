@@ -15,6 +15,19 @@ def process_info(info):
     return feats, img_names
 
 
+def visualization_a(rank_dict, test_root, output_root):
+    query_root = os.path.join(test_root, 'query_a')
+    gallery_root = os.path.join(test_root, 'gallery_a')
+    for query in rank_dict.keys():
+        query_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[query]), query))
+        os.makedirs(query_folder)
+        open(os.path.join(query_folder, query), 'wb').write(open(os.path.join(query_root, query), 'rb').read())
+        for ranid, neighbor in enumerate(rank_dict[query]):
+            target_path = os.path.join(query_folder, "%d_%s" % (ranid + 1, neighbor))
+            source_path = os.path.join(gallery_root, neighbor)
+            open(target_path, 'wb').write(open(source_path, 'rb').read())
+
+
 def visualization(rank_dict, test_root, output_root):
     for i in rank_dict.keys():
         each_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[i]), str(i)))
@@ -90,6 +103,11 @@ def main():
         cleaned_rank_dict_testA[cur_query_name] = cleaned_ranklist
     print(cleaned_count)
 
+    visualization_a(
+        cleaned_rank_dict_testA,
+        "/data/xiangan/reid_final/test/",
+        "/data/xiangan/vis_query"
+    )
 
     # for i in list(dic.keys()):
     #     origin_ranklist = dic[i][:10]
