@@ -7,6 +7,9 @@ from sklearn import preprocessing
 from sklearn.cluster import AgglomerativeClustering
 
 LABEL_DICT = {}
+# threshold
+rank_dirty_threshold = 0.7
+merge_threshold = 0.5
 
 
 def process_info(info):
@@ -39,9 +42,6 @@ def visualization(rank_dict, test_root, output_root):
 
 
 def main():
-    # threshold
-    rank_dirty_threshold = 0.6
-    merge_threshold = 0.5
     #
     # testA rank_list
     testA_ranklist = 'submission_jiankang_train_001.json'
@@ -79,6 +79,7 @@ def main():
     #     "/data/xiangan/reid_final/test/query_a",
     #     "/data/xiangan/vis_query"
     # )
+    print(len(set(cls.labels_)))
 
     f = open(testA_ranklist, encoding='utf-8')
     content = f.read()
