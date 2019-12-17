@@ -40,7 +40,7 @@ def visualization(rank_dict, test_root, output_root):
 
 def main():
     # threshold
-    rank_dirty_threshold = 0.7
+    rank_dirty_threshold = 0.6
     merge_threshold = 0.5
     #
     # testA rank_list
