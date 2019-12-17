@@ -73,6 +73,7 @@ def main():
     testA_query_feats, testA_query_img_names = process_info(testA_query_info)
 
     cls = AgglomerativeClustering(
+        n_clusters=None,
         linkage='average'
     )
 
