@@ -1,12 +1,9 @@
+import os
 import pickle
 
 import numpy as np
-import os
 from sklearn import preprocessing
 from sklearn.cluster import AgglomerativeClustering
-from tqdm import tqdm
-import json
-import copy
 
 
 def process_info(info):
