@@ -49,7 +49,7 @@ def main():
         n_clusters=None,
         linkage='average',
         affinity="cosine",
-        distance_threshold=0.5
+        distance_threshold=0.55
     )
 
     cls.fit(testA_query_feats)
