@@ -77,7 +77,7 @@ def main():
 
         query_cur_feat = testA_query_feats[testA_query_img_names.index(cur_query_name)]
         cleaned_ranklist = []
-        origin_ranklist = dic[i][:10]
+        origin_ranklist = dic[cur_query_name][:10]
 
         for gallery_name in origin_ranklist:
             rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
