@@ -14,8 +14,8 @@ def process_info(info):
 
 
 def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
-    gallery_info_2 = pickle.load(open('%s/gallery_feature.feat' % FEATURE, 'rb'))
-    query_info_2 = pickle.load(open('%s/query_feature.feat' % FEATURE, 'rb'))
+    gallery_info_2 = pickle.load(open('features/%s/gallery_feature.feat' % FEATURE, 'rb'))
+    query_info_2 = pickle.load(open('features/%s/query_feature.feat' % FEATURE, 'rb'))
     gallery_feats_2, gallery_imgnames_2 = process_info(gallery_info_2)
     query_feats_2, query_imgnames_2 = process_info(query_info_2)
     #
@@ -37,8 +37,8 @@ def main():
     FEATURE_4 = "guojia_train_003"
 
     # feature_1
-    gallery_info_1 = pickle.load(open('%s/gallery_feature.feat' % FEATURE_1, 'rb'))
-    query_info_1 = pickle.load(open('%s/query_feature.feat' % FEATURE_1, 'rb'))
+    gallery_info_1 = pickle.load(open('features/%s/gallery_feature.feat' % FEATURE_1, 'rb'))
+    query_info_1 = pickle.load(open('features/%s/query_feature.feat' % FEATURE_1, 'rb'))
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
