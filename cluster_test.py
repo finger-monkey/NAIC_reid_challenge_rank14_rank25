@@ -5,54 +5,30 @@ import numpy as np
 from sklearn import preprocessing
 from sklearn.cluster import AgglomerativeClustering
 
+LABEL_DICT = {}
+
 
 def process_info(info):
-    """"""
     feats, img_names = info
     feats = preprocessing.normalize(feats)
     return feats, img_names
 
 
-def get_clean_query(query_feats, query_imgnames, threshold):
-    # score matrix
-    query_sim = np.dot(query_feats, query_feats.T)
-    #
-    count = 0
-    # 0.9 0
-    # 0.7 17
-    # 0.6 160
-    # 0.5 789
-    dirty_id_set = set()
-    clean_id_set = set()
-    for idx, distance_arr in enumerate(query_sim):
-        if sum(distance_arr > threshold) > 1:
-            count += 1
-            dirty_id_set.add(query_imgnames[idx])
-        else:
-            clean_id_set.add(query_imgnames[idx])
+def visualization(rank_dict, test_root, output_root):
 
-    print('dirty id num is:  ', len(dirty_id_set))
-    print('clean id num is:  ', len(clean_id_set))
-    return clean_id_set
-
-
-def visualization_a(rank_dict, test_root, output_root):
-    query_root = os.path.join(test_root, 'query_a')
-    gallery_root = os.path.join(test_root, 'gallery_a')
-    for query in rank_dict.keys():
-        query_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[query]), query))
-        os.makedirs(query_folder)
-        open(os.path.join(query_folder, query), 'wb').write(open(os.path.join(query_root, query), 'rb').read())
-        for ranid, neighbor in enumerate(rank_dict[query]):
-            target_path = os.path.join(query_folder, "%d_%s" % (ranid + 1, neighbor))
-            source_path = os.path.join(gallery_root, neighbor)
+    for i in rank_dict.keys():
+        each_folder = os.path.join(output_root, "%d_%s" % (len(rank_dict[i]), str(i)))
+        os.makedirs(each_folder)
+        for ranid, neighbor in enumerate(rank_dict[i]):
+            target_path = os.path.join(each_folder, "%d_%s" % (ranid + 1, neighbor))
+            source_path = os.path.join(test_root, neighbor)
             open(target_path, 'wb').write(open(source_path, 'rb').read())
 
 
 def main():
     # threshold
     rank_dirty_threshold = 0.7
-    query_dirty_threshold = 0.6
+    merge_threshold = 0.6
     #
     # testA rank_list
     testA_ranklist = 'results/rerank_503_testA.json'
@@ -77,7 +53,20 @@ def main():
     )
 
     cls.fit(testA_query_feats)
-    print(len(set(cls.labels_)))
+
+    # generate label dict
+    for idx, _label in enumerate(cls.labels_):
+        if _label not in LABEL_DICT:
+            LABEL_DICT[_label] = [testA_query_img_names[idx]]
+        else:
+            assert isinstance(LABEL_DICT[_label], list)
+            LABEL_DICT[_label].append(testA_query_img_names[idx])
+
+    visualization(
+        LABEL_DICT,
+        "/data/xiangan/reid_final/test/query_a",
+        "/data/xiangan/vis_query"
+    )
 
     # # testB
     # testB_gallery_info = pickle.load(open('/home/xiangan/dgreid/features_testB/503/gallery_b_feature.feat', 'rb'))
