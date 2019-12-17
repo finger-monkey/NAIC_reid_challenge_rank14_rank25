@@ -77,7 +77,7 @@ def main():
     )
 
     cls.fit(testA_query_feats)
-    print(len(cls.labels_))
+    print(len(set(cls.labels_)))
 
     # # testB
     # testB_gallery_info = pickle.load(open('/home/xiangan/dgreid/features_testB/503/gallery_b_feature.feat', 'rb'))
