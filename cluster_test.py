@@ -88,7 +88,7 @@ def main():
             else:
                 break
         cleaned_rank_dict_testA[cur_query_name] = cleaned_ranklist
-    process_info(cleaned_count)
+    print(cleaned_count)
     # for i in list(dic.keys()):
     #     origin_ranklist = dic[i][:10]
     #     query_cur_feat = testA_query_feats[testA_query_img_names.index(query_name)]
