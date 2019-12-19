@@ -151,10 +151,10 @@ class Baseline(nn.Module):
             self.base = resnet50_ibn_a(last_stride)
 
         if pretrain_choice == 'imagenet':
-            if cfg.MODE.ADD_TEST_MODE == 'no':
+            if cfg.MODEL.ADD_TEST_MODE == 'no':
                 self.base.load_param(model_path)
                 print('Loading pretrained ImageNet model......')
-            elif cfg.MODE.ADD_TEST_MODE == 'yes':
+            elif cfg.MODEL.ADD_TEST_MODE == 'yes':
                 self.load_param(model_path)
                 print('===========================================')
         elif pretrain_choice == 'scratch':
