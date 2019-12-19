@@ -348,6 +348,7 @@ class SENet(nn.Module):
 
         if not isinstance(param_dict, dict):
             param_dict = param_dict.state_dict()
+        print(param_dict)
 
         for i in param_dict:
             if 'last_linear' in i:
