@@ -1,6 +1,7 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
   NAME: 'se_resnet50'
+  PRETRAIN_PATH: '/data/xiangan/models/reid/train_005_all/se_resnet50_model_80.pth'
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
@@ -44,7 +45,7 @@ SOLVER:
   GAMMA: 0.1
 
   WARMUP_FACTOR: 0.01
-  WARMUP_ITERS: 10
+  WARMUP_ITERS: 0
   WARMUP_METHOD: 'linear'
 
   CHECKPOINT_PERIOD: 10                                       #
