@@ -11,6 +11,7 @@ import torch.nn as nn
 from ignite.engine import Engine, Events
 from ignite.handlers import ModelCheckpoint, Timer
 from ignite.metrics import RunningAverage
+from sync_batchnorm.batchnorm import convert_model
 
 try:
     from apex import amp
@@ -38,6 +39,8 @@ def create_supervised_trainer(model, optimizer, loss_fn,
     Returns:
         Engine: a trainer engine with supervised update function
     """
+    raise ValueError("ERROR!")
+
     if device:
         if torch.cuda.device_count() > 1:
             model = nn.DataParallel(model)
@@ -86,6 +89,8 @@ def create_supervised_trainer_with_center(cfg, model, center_criterion, optimize
     if device:
         if torch.cuda.device_count() > 1:
             model = nn.DataParallel(model)
+            if cfg.MODEL.SYNC_BN == 'yes':
+                model = convert_model(model)
         model.to(device)
 
     def _update(engine, batch):
