@@ -154,9 +154,7 @@ class Baseline(nn.Module):
             if cfg.MODEL.ADD_TEST_MODE == 'no':
                 self.base.load_param(model_path)
                 print('Loading pretrained ImageNet model......')
-            elif cfg.MODEL.ADD_TEST_MODE == 'yes':
-                self.load_param(model_path)
-                print('===========================================')
+
         elif pretrain_choice == 'scratch':
             print('Training from scratch....')
 
@@ -230,6 +228,10 @@ class Baseline(nn.Module):
         self._init_fc(self.fc_id_256_2_0)
         self._init_fc(self.fc_id_256_2_1)
         self._init_fc(self.fc_id_256_2_2)
+
+        if pretrain_choice == 'imagenet' and cfg.MODEL.ADD_TEST_MODE == 'yes':
+            self.load_param(model_path)
+            print('===========================================')
 
     @staticmethod
     def _init_fc(fc):
