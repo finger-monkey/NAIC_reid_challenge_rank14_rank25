@@ -33,7 +33,7 @@ SOLVER:
   CENTER_LR: 0.5
   CENTER_LOSS_WEIGHT: 8e-5                                    #
 
-  MARGIN: 1.5                                                #
+  MARGIN: 1.5                                                 #
 
   # LR
   BIAS_LR_FACTOR: 1

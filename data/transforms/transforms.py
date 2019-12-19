@@ -9,7 +9,7 @@ import random
 from collections import deque
 
 import torch
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
 class RandomErasing(object):
@@ -241,3 +241,24 @@ class RandomSizedRectCrop(object):
         # Fallback
         scale = RectScale(self.height, self.width, interpolation=self.interpolation)
         return scale(img)
+
+
+class MyGaussianBlur(ImageFilter.Filter):
+    def __init__(self, radius=10):
+        self.radius = radius
+
+    def filter(self, image):
+        return image.gaussian_blur(self.radius)
+
+
+class RandomGaussianBlur(object):
+    def __init__(self, prob_happen=0.5, radius=10):
+        self.prob_happen = prob_happen
+        self.radius = radius
+        self.blur = MyGaussianBlur(radius=self.radius)
+
+    def __call__(self, img):
+        if random.uniform(0, 1) > self.prob_happen:
+            return img
+        else:
+            return img.filter(self.blur)
