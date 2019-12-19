@@ -60,7 +60,7 @@ class BatchDrop(nn.Module):
 class Baseline(nn.Module):
     in_planes = 2048
 
-    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice, ):
+    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice, cfg):
         super(Baseline, self).__init__()
         if model_name == 'resnet18':
             self.in_planes = 512
@@ -151,8 +151,12 @@ class Baseline(nn.Module):
             self.base = resnet50_ibn_a(last_stride)
 
         if pretrain_choice == 'imagenet':
-            self.base.load_param(model_path)
-            print('Loading pretrained ImageNet model......')
+            if cfg.MODE.ADD_TEST_MODE == 'no':
+                self.base.load_param(model_path)
+                print('Loading pretrained ImageNet model......')
+            elif cfg.MODE.ADD_TEST_MODE == 'yes':
+                self.load_param(model_path)
+                print('===========================================')
         elif pretrain_choice == 'scratch':
             print('Training from scratch....')
 
