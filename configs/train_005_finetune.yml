@@ -1,7 +1,6 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
   NAME: 'se_resnet50'
-  PRETRAIN_PATH: '/data/xiangan/pretrain_models/se_resnet50-ce0d4300.pth'
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
@@ -26,8 +25,8 @@ DATALOADER:
 
 SOLVER:
   OPTIMIZER_NAME: 'SGD'
-  MAX_EPOCHS: 80
-  BASE_LR: 5e-3                                               #
+  MAX_EPOCHS: 20
+  BASE_LR: 5e-4                                               #
 
   # center loss
   CENTER_LR: 0.5
@@ -41,7 +40,7 @@ SOLVER:
   WEIGHT_DECAY_BIAS: 0.0005
   IMS_PER_BATCH: 128
 
-  STEPS: [50, 70]
+  STEPS: [10]
   GAMMA: 0.1
 
   WARMUP_FACTOR: 0.01
@@ -50,7 +49,7 @@ SOLVER:
 
   CHECKPOINT_PERIOD: 10                                       #
   LOG_PERIOD: 100
-  EVAL_PERIOD: 80                                             #
+  EVAL_PERIOD: 10                                             #
 
 TEST:
   IMS_PER_BATCH: 128
