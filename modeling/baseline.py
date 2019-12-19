@@ -60,7 +60,7 @@ class BatchDrop(nn.Module):
 class Baseline(nn.Module):
     in_planes = 2048
 
-    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice, ):
+    def __init__(self, num_classes, last_stride, model_path, model_name, pretrain_choice, cfg):
         super(Baseline, self).__init__()
         if model_name == 'resnet18':
             self.in_planes = 512
@@ -151,8 +151,10 @@ class Baseline(nn.Module):
             self.base = resnet50_ibn_a(last_stride)
 
         if pretrain_choice == 'imagenet':
-            self.base.load_param(model_path)
-            print('Loading pretrained ImageNet model......')
+            if cfg.MODEL.ADD_TEST_MODE == 'no':
+                self.base.load_param(model_path)
+                print('Loading pretrained ImageNet model......')
+
         elif pretrain_choice == 'scratch':
             print('Training from scratch....')
 
@@ -227,6 +229,10 @@ class Baseline(nn.Module):
         self._init_fc(self.fc_id_256_2_1)
         self._init_fc(self.fc_id_256_2_2)
 
+        if pretrain_choice == 'imagenet' and cfg.MODEL.ADD_TEST_MODE == 'yes':
+            self.load_param(model_path)
+            print('===========================================')
+
     @staticmethod
     def _init_fc(fc):
         nn.init.kaiming_normal_(fc.weight, mode='fan_out')
@@ -295,7 +301,11 @@ class Baseline(nn.Module):
         if not isinstance(param_dict, dict):
             param_dict = param_dict.state_dict()
 
+        print(param_dict.keys())
         for i in param_dict:
             if 'classifier' in i:
                 continue
-            self.state_dict()[i].copy_(param_dict[i])
+            try:
+                self.state_dict()[i].copy_(param_dict[i])
+            except:
+                print(i)

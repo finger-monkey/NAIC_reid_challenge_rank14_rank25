@@ -25,10 +25,10 @@ def make_data_loader(cfg):
     num_classes = dataset.num_train_pids
     train_set = ImageDataset(dataset.train, train_transforms)
     if cfg.DATALOADER.SAMPLER == 'softmax':
-        train_loader = DataLoader(
-            train_set, batch_size=cfg.SOLVER.IMS_PER_BATCH, shuffle=True, num_workers=num_workers,
-            collate_fn=train_collate_fn
-        )
+        # train_loader = DataLoader(
+        #     train_set, batch_size=cfg.SOLVER.IMS_PER_BATCH, shuffle=True, num_workers=num_workers,
+        #     collate_fn=train_collate_fn
+        # )
         raise ValueError
     else:
         train_loader = DataLoader(

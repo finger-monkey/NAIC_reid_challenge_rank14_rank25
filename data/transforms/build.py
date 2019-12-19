@@ -20,7 +20,10 @@ class RandomRotation(object):
 
 
 def build_transforms(cfg, is_train=True):
-    normalize_transform = T.Normalize(mean=cfg.INPUT.PIXEL_MEAN, std=cfg.INPUT.PIXEL_STD)
+    normalize_transform = T.Normalize(
+        mean=cfg.INPUT.PIXEL_MEAN,
+        std=cfg.INPUT.PIXEL_STD
+    )
     if is_train:
 
         transform = T.Compose([
