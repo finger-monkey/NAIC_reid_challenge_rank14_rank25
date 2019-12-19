@@ -345,6 +345,10 @@ class SENet(nn.Module):
     
     def load_param(self, model_path):
         param_dict = torch.load(model_path)
+
+        if not isinstance(param_dict, dict):
+            param_dict = param_dict.state_dict()
+
         for i in param_dict:
             if 'last_linear' in i:
                 continue
