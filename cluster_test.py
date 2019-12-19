@@ -9,7 +9,7 @@ from sklearn.cluster import AgglomerativeClustering
 LABEL_DICT = {}
 # threshold
 rank_dirty_threshold = 0.7
-merge_threshold = 0.5
+merge_threshold = 0.45
 
 
 def process_info(info):
@@ -120,12 +120,12 @@ def main():
     count = 10000
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
-        output_name = os.path.join("/data/xiangan/reid_final/extra_1",
+        output_name = os.path.join("/data/xiangan/reid_final/extra_2",
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
-            input_path = os.path.join("//data/xiangan/reid_final/test/gallery_a", clean_name)
-            output_name = os.path.join("/data/xiangan/reid_final/extra_1",
+            input_path = os.path.join("/data/xiangan/reid_final/test/gallery_a", clean_name)
+            output_name = os.path.join("/data/xiangan/reid_final/extra_2",
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
 
