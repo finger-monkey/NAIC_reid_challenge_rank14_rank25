@@ -3,7 +3,7 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=/data/xiangan/models/reid/${1}_train_features
+output_dir=/data/xiangan/models/reid/${1}_all
 # train_root
 train_root=/data/xiangan/reid_final/four_fold/train_split4_rematch/all_origin
 # model_path
