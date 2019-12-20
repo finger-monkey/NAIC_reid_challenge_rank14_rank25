@@ -11,6 +11,7 @@ import torch.nn as nn
 from ignite.engine import Engine, Events
 from ignite.handlers import ModelCheckpoint, Timer
 from ignite.metrics import RunningAverage
+
 from sync_batchnorm.batchnorm import convert_model
 
 try:
@@ -39,7 +40,6 @@ def create_supervised_trainer(model, optimizer, loss_fn,
     Returns:
         Engine: a trainer engine with supervised update function
     """
-    raise ValueError("ERROR!")
 
     if device:
         if torch.cuda.device_count() > 1:
@@ -61,7 +61,8 @@ def create_supervised_trainer(model, optimizer, loss_fn,
         acc = (score[0].max(1)[1] == target).float().mean()
         return loss.item(), acc.item()
 
-    return Engine(_update)
+    raise ValueError("ERROR!")
+    # return Engine(_update)
 
 
 def create_supervised_trainer_with_center(cfg, model, center_criterion, optimizer, optimizer_center, loss_fn,
