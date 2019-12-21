@@ -301,7 +301,6 @@ class Baseline(nn.Module):
         if not isinstance(param_dict, dict):
             param_dict = param_dict.state_dict()
 
-        print(param_dict.keys())
         for i in param_dict:
             if 'classifier' in i:
                 continue
