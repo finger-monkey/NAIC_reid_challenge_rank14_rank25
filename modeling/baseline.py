@@ -304,7 +304,6 @@ class Baseline(nn.Module):
         for i in param_dict:
             if 'classifier' in i:
                 continue
-            try:
-                self.state_dict()[i].copy_(param_dict[i])
-            except:
-                print(i)
+
+            self.state_dict()[i].copy_(param_dict[i])
+
