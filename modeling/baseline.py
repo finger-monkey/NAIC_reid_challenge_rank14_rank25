@@ -315,6 +315,6 @@ class Baseline(nn.Module):
     def freeze_param(self):
         for name, param in self.named_parameters():
             if "fc_id" not in name and "reduction" not in name:
-                pass
+                param.requires_grad = False
             else:
-                print(name)
+                pass
