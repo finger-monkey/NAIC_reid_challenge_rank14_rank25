@@ -313,5 +313,5 @@ class Baseline(nn.Module):
             self.state_dict()[i].copy_(param_dict[i])
 
     def freeze_param(self):
-        for param in self.parameters():
-            print(param.name)
+        for name, param in self.named_parameters():
+            print(name)
