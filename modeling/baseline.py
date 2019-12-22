@@ -314,5 +314,7 @@ class Baseline(nn.Module):
 
     def freeze_param(self):
         for name, param in self.named_parameters():
-            if "fc_id" not in name or "reduction" not in name:
+            if "fc_id" not in name and "reduction" not in name:
+                pass
+            else:
                 print(name)
