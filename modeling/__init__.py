@@ -14,6 +14,7 @@ def build_model(cfg, num_classes):
         model_name=cfg.MODEL.NAME,
         pretrain_choice=cfg.MODEL.PRETRAIN_CHOICE,
         last_stride=2,
-        cfg=cfg
+        cfg=cfg,
+        freeze=cfg.MODEL.FREEZE
     )
     return model
