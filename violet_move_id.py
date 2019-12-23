@@ -48,8 +48,10 @@ def main():
         if check(image_path):
             p_id = image_name.split('_')[0]
             violet_set.add(p_id)
-    for p_id in violet_set:
-        print(p_id)
+
+    delete_img(violet_set, ONE_ROOT, ANOTHER_ROOT)
+    # for p_id in violet_set:
+    #     print(p_id)
 
 
 if __name__ == '__main__':
