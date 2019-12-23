@@ -1,15 +1,15 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  NAME: 'se_resnet101'
-  PRETRAIN_PATH: 'se_resnet101-7e38fcc6.pth'
+  NAME: 'se_resnet50'
+  PRETRAIN_PATH: 'se_resnet50-ce0d4300.pth'
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
   FP16_level: "O1"
 
 INPUT:
-  SIZE_TRAIN: [576, 192]
-  SIZE_TEST: [576, 192]
+  SIZE_TRAIN: [384, 128]
+  SIZE_TEST: [384, 128]
   # random horizontal flip
   PROB: 0.5
   PADDING: 10
