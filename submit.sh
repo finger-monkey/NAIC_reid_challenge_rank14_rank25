@@ -14,7 +14,7 @@ echo "save path is ${output_dir}"
 
 python get_features.py \
     --config_file=${config_file} \
-    MODEL.DEVICE_ID "('0,1,2,3,4,5,6,7,8')" \
+    MODEL.DEVICE_ID "('0')" \
     DATASETS.ROOT_DIR ${train_root} \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model_path}')" \

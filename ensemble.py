@@ -4,7 +4,14 @@ import pickle
 import numpy as np
 import torch
 from sklearn import preprocessing
+
 from rerank.rerank_kreciprocal import re_ranking
+
+FEATURE_LIST = [
+    "jiankang_train_001", "apex_002"
+]
+
+ENSEMBLE_NAME = "xxx"
 
 
 def process_info(info):
@@ -33,19 +40,26 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
 
 
 def main():
-    FEATURE_1 = "jiankang_train_001"
-    FEATURE_4 = "guojia_train_003"
+    assert len(FEATURE_LIST) > 1
 
     # feature_1
+    FEATURE_1 = FEATURE_LIST[0]
+
     gallery_info_1 = pickle.load(open('features/%s/gallery_feature.feat' % FEATURE_1, 'rb'))
     query_info_1 = pickle.load(open('features/%s/query_feature.feat' % FEATURE_1, 'rb'))
     gallery_feats_1, gallery_imgnames_1 = process_info(gallery_info_1)
     query_feats_1, query_imgnames_1 = process_info(query_info_1)
 
-    qf_4, gf_4 = get(FEATURE_4, query_imgnames_1, gallery_imgnames_1)
+    # concat feat
+    concat_query_list = [query_feats_1]
+    concat_gallery_list = [gallery_feats_1]
+    for _FEATURE in FEATURE_LIST[1:]:
+        _query_feat, _gallery_feat = get(_FEATURE, query_imgnames_1, gallery_imgnames_1)
+        concat_query_list.append(_query_feat)
+        concat_gallery_list.append(_gallery_feat)
 
-    query_feats = np.concatenate((query_feats_1, qf_4), axis=1)
-    gallery_feats = np.concatenate((gallery_feats_1, gf_4), axis=1)
+    query_feats = np.concatenate(concat_query_list, axis=1)
+    gallery_feats = np.concatenate(concat_gallery_list, axis=1)
 
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
@@ -71,7 +85,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('ensemble_x2.json', 'w', encoding='utf-8') as f:
+    with open('ensemble_%s.json' % ENSEMBLE_NAME, 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
