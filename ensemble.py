@@ -8,7 +8,7 @@ from sklearn import preprocessing
 from rerank.rerank_kreciprocal import re_ranking
 
 FEATURE_LIST = [
-    "jiankang_train_001", "apex_002"
+    "jiankang_train_001", "apex_002", "apex_003"
 ]
 
 ENSEMBLE_NAME = "xxx"
