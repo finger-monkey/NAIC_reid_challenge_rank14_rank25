@@ -2,7 +2,7 @@ import cv2
 import os
 import shutil
 from numpy import mean
-
+from tqdm import tqdm
 ROOT = '/data/xiangan/reid_final/all/bounding_box_train'
 
 
@@ -25,7 +25,7 @@ def main():
     violet_set = set()
     image_name_list = os.listdir(ROOT)
 
-    for image_name in image_name_list:
+    for image_name in tqdm(image_name_list):
 
         # get image path
         image_path = os.path.join(ROOT, image_name)
