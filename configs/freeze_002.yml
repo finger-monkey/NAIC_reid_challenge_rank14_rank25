@@ -1,11 +1,12 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  NAME: 'se_resnet50'
-  PRETRAIN_PATH: 'se_resnet50-ce0d4300.pth'
+  NAME: 'se_resnet101'
+  PRETRAIN_PATH: 'se_resnet101-7e38fcc6.pth'
   METRIC_LOSS_TYPE: 'triplet_center'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
   FP16_level: "O1"
+  FREEZE: 'yes'
 
 INPUT:
   SIZE_TRAIN: [384, 128]

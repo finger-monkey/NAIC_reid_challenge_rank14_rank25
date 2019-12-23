@@ -189,3 +189,9 @@ _C.SOLVER.ARC_FACE_MARGIN = 0.5
 
 # Pretrain
 _C.MODEL.ADD_TEST_MODE = 'no'
+
+# Freeze
+_C.MODEL.FREEZE = 'no'
+
+# Laststride
+_C.MODEL.LASTSTRIDE = 2

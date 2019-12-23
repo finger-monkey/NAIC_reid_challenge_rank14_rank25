@@ -6,6 +6,7 @@ MODEL:
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
   FP16_level: "O1"
+  LASTSTRIDE: 1
 
 INPUT:
   SIZE_TRAIN: [384, 128]
