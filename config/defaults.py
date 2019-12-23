@@ -192,3 +192,6 @@ _C.MODEL.ADD_TEST_MODE = 'no'
 
 # Freeze
 _C.MODEL.FREEZE = 'no'
+
+# Laststride
+_C.MODEL.LASTSTRIDE = 2

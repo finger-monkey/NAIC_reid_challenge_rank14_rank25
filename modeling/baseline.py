@@ -61,8 +61,8 @@ class Baseline(nn.Module):
     in_planes = 2048
 
     def __init__(self, num_classes, last_stride, model_path, model_name,
-                 pretrain_choice, cfg, freeze):
-        self.freeze = freeze
+                 pretrain_choice):
+
         super(Baseline, self).__init__()
         if model_name == 'resnet18':
             self.in_planes = 512
@@ -291,8 +291,6 @@ class Baseline(nn.Module):
         #
         final_feature = torch.cat([fg_p1, fg_p2, fg_p3, f0_p2, f1_p2, f0_p3, f1_p3, f2_p3], dim=1)
 
-        if self.freeze == 'yes':
-            self.freeze_param()
 
         if self.training:
             return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3, final_feature)
@@ -311,10 +309,3 @@ class Baseline(nn.Module):
                 continue
 
             self.state_dict()[i].copy_(param_dict[i])
-
-    def freeze_param(self):
-        for name, param in self.named_parameters():
-            if "fc_id" not in name and "reduction" not in name:
-                param.requires_grad = False
-            else:
-                pass
