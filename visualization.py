@@ -9,7 +9,7 @@ import numpy as np
 Q_ROOT = "D:/reid_final/test_set/query_a/"
 G_ROOT = "D:/reid_final/test_set/gallery_a/"
 
-ranklist = "results/rerank_all001.json"
+ranklist = "rerank_apex_002.json"
 
 
 def main():
