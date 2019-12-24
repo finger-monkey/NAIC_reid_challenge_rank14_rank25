@@ -44,7 +44,7 @@ def visualization(rank_dict, test_root, output_root):
 def main():
     #
     # testA rank_list
-    testA_ranklist = 'submission_jiankang_train_001.json'
+    testA_ranklist = 'ensemble_xxx.json'
 
     # testA
     testA_gallery_info = pickle.load(open(
