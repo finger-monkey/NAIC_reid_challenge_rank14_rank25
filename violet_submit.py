@@ -35,9 +35,17 @@ gallery_feats = np.concatenate([gallery_feats_origin, gallery_feats_violet])
 query_imgnames = query_imgnames_origin + query_imgnames_violet
 gallery_imgnames = gallery_imgnames_origin + gallery_imgnames_violet
 
+assert len(query_imgnames) == query_feats.shape[0]
+assert len(gallery_imgnames) == gallery_feats.shape[0]
+assert len(query_imgnames) == 4849
+assert len(gallery_imgnames) == 66610
+
+
 #
 query_feats = torch.from_numpy(query_feats)
 gallery_feats = torch.from_numpy(gallery_feats)
+
+
 sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.80)
 
 # sim = np.dot(query_feats, gallery_feats.T)
