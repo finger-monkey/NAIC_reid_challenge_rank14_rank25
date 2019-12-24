@@ -66,7 +66,7 @@ def main():
 
     query_feats = torch.from_numpy(query_feats)
     gallery_feats = torch.from_numpy(gallery_feats)
-    sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.81)
+    sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.80)
     # rerank1 7 3 0.85
     # rerank2 7 3 0.8
     # rerank3 6 3 0.8
