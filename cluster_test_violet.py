@@ -8,7 +8,7 @@ from sklearn.cluster import AgglomerativeClustering
 
 LABEL_DICT = {}
 # threshold
-rank_dirty_threshold = 0.7
+rank_dirty_threshold = 0.8
 merge_threshold = 0.6
 
 
@@ -87,7 +87,7 @@ def main():
 
         query_cur_feat = testA_query_feats[testA_query_img_names.index(cur_query_name)]
         cleaned_ranklist = []
-        origin_ranklist = dic[cur_query_name][:30]
+        origin_ranklist = dic[cur_query_name][:100]
 
         for gallery_name in origin_ranklist:
             try:
