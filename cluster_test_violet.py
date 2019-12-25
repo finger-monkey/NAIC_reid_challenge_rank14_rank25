@@ -44,14 +44,14 @@ def visualization(rank_dict, test_root, output_root):
 def main():
     #
     # testA rank_list
-    testA_ranklist = 'ensemble_x2_12_22.json'
+    testA_ranklist = '/home/xiangan/submissions/rerank_jiankang_train_001.json'
 
     # testA
     testA_gallery_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/apex_003_test_violet/gallery_feature.feat', 'rb')
+        '/home/xiangan/dgreid/features/jiankang_train_001_test_violet/gallery_feature.feat', 'rb')
     )
     testA_query_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/apex_003_test_violet/query_feature.feat', 'rb')
+        '/home/xiangan/dgreid/features/jiankang_train_001_test_violet/query_feature.feat', 'rb')
     )
 
     testA_gallery_feats, testA_gallery_img_names = process_info(testA_gallery_info)
