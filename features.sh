@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
 
-config_file="configs/apex_003.yml"
+config_file="configs/jiankang_train_001.yml"
 dataset="/data/xiangan/reid_final/all"
-model=/data/xiangan/models/reid/apex_003_all/se_resnet50_model_80.pth
+model=/data/xiangan/models/reid/jiankang_train_001_all/se_resnet101_model_80.pth
 
 python get_features_origin.py \
     --config_file=$config_file \
@@ -11,7 +11,7 @@ python get_features_origin.py \
     DATASETS.ROOT_DIR  $dataset \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model}')" \
-    OUTPUT_DIR "('./features/apex_003_test_origin')"
+    OUTPUT_DIR "('./features/jiankang_train_001_test_origin')"
 
 
 python get_features_violet.py \
@@ -20,6 +20,6 @@ python get_features_violet.py \
     DATASETS.ROOT_DIR $dataset \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model}')" \
-    OUTPUT_DIR "('./features/apex_003_test_violet')"
+    OUTPUT_DIR "('./features/jiankang_train_001_test_violet')"
 
 
