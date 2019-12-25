@@ -9,7 +9,7 @@ from sklearn.cluster import AgglomerativeClustering
 LABEL_DICT = {}
 # threshold
 rank_dirty_threshold = 0.85
-merge_threshold = 0.2
+merge_threshold = 0.4
 
 
 def process_info(info):
