@@ -90,7 +90,10 @@ def main():
         origin_ranklist = dic[cur_query_name][:30]
 
         for gallery_name in origin_ranklist:
-            rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
+            try:
+                rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
+            except:
+                continue
             score = np.dot(query_cur_feat, rank_cur_feat)
             if score > rank_dirty_threshold:
                 #
