@@ -9,7 +9,7 @@ from sklearn.cluster import AgglomerativeClustering
 LABEL_DICT = {}
 # threshold
 rank_dirty_threshold = 0.6
-merge_threshold = 0.45
+merge_threshold = 0.6
 
 
 def process_info(info):
@@ -44,14 +44,14 @@ def visualization(rank_dict, test_root, output_root):
 def main():
     #
     # testA rank_list
-    testA_ranklist = 'submission_jiankang_train_001.json'
+    testA_ranklist = 'ensemble_x2_12_22.json'
 
     # testA
     testA_gallery_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/jiankang_train_001/gallery_feature.feat', 'rb')
+        '/home/xiangan/dgreid/features/apex_003_test_violet/gallery_feature.feat', 'rb')
     )
     testA_query_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/jiankang_train_001/query_feature.feat', 'rb')
+        '/home/xiangan/dgreid/features/apex_003_test_violet/query_feature.feat', 'rb')
     )
 
     testA_gallery_feats, testA_gallery_img_names = process_info(testA_gallery_info)
@@ -74,11 +74,6 @@ def main():
             assert isinstance(LABEL_DICT[_label], list)
             LABEL_DICT[_label].append(testA_query_img_names[idx])
 
-    # visualization(
-    #     LABEL_DICT,
-    #     "/data/xiangan/reid_final/test/query_a",
-    #     "/data/xiangan/vis_query"
-    # )
     print(len(set(cls.labels_)))
 
     f = open(testA_ranklist, encoding='utf-8')
@@ -112,22 +107,19 @@ def main():
         cleaned_rank_dict_testA[cur_query_name] = cleaned_ranklist
     print(cleaned_count)
 
-
-    count = 10000
+    count = 20000
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
-        output_name = os.path.join("/data/xiangan/reid_final/extra_2",
+        output_name = os.path.join("/data/xiangan/reid_extra/extra_4",
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
             input_path = os.path.join("/data/xiangan/reid_final/test/gallery_a", clean_name)
-            output_name = os.path.join("/data/xiangan/reid_final/extra_2",
+            output_name = os.path.join("/data/xiangan/reid_extra/extra_4",
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
 
         count += 1
-
-
 
     # for i in list(dic.keys()):
     #     origin_ranklist = dic[i][:10]
