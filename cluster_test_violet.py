@@ -8,7 +8,7 @@ from sklearn.cluster import AgglomerativeClustering
 
 LABEL_DICT = {}
 # threshold
-rank_dirty_threshold = 0.6
+rank_dirty_threshold = 0.7
 merge_threshold = 0.6
 
 
