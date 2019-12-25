@@ -81,6 +81,8 @@ def main():
     dic = json.loads(content)
     cleaned_rank_dict_testA = {}
     gallery_set = set()
+    clean_set = set()
+    dirty_count = 0
     cleaned_count = 0
     for i in LABEL_DICT.keys():
         cur_query_name = LABEL_DICT[i][0]
@@ -100,6 +102,10 @@ def main():
                 if gallery_name in gallery_set:
                     continue
                 else:
+                    if gallery_name in clean_set:
+                        dirty_count += 1
+                    else:
+                        clean_set.add(gallery_name)
                     gallery_set.add(gallery_name)
 
                 #
@@ -109,7 +115,8 @@ def main():
                 break
         cleaned_rank_dict_testA[cur_query_name] = cleaned_ranklist
     print(cleaned_count)
-
+    print(len(clean_set))
+    print(dirty_count)
     count = 20000
     for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
