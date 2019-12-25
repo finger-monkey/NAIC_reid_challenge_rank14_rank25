@@ -99,14 +99,14 @@ def main():
             score = np.dot(query_cur_feat, rank_cur_feat)
             if score > rank_dirty_threshold:
                 #
-                if gallery_name in gallery_set:
-                    continue
+                # if gallery_name in gallery_set:
+                #     continue
+                # else:
+                if gallery_name in clean_set:
+                    dirty_count += 1
                 else:
-                    if gallery_name in clean_set:
-                        dirty_count += 1
-                    else:
-                        clean_set.add(gallery_name)
-                    gallery_set.add(gallery_name)
+                    clean_set.add(gallery_name)
+                gallery_set.add(gallery_name)
 
                 #
                 cleaned_ranklist.append(gallery_name)
