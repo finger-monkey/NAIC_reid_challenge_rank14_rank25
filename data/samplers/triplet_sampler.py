@@ -150,7 +150,10 @@ class RandomIdentitySampler_all(Sampler):
             if len(idxs) < self.num_instances:
                 idxs = np.random.choice(idxs, size=self.num_instances, replace=True)
             elif len(idxs) < 100:
-                idxs = np.random.choice(idxs, size=len(idxs) * 2, replace=True)
+                if int(pid) > 20000:
+                    idxs = np.random.choice(idxs, size=len(idxs) * 4, replace=True)
+                else:
+                    idxs = np.random.choice(idxs, size=len(idxs) * 2, replace=True)
             pidslib += [pid] * len(idxs)
             random.shuffle(idxs)
             batch_idxs = []
