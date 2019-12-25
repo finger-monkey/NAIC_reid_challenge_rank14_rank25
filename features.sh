@@ -19,7 +19,7 @@ python get_features_violet.py \
     MODEL.DEVICE_ID "('0')" \
     DATASETS.ROOT_DIR $dataset \
     MODEL.PRETRAIN_CHOICE "('self')" \
-    TEST.WEIGHT "('/data/xiangan/models/reid/jiankang_train_001/se_resnet101_model_80.pth')" \
+    TEST.WEIGHT "('/data/xiangan/models/reid/jiankang_train_001_all/se_resnet101_model_80.pth')" \
     OUTPUT_DIR "('./features/jiankang_train_001_test_violet')"
 
 
