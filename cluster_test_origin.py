@@ -101,9 +101,9 @@ def main():
             else:
                 break
         cleaned_rank_dict_testA[cur_query_name] = cleaned_rank_list
-    print(cleaned_count)
-    print(len(clean_set))
-    print(dirty_count)
+    print('cleaned:', cleaned_count)
+    print('clean_set length:', len(clean_set))
+    print('dirty_cout:', dirty_count)
     count = 15000
 
     output_path = "/data/xiangan/reid_extra/%s" % OUTPUT_NAME
