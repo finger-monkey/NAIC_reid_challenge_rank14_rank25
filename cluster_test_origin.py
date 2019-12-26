@@ -67,8 +67,9 @@ def main():
 
     cleaned_rank_dict_testA = {}
 
-    clean_set = set()
     dirty_count = 0
+    dirty_query_set = set()
+
     cleaned_count = 0
     gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
@@ -83,8 +84,6 @@ def main():
         cleaned_rank_list = []
         origin_rank_list = dic[cur_query_name][:100]
 
-
-
         for gallery_name in origin_rank_list:
             try:
                 rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
@@ -96,6 +95,7 @@ def main():
                     print(gallery2query_dict[gallery_name])
                     print("%s vs %s" % (gallery2query_dict[gallery_name], cur_query_name))
                     dirty_count += 1
+                    dirty_query_set.add(cur_query_name)
                 else:
                     gallery2query_dict[gallery_name] = cur_query_name
 
@@ -114,6 +114,10 @@ def main():
         os.makedirs(output_path)
 
     for query, clean_list in cleaned_rank_dict_testA.items():
+
+        if query in dirty_query_set:
+            continue
+
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
         output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
                                    "%d_c1_%s" % (count, query))
