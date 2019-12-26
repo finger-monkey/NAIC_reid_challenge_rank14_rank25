@@ -70,6 +70,7 @@ def main():
     clean_set = set()
     dirty_count = 0
     cleaned_count = 0
+    gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
 
         # query name
@@ -82,7 +83,6 @@ def main():
         cleaned_rank_list = []
         origin_rank_list = dic[cur_query_name][:100]
 
-        gallery2query_dict = {}
 
 
         for gallery_name in origin_rank_list:
