@@ -5,6 +5,7 @@ from tqdm import tqdm
 import numpy as np
 from sklearn import preprocessing
 from sklearn.cluster import AgglomerativeClustering
+from tqdm import tqdm
 
 LABEL_DICT = {}
 
@@ -21,6 +22,7 @@ RANK_LIST = 'ensemble_xxx.json'
 
 # output name
 OUTPUT_NAME = "test1"
+
 
 def process_info(info):
     feats, img_names = info
