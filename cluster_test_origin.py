@@ -78,7 +78,7 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = dic[cur_query_name][:200]
+        origin_rank_list = dic[cur_query_name][:100]
 
         for gallery_name in origin_rank_list:
             try:
