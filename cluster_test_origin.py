@@ -110,7 +110,7 @@ def main():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    for query, clean_list in tqdm(cleaned_rank_dict_testA.items()):
+    for query, clean_list in cleaned_rank_dict_testA.items():
         input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
         output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
                                    "%d_c1_%s" % (count, query))
