@@ -8,8 +8,8 @@ MODEL:
   FP16_level: "O1"
 
 INPUT:
-  SIZE_TRAIN: [384, 128]
-  SIZE_TEST: [384, 128]
+  SIZE_TRAIN: [576, 192]
+  SIZE_TEST: [576, 192]
   # random horizontal flip
   PROB: 0.5
   PADDING: 10
