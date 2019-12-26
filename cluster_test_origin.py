@@ -70,7 +70,7 @@ def main():
     clean_set = set()
     dirty_count = 0
     cleaned_count = 0
-    for i in LABEL_DICT.keys():
+    for i in tqdm(LABEL_DICT.keys()):
 
         # query name
         cur_query_name = LABEL_DICT[i][0]
