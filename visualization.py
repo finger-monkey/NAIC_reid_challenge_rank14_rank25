@@ -9,7 +9,7 @@ import numpy as np
 Q_ROOT = "D:/reid_final/test_set/query_a/"
 G_ROOT = "D:/reid_final/test_set/gallery_a/"
 
-ranklist = "rerank_apex_002.json"
+ranklist = "rerank_final_001.json"
 
 
 def main():
@@ -32,7 +32,7 @@ def main():
 
         if idx != 0 and idx % 20 == 0:
             img_matrix = np.concatenate(img_matrix, axis=0)
-            cv2.imwrite("bad_case/%d.png" % idx, img_matrix)
+            cv2.imwrite("bad_case_3/%d.png" % idx, img_matrix)
             img_matrix = []
 
 
