@@ -82,6 +82,9 @@ def main():
         cleaned_rank_list = []
         origin_rank_list = dic[cur_query_name][:100]
 
+        gallery2query_dict = {}
+
+
         for gallery_name in origin_rank_list:
             try:
                 rank_cur_feat = testA_gallery_feats[testA_gallery_img_names.index(gallery_name)]
@@ -89,11 +92,12 @@ def main():
                 continue
             score = np.dot(query_cur_feat, rank_cur_feat)
             if score > RANK_DIRTY_THRESHOLD:
-
-                if gallery_name in clean_set:
+                if gallery_name in gallery2query_dict:
+                    print(gallery2query_dict[gallery_name])
+                    print("%s vs %s" % (gallery2query_dict[gallery_name], cur_query_name))
                     dirty_count += 1
                 else:
-                    clean_set.add(gallery_name)
+                    gallery2query_dict[gallery_name] = cur_query_name
 
                 #
                 cleaned_rank_list.append(gallery_name)
@@ -102,7 +106,6 @@ def main():
                 break
         cleaned_rank_dict_testA[cur_query_name] = cleaned_rank_list
     print('cleaned:', cleaned_count)
-    print('clean_set length:', len(clean_set))
     print('dirty_cout:', dirty_count)
     count = 15000
 
