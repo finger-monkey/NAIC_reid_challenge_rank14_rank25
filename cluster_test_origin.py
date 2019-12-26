@@ -92,7 +92,7 @@ def main():
                 continue
             score = np.dot(query_cur_feat, rank_cur_feat)
             if score > RANK_DIRTY_THRESHOLD:
-                if gallery_name in gallery2query_dict:
+                if gallery_name in gallery2query_dict.keys():
                     print(gallery2query_dict[gallery_name])
                     print("%s vs %s" % (gallery2query_dict[gallery_name], cur_query_name))
                     dirty_count += 1
