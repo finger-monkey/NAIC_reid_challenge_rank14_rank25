@@ -250,11 +250,11 @@ class Baseline(nn.Module):
         if self.attention:
             self.feature_score = AttentionModule(6144)
             # conv
-            nn.init.kaiming_normal_(self.feature_score[0].weight, mode='fan_in')
-            nn.init.constant_(self.feature_score[0].bias, 0.)
+            nn.init.kaiming_normal_(self.feature_score.fc1.weight, mode='fan_in')
+            nn.init.constant_(self.feature_score.fc1.bias, 0.)
             # conv
-            nn.init.kaiming_normal_(self.feature_score[1].weight, mode='fan_in')
-            nn.init.constant_(self.feature_score[1].bias, 0.)
+            nn.init.kaiming_normal_(self.feature_score.fc2.weight, mode='fan_in')
+            nn.init.constant_(self.feature_score.fc2.bias, 0.)
 
         # if pretrain_choice == 'imagenet' and cfg.MODEL.ADD_TEST_MODE == 'yes':
         #     self.load_param(model_path)
