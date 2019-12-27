@@ -307,14 +307,14 @@ class Baseline(nn.Module):
             attention_p = torch.cat((zg_p1, zg_p2, zg_p3), dim=1)
             scores = self.feature_score(attention_p).squeeze(dim=3).squeeze(dim=2)
 
-            fg_p1 = scores[:, 0] * fg_p1
-            fg_p2 = scores[:, 1] * fg_p2
-            fg_p3 = scores[:, 2] * fg_p3
-            f0_p2 = scores[:, 3] * f0_p2
-            f1_p2 = scores[:, 4] * f1_p2
-            f0_p3 = scores[:, 5] * f0_p3
-            f1_p3 = scores[:, 6] * f1_p3
-            f2_p3 = scores[:, 7] * f2_p3
+            fg_p1 = scores[:, 0].reshape((-1, 1)) * fg_p1
+            fg_p2 = scores[:, 1].reshape((-1, 1)) * fg_p2
+            fg_p3 = scores[:, 2].reshape((-1, 1)) * fg_p3
+            f0_p2 = scores[:, 3].reshape((-1, 1)) * f0_p2
+            f1_p2 = scores[:, 4].reshape((-1, 1)) * f1_p2
+            f0_p3 = scores[:, 5].reshape((-1, 1)) * f0_p3
+            f1_p3 = scores[:, 6].reshape((-1, 1)) * f1_p3
+            f2_p3 = scores[:, 7].reshape((-1, 1)) * f2_p3
 
         l_p1 = self.fc_id_2048_0(self.relu(fg_p1))
         l_p2 = self.fc_id_2048_1(self.relu(fg_p2))
