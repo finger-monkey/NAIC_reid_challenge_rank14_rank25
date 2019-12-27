@@ -195,3 +195,6 @@ _C.MODEL.FREEZE = 'no'
 
 # Laststride
 _C.MODEL.LASTSTRIDE = 2
+
+# Attention
+_C.MODEL.ATTENTION = 'no'
