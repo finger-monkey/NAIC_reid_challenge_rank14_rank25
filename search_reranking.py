@@ -141,5 +141,5 @@ def main():
         #
         pid = int(image_name.split('_')[0])
         camid = int(image_name.split('_')[1])
-        reid_metric.update((query_gallery_feat[index], pid, camid))
+        reid_metric.update((query_gallery_feat[index], [pid], [camid]))
     print(reid_metric.compute())
