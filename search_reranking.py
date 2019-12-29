@@ -116,8 +116,14 @@ class ReidMetric(Metric):
             cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
         else:
             #
-            distmat = np.dot(qf, gf.T)
+            assert isinstance(gf, torch.Tensor)
+            distmat = torch.dot(qf, gf.T)
+            distmat = -distmat
             cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
+
+        print("mAP: {:.1%}".format(mAP))
+        for r in [1, 5, 10]:
+            print().info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
         return cmc, mAP
 
 
@@ -138,7 +144,7 @@ def main():
         pid = int(image_name.split('_')[0])
         camid = image_name.split('_')[1]
         reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
-    print(reid_metric.compute())
+    print(reid_metric.compute(re_rank=None))
 
 
 if __name__ == '__main__':
