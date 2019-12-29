@@ -61,7 +61,8 @@ def main():
     cudnn.benchmark = True
 
     # _1, _2, _3, num_classes = make_data_loader(cfg)
-    model = build_model(cfg, 1111)
+    # model = build_model(cfg, 1111)
+    model = build_model(cfg, 7476)
     model.load_param(cfg.TEST.WEIGHT)
 
     # gpu_device
