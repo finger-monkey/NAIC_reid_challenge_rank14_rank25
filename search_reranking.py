@@ -137,7 +137,7 @@ def main():
         #
         pid = int(image_name.split('_')[0])
         camid = image_name.split('_')[1]
-        reid_metric.update((query_gallery_feat[index], [pid], [camid]))
+        reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
     print(reid_metric.compute())
 
 
