@@ -97,7 +97,7 @@ class ReidMetric(Metric):
     def compute(self, re_rank=None):
         feats = torch.cat(self.feats, dim=0)
         if self.feat_norm == 'yes':
-            print("The test feature is normalized")
+
             feats = torch.nn.functional.normalize(feats, dim=1, p=2)
 
         # query
