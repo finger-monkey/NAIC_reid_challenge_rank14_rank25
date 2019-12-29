@@ -152,7 +152,7 @@ def main():
                 kw = {
                     'k1':k1,
                     'k2':k2,
-                    'lambda':l
+                    'lambda_value':l
                 }
                 reid_metric.compute(re_rank=kw)
 
