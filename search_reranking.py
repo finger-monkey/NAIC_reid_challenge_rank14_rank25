@@ -117,7 +117,7 @@ class ReidMetric(Metric):
         else:
             #
             assert isinstance(gf, torch.Tensor)
-            distmat = torch.dot(qf, gf.T)
+            distmat = np.dot(qf, gf.T)
             distmat = -distmat
             cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
 
