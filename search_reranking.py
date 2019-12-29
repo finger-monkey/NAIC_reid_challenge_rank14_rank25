@@ -144,7 +144,17 @@ def main():
         pid = int(image_name.split('_')[0])
         camid = image_name.split('_')[1]
         reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
-    print(reid_metric.compute(re_rank=None))
+
+    for k1 in [7]:
+        for k2 in [3]:
+            for l in [0.7, 0.8, 0.85]:
+                print(k1, k2, l)
+                kw = {
+                    'k1':k1,
+                    'k2':k2,
+                    'lambda':l
+                }
+                reid_metric.compute(**kw)
 
 
 if __name__ == '__main__':
