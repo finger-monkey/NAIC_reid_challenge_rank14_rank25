@@ -147,7 +147,7 @@ def main():
 
     for k1 in [7]:
         for k2 in [3]:
-            for l in [0.7, 0.8, 0.85]:
+            for l in [0.4, 0.5, 0.6, 0.7, 0.8, 0.85]:
                 print(k1, k2, l)
                 kw = {
                     'k1':k1,
