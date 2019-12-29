@@ -143,3 +143,7 @@ def main():
         camid = int(image_name.split('_')[1])
         reid_metric.update((query_gallery_feat[index], [pid], [camid]))
     print(reid_metric.compute())
+
+
+if __name__ == '__main__':
+    main()
