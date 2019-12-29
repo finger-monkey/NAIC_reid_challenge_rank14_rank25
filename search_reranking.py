@@ -110,13 +110,8 @@ class ReidMetric(Metric):
         g_pids = np.asarray(self.pids[self.num_query:])
         g_camids = np.asarray(self.camids[self.num_query:])
 
-        assert isinstance(qf, np.ndarray)
-        assert isinstance(gf, np.ndarray)
-
         if re_rank is not None:
             #
-            qf = torch.from_numpy(qf)
-            gf = torch.from_numpy(gf)
             distmat = re_ranking(qf, gf, **re_rank)
             cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
         else:
@@ -136,7 +131,8 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
 
     reid_metric = ReidMetric(num_query=len(query_imgnames))
-    query_gallery_feat = np.concatenate((query_feats, gallery_feats), axis=0)
+    query_gallery_feat = torch.from_numpy(np.concatenate((query_feats, gallery_feats), axis=0))
+
     for index, image_name in enumerate(query_imgnames + gallery_imgnames):
         #
         pid = int(image_name.split('_')[0])
