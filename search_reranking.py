@@ -123,7 +123,7 @@ class ReidMetric(Metric):
 
         print("mAP: {:.1%}".format(mAP))
         for r in [1, 5, 10]:
-            print().info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
+            print().info("CMC curve, Rank-{:}:{:.1%}".format(r, cmc[r - 1]))
         return cmc, mAP
 
 
