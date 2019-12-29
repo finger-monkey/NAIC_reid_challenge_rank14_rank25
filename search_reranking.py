@@ -1,0 +1,145 @@
+import pickle
+
+import numpy as np
+import torch
+from ignite.metrics import Metric
+from sklearn import preprocessing
+
+from rerank.rerank_kreciprocal import re_ranking
+
+SPLIT_NAME = 'split1'
+
+
+def process_info(info):
+    feats, imgnames = info
+    feats = preprocessing.normalize(feats)
+    return feats, imgnames
+
+
+def eval_func(distmat, q_pids, g_pids, q_camids, g_camids, max_rank=200):
+    """
+        Evaluation with market1501 metric
+        Key: for each query identity, its gallery images from the same camera view are discarded.
+    """
+    num_q, num_g = distmat.shape
+    if num_g < max_rank:
+        max_rank = num_g
+        print("Note: number of gallery samples is quite small, got {}".format(num_g))
+    indices = np.argsort(distmat, axis=1)
+    matches = (g_pids[indices] == q_pids[:, np.newaxis]).astype(np.int32)
+
+    # compute cmc curve for each query
+    all_cmc = []
+    all_AP = []
+    num_valid_q = 0.  # number of valid query
+    for q_idx in range(num_q):
+        # get query pid and camid
+        q_pid = q_pids[q_idx]
+        q_camid = q_camids[q_idx]
+
+        # remove gallery samples that have the same pid and camid with query
+        order = indices[q_idx]
+        remove = (g_pids[order] == q_pid) & (g_camids[order] == q_camid)
+        keep = np.invert(remove)
+
+        # compute cmc curve
+        # binary vector, positions with value 1 are correct matches
+        orig_cmc = matches[q_idx][keep]
+        if not np.any(orig_cmc):
+            # this condition is true when query identity does not appear in gallery
+            continue
+
+        cmc = orig_cmc.cumsum()
+        cmc[cmc > 1] = 1
+
+        all_cmc.append(cmc[:max_rank])
+        num_valid_q += 1.
+
+        # compute average precision
+        # reference: https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision
+        num_rel = orig_cmc.sum()
+        tmp_cmc = orig_cmc.cumsum()
+        tmp_cmc = [x / (i + 1.) for i, x in enumerate(tmp_cmc)]
+        tmp_cmc = np.asarray(tmp_cmc) * orig_cmc
+        AP = tmp_cmc.sum() / num_rel
+        all_AP.append(AP)
+
+    assert num_valid_q > 0, "Error: all query identities do not appear in gallery"
+
+    all_cmc = np.asarray(all_cmc).astype(np.float32)
+    all_cmc = all_cmc.sum(0) / num_valid_q
+    mAP = np.mean(all_AP)
+
+    return all_cmc, mAP
+
+
+class ReidMetric(Metric):
+    def __init__(self, num_query, max_rank=200, feat_norm='yes'):
+        super(ReidMetric, self).__init__()
+        self.num_query = num_query
+        self.max_rank = max_rank
+        self.feat_norm = feat_norm
+        self.feats = []
+        self.pids = []
+        self.camids = []
+
+    def reset(self):
+        self.feats = []
+        self.pids = []
+        self.camids = []
+
+    def update(self, output):
+        feat, pid, camid = output
+        self.feats.append(feat)
+        self.pids.extend(np.asarray(pid))
+        self.camids.extend(np.asarray(camid))
+
+    def compute(self, re_rank=None):
+        feats = torch.cat(self.feats, dim=0)
+        if self.feat_norm == 'yes':
+            print("The test feature is normalized")
+            feats = torch.nn.functional.normalize(feats, dim=1, p=2)
+
+        # query
+        qf = feats[:self.num_query]
+        q_pids = np.asarray(self.pids[:self.num_query])
+        q_camids = np.asarray(self.camids[:self.num_query])
+
+        # gallery
+        gf = feats[self.num_query:]
+        g_pids = np.asarray(self.pids[self.num_query:])
+        g_camids = np.asarray(self.camids[self.num_query:])
+
+        assert isinstance(qf, np.ndarray)
+        assert isinstance(gf, np.ndarray)
+
+        if re_rank is not None:
+            #
+            qf = torch.from_numpy(qf)
+            gf = torch.from_numpy(gf)
+            distmat = re_ranking(qf, gf, **re_rank)
+            cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
+        else:
+            #
+            distmat = np.dot(qf, gf.T)
+            cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
+        return cmc, mAP
+
+
+def main():
+    gallery_info = pickle.load(open(
+        '/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat' % SPLIT_NAME, 'rb'))
+    query_info = pickle.load(open(
+        '/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat' % SPLIT_NAME, 'rb'))
+
+    gallery_feats, gallery_imgnames = process_info(gallery_info)
+    query_feats, query_imgnames = process_info(query_info)
+
+    reid_metric = ReidMetric(num_query=len(query_imgnames))
+    query_gallery_feat = np.concatenate((query_feats, gallery_feats), axis=0)
+    for index, image_name in enumerate(query_imgnames + gallery_imgnames):
+        #
+        pid = int(image_name.split('_')[0])
+        camid = int(image_name.split('_')[1])
+        reid_metric.update((query_gallery_feat[index], pid, camid))
+    print(reid_metric.compute())
