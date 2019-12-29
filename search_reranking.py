@@ -154,7 +154,7 @@ def main():
                     'k2':k2,
                     'lambda':l
                 }
-                reid_metric.compute(**kw)
+                reid_metric.compute(re_rank=kw)
 
 
 if __name__ == '__main__':
