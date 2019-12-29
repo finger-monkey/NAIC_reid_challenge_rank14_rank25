@@ -97,7 +97,6 @@ class ReidMetric(Metric):
     def compute(self, re_rank=None):
         feats = torch.cat(self.feats, dim=0)
         if self.feat_norm == 'yes':
-
             feats = torch.nn.functional.normalize(feats, dim=1, p=2)
 
         # query
@@ -145,14 +144,14 @@ def main():
         camid = image_name.split('_')[1]
         reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
 
-    for k1 in [7]:
-        for k2 in [3]:
+    for k1 in [6, 7]:
+        for k2 in [2, 3]:
             for l in [0.4, 0.5, 0.6, 0.7, 0.8, 0.85]:
                 print(k1, k2, l)
                 kw = {
-                    'k1':k1,
-                    'k2':k2,
-                    'lambda_value':l
+                    'k1': k1,
+                    'k2': k2,
+                    'lambda_value': l
                 }
                 reid_metric.compute(re_rank=kw)
 
