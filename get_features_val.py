@@ -15,10 +15,10 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-VAL_NAME = "split1"
+SPLIT_NAME = "split1"
 
-Q_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/query"
-G_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/bounding_box_test"
+Q_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/query" % SPLIT_NAME
+G_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/bounding_box_test" % SPLIT_NAME
 
 
 def test_collate_fn(batch):
@@ -32,11 +32,7 @@ def main():
     parser.add_argument("opts", help="Modify config options using the command-line", default=None,
                         nargs=argparse.REMAINDER)
 
-    parser.set_defaults(
-        config_file="configs/apex_002.yml",
-    )
     args = parser.parse_args()
-
 
     num_gpus = int(os.environ["WORLD_SIZE"]) if "WORLD_SIZE" in os.environ else 1
 
@@ -65,7 +61,7 @@ def main():
     cudnn.benchmark = True
 
     _1, _2, _3, num_classes = make_data_loader(cfg)
-    model = build_model(cfg, num_classes)
+    model = build_model(cfg, 1111)
     model.load_param(cfg.TEST.WEIGHT)
 
     # gpu_device
@@ -123,9 +119,9 @@ def main():
     gallery_feat = result[query_num:]
 
     pickle.dump([query_feat, query_name], open(
-        "/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat" % VAL_NAME, 'wb'))
+        "/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat" % SPLIT_NAME, 'wb'))
     pickle.dump([gallery_feat, gallery_name], open(
-        "/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat" % VAL_NAME, 'wb'))
+        "/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat" % SPLIT_NAME, 'wb'))
 
 
 if __name__ == '__main__':
