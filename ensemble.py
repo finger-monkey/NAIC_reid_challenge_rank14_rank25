@@ -8,10 +8,10 @@ from sklearn import preprocessing
 from rerank.rerank_kreciprocal import re_ranking
 
 FEATURE_LIST = [
-    "jiankang_152", "apex_002", "apex_003"
+    "fighting_003", "fighting_002"
 ]
 
-ENSEMBLE_NAME = "xxx"
+ENSEMBLE_NAME = "fighting_002_003"
 
 
 def process_info(info):
