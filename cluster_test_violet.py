@@ -20,6 +20,9 @@ QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/query_featu
 # output name
 OUTPUT_NAME = "testB_violet_0.78_0.35"
 
+bank_list = open('banklist').readlines()
+bank_list = [x.strip() for x in bank_list]
+
 
 def process_info(info):
     feats, img_names = info
@@ -77,7 +80,7 @@ def main():
     cleaned_count = 0
     gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
-        if i in ['259574461.png', '64081619.png']:
+        if i in bank_list:
             continue
 
         # query name
@@ -88,7 +91,11 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = submission_key[cur_query_name][:100]
+        origin_rank_list = submission_key[cur_query_name][:20]
+
+        for i in origin_rank_list:
+            if i in bank_list:
+                continue
 
         for gallery_name in origin_rank_list:
             try:
