@@ -10,8 +10,8 @@ from tqdm import tqdm
 LABEL_DICT = {}
 
 # threshold
-RANK_DIRTY_THRESHOLD = 0.85
-MERGE_THRESHOLD = 0.4
+RANK_DIRTY_THRESHOLD = 0.78
+MERGE_THRESHOLD = 0.35
 
 # features
 GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/gallery_feature.feat'
