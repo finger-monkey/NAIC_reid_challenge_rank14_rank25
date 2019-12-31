@@ -83,6 +83,8 @@ def main():
     cleaned_count = 0
     gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
+        if i in ['259574461', '64081619']:
+            continue
 
         # query name
         cur_query_name = LABEL_DICT[i][0]
@@ -117,7 +119,7 @@ def main():
         cleaned_rank_dict_testA[cur_query_name] = cleaned_rank_list
     print('cleaned:', cleaned_count)
     print('dirty_cout:', dirty_count)
-    count = 20000
+    count = 30000
 
     output_path = "/data/anxiang/reid_extra/%s" % OUTPUT_NAME
     if not os.path.exists(output_path):
