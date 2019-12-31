@@ -153,7 +153,7 @@ _C.TEST.FEAT_NORM = 'yes'
 _C.OUTPUT_DIR = ""
 
 # ---------------------------------------------------------------------------- #
-# Add New by An-xiang
+# Add New by anxiang
 # ---------------------------------------------------------------------------- #
 # -----------------------------------------------------------------------------
 # INPUT
@@ -195,3 +195,11 @@ _C.MODEL.FREEZE = 'no'
 
 # Laststride
 _C.MODEL.LASTSTRIDE = 2
+
+# Attention
+_C.MODEL.ATTENTION = 'no'
+
+# Sample
+_C.MODEL.SAMPLER = 'default'
+_C.MODEL.SAMPLER_SKIP_NUM = 1
+_C.MODEL.SAMPLER_START = 999

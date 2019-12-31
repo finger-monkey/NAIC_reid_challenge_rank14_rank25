@@ -15,8 +15,8 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-Q_ROOT = "/data/xiangan/reid_final/test_violet/query_a"
-G_ROOT = "/data/xiangan/reid_final/test_violet/gallery_a"
+Q_ROOT = "/data/anxiang/reid/testB/violet/query"
+G_ROOT = "/data/anxiang/reid/testB/violet/gallery"
 
 
 def test_collate_fn(batch):
@@ -58,9 +58,9 @@ def main():
         os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
 
-    _1, _2, _3, num_classes = make_data_loader(cfg)
+    # _1, _2, _3, num_classes = make_data_loader(cfg)
     # model = build_model(cfg, num_classes)
-    model = build_model(cfg, 9968)
+    model = build_model(cfg, 13031)
     model.load_param(cfg.TEST.WEIGHT)
 
     # gpu_device

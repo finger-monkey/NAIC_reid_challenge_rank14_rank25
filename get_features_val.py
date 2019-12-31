@@ -15,8 +15,10 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-Q_ROOT = "/data/anxiang/reid/testB/origin/query"
-G_ROOT = "/data/anxiang/reid/testB/origin/gallery"
+SPLIT_NAME = "split1"
+
+Q_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/query" % SPLIT_NAME
+G_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/bounding_box_test" % SPLIT_NAME
 
 
 def test_collate_fn(batch):
@@ -59,7 +61,8 @@ def main():
     cudnn.benchmark = True
 
     # _1, _2, _3, num_classes = make_data_loader(cfg)
-    model = build_model(cfg, 13031)
+    # model = build_model(cfg, 1111)
+    model = build_model(cfg, 7476)
     model.load_param(cfg.TEST.WEIGHT)
 
     # gpu_device
@@ -116,8 +119,10 @@ def main():
     query_feat = result[:query_num]
     gallery_feat = result[query_num:]
 
-    pickle.dump([query_feat, query_name], open(cfg.OUTPUT_DIR + '/query_feature.feat', 'wb'))
-    pickle.dump([gallery_feat, gallery_name], open(cfg.OUTPUT_DIR + '/gallery_feature.feat', 'wb'))
+    pickle.dump([query_feat, query_name], open(
+        "/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat" % SPLIT_NAME, 'wb'))
+    pickle.dump([gallery_feat, gallery_name], open(
+        "/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat" % SPLIT_NAME, 'wb'))
 
 
 if __name__ == '__main__':

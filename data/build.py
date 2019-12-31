@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 
 from .collate_batch import train_collate_fn, val_collate_fn
 from .datasets import init_dataset, ImageDataset
-from .samplers import RandomIdentitySampler, RandomIdentitySampler_alignedreid, RandomIdentitySampler_all
+from .samplers import RandomIdentitySampler_all, RandomIdentitySkipSampler
 from .transforms import build_transforms
 
 
@@ -25,17 +25,22 @@ def make_data_loader(cfg):
     num_classes = dataset.num_train_pids
     train_set = ImageDataset(dataset.train, train_transforms)
     if cfg.DATALOADER.SAMPLER == 'softmax':
-        # train_loader = DataLoader(
-        #     train_set, batch_size=cfg.SOLVER.IMS_PER_BATCH, shuffle=True, num_workers=num_workers,
-        #     collate_fn=train_collate_fn
-        # )
         raise ValueError
     else:
+        if cfg.MODEL.SAMPLER == 'default':
+            sampler=RandomIdentitySampler_all(dataset.train, cfg.SOLVER.IMS_PER_BATCH, cfg.DATALOADER.NUM_INSTANCE),
+        elif cfg.MODEL.SAMPLER == 'skip_sampler':
+            sampler=RandomIdentitySkipSampler(
+                dataset.train, cfg.SOLVER.IMS_PER_BATCH, cfg.DATALOADER.NUM_INSTANCE,
+                skip_epoch=cfg.MODEL.SAMPLER_SKIP_NUM
+            )
+        else:
+            raise ValueError
+
         train_loader = DataLoader(
             train_set,
             batch_size=cfg.SOLVER.IMS_PER_BATCH,
-            # sampler=RandomIdentitySampler(dataset.train, cfg.SOLVER.IMS_PER_BATCH, cfg.DATALOADER.NUM_INSTANCE),
-            sampler=RandomIdentitySampler_all(dataset.train, cfg.SOLVER.IMS_PER_BATCH, cfg.DATALOADER.NUM_INSTANCE),
+            sampler=sampler,
             num_workers=num_workers,
             collate_fn=train_collate_fn
         )

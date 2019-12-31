@@ -15,6 +15,22 @@ from .backbones.resnet_ibn_a import resnet50_ibn_a
 from .backbones.senet import SENet, SEResNetBottleneck, SEBottleneck, SEResNeXtBottleneck
 
 
+class AttentionModule(nn.Module):
+    def __init__(self, channels):
+        super(AttentionModule, self).__init__()
+        self.fc1 = nn.Conv2d(channels, 128, kernel_size=1, padding=0)
+        self.relu = nn.ReLU(inplace=True)
+        self.fc2 = nn.Conv2d(128, 8, kernel_size=1, padding=0)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        x = self.sigmoid(x)
+        return x
+
+
 def weights_init_kaiming(m):
     classname = m.__class__.__name__
     if classname.find('Linear') != -1:
@@ -61,9 +77,9 @@ class Baseline(nn.Module):
     in_planes = 2048
 
     def __init__(self, num_classes, last_stride, model_path, model_name,
-                 pretrain_choice):
-
+                 pretrain_choice, attention=False):
         super(Baseline, self).__init__()
+        self.attention = attention
         if model_name == 'resnet18':
             self.in_planes = 512
             self.base = ResNet(last_stride=last_stride,
@@ -231,6 +247,15 @@ class Baseline(nn.Module):
         self._init_fc(self.fc_id_256_2_1)
         self._init_fc(self.fc_id_256_2_2)
 
+        if self.attention:
+            self.feature_score = AttentionModule(6144)
+            # conv
+            nn.init.kaiming_normal_(self.feature_score.fc1.weight, mode='fan_in')
+            nn.init.constant_(self.feature_score.fc1.bias, 0.)
+            # conv
+            nn.init.kaiming_normal_(self.feature_score.fc2.weight, mode='fan_in')
+            nn.init.constant_(self.feature_score.fc2.bias, 0.)
+
         # if pretrain_choice == 'imagenet' and cfg.MODEL.ADD_TEST_MODE == 'yes':
         #     self.load_param(model_path)
         #     print('===========================================')
@@ -278,6 +303,19 @@ class Baseline(nn.Module):
         f1_p3 = self.reduction_6(z1_p3).squeeze(dim=3).squeeze(dim=2)
         f2_p3 = self.reduction_7(z2_p3).squeeze(dim=3).squeeze(dim=2)
 
+        if self.attention:
+            attention_p = torch.cat((zg_p1, zg_p2, zg_p3), dim=1)
+            scores = self.feature_score(attention_p).squeeze(dim=3).squeeze(dim=2)
+
+            fg_p1 = scores[:, 0].reshape((-1, 1)) * fg_p1
+            fg_p2 = scores[:, 1].reshape((-1, 1)) * fg_p2
+            fg_p3 = scores[:, 2].reshape((-1, 1)) * fg_p3
+            f0_p2 = scores[:, 3].reshape((-1, 1)) * f0_p2
+            f1_p2 = scores[:, 4].reshape((-1, 1)) * f1_p2
+            f0_p3 = scores[:, 5].reshape((-1, 1)) * f0_p3
+            f1_p3 = scores[:, 6].reshape((-1, 1)) * f1_p3
+            f2_p3 = scores[:, 7].reshape((-1, 1)) * f2_p3
+
         l_p1 = self.fc_id_2048_0(self.relu(fg_p1))
         l_p2 = self.fc_id_2048_1(self.relu(fg_p2))
         l_p3 = self.fc_id_2048_2(self.relu(fg_p3))
@@ -290,7 +328,6 @@ class Baseline(nn.Module):
 
         #
         final_feature = torch.cat([fg_p1, fg_p2, fg_p3, f0_p2, f1_p2, f0_p3, f1_p3, f2_p3], dim=1)
-
 
         if self.training:
             return (l_p1, l_p2, l_p3, l0_p2, l1_p2, l0_p3, l1_p3, l2_p3), (fg_p1, fg_p2, fg_p3, final_feature)
