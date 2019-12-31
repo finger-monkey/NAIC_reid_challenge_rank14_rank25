@@ -29,7 +29,6 @@ def process_info(info):
 
 def main():
     #
-
     # testA
     testA_gallery_info = pickle.load(open(GALLERY_FEAT, 'rb'))
     testA_query_info = pickle.load(open(QUERY_FEAT, 'rb'))

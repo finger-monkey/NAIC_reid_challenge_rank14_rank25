@@ -29,9 +29,6 @@ def process_info(info):
 
 def main():
     #
-    # testA rank_list
-    testA_rank_list = RANK_LIST
-
     # testA
     testA_gallery_info = pickle.load(open(GALLERY_FEAT, 'rb'))
     testA_query_info = pickle.load(open(QUERY_FEAT, 'rb'))
