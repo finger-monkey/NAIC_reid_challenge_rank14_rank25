@@ -18,7 +18,7 @@ GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/gallery_f
 QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/query_feature.feat'
 
 # output name
-OUTPUT_NAME = "testB_origin_0.80_0.35"
+OUTPUT_NAME = "testB_origin_0.80_0.35_1"
 
 
 bank_list = open('banklist').readlines()
