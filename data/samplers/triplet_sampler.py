@@ -225,7 +225,7 @@ class RandomIdentitySkipSampler(Sampler):
             idxs = copy.deepcopy(self.index_dic[pid])
             if len(idxs) < self.num_instances:
                 idxs = np.random.choice(idxs, size=self.num_instances, replace=True)
-            elif len(idxs) < 100:
+            elif len(idxs) < 10:
                 if self.epoch % self.skip_epoch == 0:
                     idxs = np.random.choice(idxs, size=len(idxs) * 2, replace=True)
             pidslib += [pid] * len(idxs)

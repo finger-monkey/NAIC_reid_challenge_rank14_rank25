@@ -10,19 +10,19 @@ from tqdm import tqdm
 LABEL_DICT = {}
 
 # threshold
-RANK_DIRTY_THRESHOLD = 0.85
-MERGE_THRESHOLD = 0.4
+RANK_DIRTY_THRESHOLD = 0.76
+MERGE_THRESHOLD = 0.40
 
 # features
-GALLERY_FEAT = '/home/xiangan/dgreid/features/apex_003_test_origin/gallery_feature.feat'
-QUERY_FEAT = '/home/xiangan/dgreid/features/apex_003_test_origin/query_feature.feat'
-
-# rank list
-RANK_LIST = 'ensemble_xxx.json'
+GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/gallery_feature.feat'
+QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/query_feature.feat'
 
 # output name
-OUTPUT_NAME = "test1"
+OUTPUT_NAME = "testB_origin_0.76_0.40_final"
 
+
+bank_list = open('banklist').readlines()
+bank_list = [x.strip() for x in bank_list]
 
 def process_info(info):
     feats, img_names = info
@@ -32,9 +32,6 @@ def process_info(info):
 
 def main():
     #
-    # testA rank_list
-    testA_rank_list = RANK_LIST
-
     # testA
     testA_gallery_info = pickle.load(open(GALLERY_FEAT, 'rb'))
     testA_query_info = pickle.load(open(QUERY_FEAT, 'rb'))
@@ -61,9 +58,17 @@ def main():
 
     print(len(set(cls.labels_)))
 
-    f = open(testA_rank_list, encoding='utf-8')
-    content = f.read()
-    dic = json.loads(content)
+    sim = np.dot(testA_query_feats, testA_gallery_feats.T)
+    num_q, num_g = sim.shape
+    indices = np.argsort(-sim, axis=1)
+
+    submission_key = {}
+    for q_idx in range(num_q):
+        order = indices[q_idx][:200]
+        query_gallery = []
+        for gallery_index in order:
+            query_gallery.append(testA_gallery_img_names[gallery_index])
+        submission_key[testA_query_img_names[q_idx]] = query_gallery
 
     cleaned_rank_dict_testA = {}
 
@@ -82,7 +87,7 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = dic[cur_query_name][:100]
+        origin_rank_list = submission_key[cur_query_name][:10]
 
         for gallery_name in origin_rank_list:
             try:
@@ -99,6 +104,9 @@ def main():
                 else:
                     gallery2query_dict[gallery_name] = cur_query_name
 
+                    if gallery_name in bank_list or cur_query_name in bank_list:
+                        dirty_query_set.add(cur_query_name)
+
                 #
                 cleaned_rank_list.append(gallery_name)
                 cleaned_count += 1
@@ -107,9 +115,9 @@ def main():
         cleaned_rank_dict_testA[cur_query_name] = cleaned_rank_list
     print('cleaned:', cleaned_count)
     print('dirty_cout:', dirty_count)
-    count = 15000
+    count = 40000
 
-    output_path = "/data/xiangan/reid_extra/%s" % OUTPUT_NAME
+    output_path = "/data/anxiang/reid_extra/%s" % OUTPUT_NAME
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
@@ -118,13 +126,13 @@ def main():
         if query in dirty_query_set:
             continue
 
-        input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
-        output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
+        input_path = os.path.join("/data/anxiang/reid/testB/origin/query", query)
+        output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
-            input_path = os.path.join("/data/xiangan/reid_final/test/gallery_a", clean_name)
-            output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
+            input_path = os.path.join("/data/anxiang/reid/testB/origin/gallery", clean_name)
+            output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
 
