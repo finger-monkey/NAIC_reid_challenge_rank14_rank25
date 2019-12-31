@@ -11,14 +11,14 @@ LABEL_DICT = {}
 
 # threshold
 RANK_DIRTY_THRESHOLD = 0.75
-MERGE_THRESHOLD = 0.40
+MERGE_THRESHOLD = 0.38
 
 # features
 GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/gallery_feature.feat'
 QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/query_feature.feat'
 
 # output name
-OUTPUT_NAME = "testB_origin_0.80_0.35_1"
+OUTPUT_NAME = "testB_origin_0.75_0.38_2"
 
 
 bank_list = open('banklist').readlines()
