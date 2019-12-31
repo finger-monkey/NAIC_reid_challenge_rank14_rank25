@@ -17,11 +17,8 @@ MERGE_THRESHOLD = 0.35
 GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/gallery_feature.feat'
 QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/query_feature.feat'
 
-# rank list
-RANK_LIST = 'rerank_final_001.json'
-
 # output name
-OUTPUT_NAME = "test_violet"
+OUTPUT_NAME = "testB_violet_0.78_0.35"
 
 
 def process_info(info):
