@@ -80,8 +80,6 @@ def main():
     cleaned_count = 0
     gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
-        if i in bank_list:
-            continue
 
         # query name
         cur_query_name = LABEL_DICT[i][0]
@@ -92,10 +90,6 @@ def main():
         #
         cleaned_rank_list = []
         origin_rank_list = submission_key[cur_query_name][:20]
-
-        for _name in origin_rank_list:
-            if _name in bank_list:
-                continue
 
         for gallery_name in origin_rank_list:
             try:
@@ -111,6 +105,9 @@ def main():
                     dirty_query_set.add(cur_query_name)
                 else:
                     gallery2query_dict[gallery_name] = cur_query_name
+
+                    if gallery_name in bank_list or cur_query_name in bank_list:
+                        dirty_query_set.add(cur_query_name)
 
                 #
                 cleaned_rank_list.append(gallery_name)
