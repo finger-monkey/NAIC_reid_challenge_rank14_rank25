@@ -15,8 +15,8 @@ from torch.utils.data import DataLoader
 import numpy as np
 import pickle
 
-Q_ROOT = "/data/xiangan/reid_final/test_violet/query_a"
-G_ROOT = "/data/xiangan/reid_final/test_violet/gallery_a"
+Q_ROOT = "/data/anxiang/reid/testB/violet/query"
+G_ROOT = "/data/anxiang/reid/testB/violet/gallery"
 
 
 def test_collate_fn(batch):
