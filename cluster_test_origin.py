@@ -117,7 +117,7 @@ def main():
     print('dirty_cout:', dirty_count)
     count = 40000
 
-    output_path = "/data/xiangan/reid_extra/%s" % OUTPUT_NAME
+    output_path = "/data/anxiang/reid_extra/%s" % OUTPUT_NAME
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
