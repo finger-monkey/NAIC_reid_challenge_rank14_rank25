@@ -93,8 +93,8 @@ def main():
         cleaned_rank_list = []
         origin_rank_list = submission_key[cur_query_name][:20]
 
-        for i in origin_rank_list:
-            if i in bank_list:
+        for _name in origin_rank_list:
+            if _name in bank_list:
                 continue
 
         for gallery_name in origin_rank_list:
