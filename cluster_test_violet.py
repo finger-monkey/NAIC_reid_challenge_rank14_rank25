@@ -77,7 +77,7 @@ def main():
     cleaned_count = 0
     gallery2query_dict = {}
     for i in tqdm(LABEL_DICT.keys()):
-        if i in ['259574461', '64081619']:
+        if i in ['259574461.png', '64081619.png']:
             continue
 
         # query name
