@@ -14,8 +14,8 @@ RANK_DIRTY_THRESHOLD = 0.85
 MERGE_THRESHOLD = 0.4
 
 # features
-GALLERY_FEAT = '/home/xiangan/dgreid/features/gallery_feature.feat'
-QUERY_FEAT = '/home/xiangan/dgreid/features/query_feature.feat'
+GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/gallery_feature.feat'
+QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/query_feature.feat'
 
 # rank list
 RANK_LIST = 'rerank_final_001.json'
