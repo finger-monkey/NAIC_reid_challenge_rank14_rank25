@@ -21,6 +21,9 @@ QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/query_featu
 OUTPUT_NAME = "testB_origin_0.85_0.4"
 
 
+bank_list = open('banklist').readlines()
+bank_list = [x.strip() for x in bank_list]
+
 def process_info(info):
     feats, img_names = info
     feats = preprocessing.normalize(feats)
@@ -100,6 +103,9 @@ def main():
                     dirty_query_set.add(cur_query_name)
                 else:
                     gallery2query_dict[gallery_name] = cur_query_name
+
+                    if gallery_name in bank_list or cur_query_name in bank_list:
+                        dirty_query_set.add(cur_query_name)
 
                 #
                 cleaned_rank_list.append(gallery_name)

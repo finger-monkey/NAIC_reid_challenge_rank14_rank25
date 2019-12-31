@@ -39,20 +39,6 @@ def main():
     testA_gallery_feats, testA_gallery_img_names = process_info(testA_gallery_info)
     testA_query_feats, testA_query_img_names = process_info(testA_query_info)
 
-    #
-    sim = np.dot(testA_query_feats, testA_gallery_feats.T)
-    num_q, num_g = sim.shape
-    indices = np.argsort(-sim, axis=1)
-
-    submission_key = {}
-    for q_idx in range(num_q):
-        order = indices[q_idx][:200]
-        query_gallery = []
-        for gallery_index in order:
-            query_gallery.append(testA_gallery_img_names[gallery_index])
-        submission_key[testA_query_img_names[q_idx]] = query_gallery
-
-    #
     cls = AgglomerativeClustering(
         n_clusters=None,
         linkage='average',
@@ -69,8 +55,20 @@ def main():
         else:
             assert isinstance(LABEL_DICT[_label], list)
             LABEL_DICT[_label].append(testA_query_img_names[idx])
-
+    #
     print(len(set(cls.labels_)))
+
+    sim = np.dot(testA_query_feats, testA_gallery_feats.T)
+    num_q, num_g = sim.shape
+    indices = np.argsort(-sim, axis=1)
+
+    submission_key = {}
+    for q_idx in range(num_q):
+        order = indices[q_idx][:200]
+        query_gallery = []
+        for gallery_index in order:
+            query_gallery.append(testA_gallery_img_names[gallery_index])
+        submission_key[testA_query_img_names[q_idx]] = query_gallery
 
     cleaned_rank_dict_testA = {}
 
