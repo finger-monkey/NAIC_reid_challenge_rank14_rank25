@@ -87,7 +87,7 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = submission_key[cur_query_name][:100]
+        origin_rank_list = submission_key[cur_query_name][:10]
 
         for gallery_name in origin_rank_list:
             try:
