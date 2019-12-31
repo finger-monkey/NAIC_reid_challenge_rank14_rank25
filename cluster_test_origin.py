@@ -11,7 +11,7 @@ LABEL_DICT = {}
 
 # threshold
 RANK_DIRTY_THRESHOLD = 0.85
-MERGE_THRESHOLD = 0.4
+MERGE_THRESHOLD = 0.35
 
 # features
 GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/gallery_feature.feat'
