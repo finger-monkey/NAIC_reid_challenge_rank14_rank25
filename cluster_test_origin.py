@@ -10,15 +10,15 @@ from tqdm import tqdm
 LABEL_DICT = {}
 
 # threshold
-RANK_DIRTY_THRESHOLD = 0.75
-MERGE_THRESHOLD = 0.38
+RANK_DIRTY_THRESHOLD = 0.76
+MERGE_THRESHOLD = 0.40
 
 # features
 GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/gallery_feature.feat'
 QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_origin/query_feature.feat'
 
 # output name
-OUTPUT_NAME = "testB_origin_0.75_0.38_2"
+OUTPUT_NAME = "testB_origin_0.76_0.40_final"
 
 
 bank_list = open('banklist').readlines()
