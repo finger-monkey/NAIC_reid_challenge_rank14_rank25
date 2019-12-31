@@ -14,8 +14,8 @@ RANK_DIRTY_THRESHOLD = 0.85
 MERGE_THRESHOLD = 0.4
 
 # features
-GALLERY_FEAT = '/home/xiangan/dgreid/features/final_001_test_violet/gallery_feature.feat'
-QUERY_FEAT = '/home/xiangan/dgreid/features/final_001_test_violet/query_feature.feat'
+GALLERY_FEAT = '/home/xiangan/dgreid/features/gallery_feature.feat'
+QUERY_FEAT = '/home/xiangan/dgreid/features/query_feature.feat'
 
 # rank list
 RANK_LIST = 'rerank_final_001.json'
@@ -42,6 +42,20 @@ def main():
     testA_gallery_feats, testA_gallery_img_names = process_info(testA_gallery_info)
     testA_query_feats, testA_query_img_names = process_info(testA_query_info)
 
+    #
+    sim = np.dot(testA_query_feats, testA_gallery_feats.T)
+    num_q, num_g = sim.shape
+    indices = np.argsort(-sim, axis=1)
+
+    submission_key = {}
+    for q_idx in range(num_q):
+        order = indices[q_idx][:200]
+        query_gallery = []
+        for gallery_index in order:
+            query_gallery.append(testA_gallery_img_names[gallery_index])
+        submission_key[testA_query_img_names[q_idx]] = query_gallery
+
+    #
     cls = AgglomerativeClustering(
         n_clusters=None,
         linkage='average',
@@ -61,10 +75,6 @@ def main():
 
     print(len(set(cls.labels_)))
 
-    f = open(testA_rank_list, encoding='utf-8')
-    content = f.read()
-    dic = json.loads(content)
-
     cleaned_rank_dict_testA = {}
 
     dirty_count = 0
@@ -82,7 +92,7 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = dic[cur_query_name][:100]
+        origin_rank_list = submission_key[cur_query_name][:100]
 
         for gallery_name in origin_rank_list:
             try:
@@ -109,7 +119,7 @@ def main():
     print('dirty_cout:', dirty_count)
     count = 20000
 
-    output_path = "/data/xiangan/reid_extra/%s" % OUTPUT_NAME
+    output_path = "/data/anxiang/reid_extra/%s" % OUTPUT_NAME
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
@@ -118,13 +128,13 @@ def main():
         if query in dirty_query_set:
             continue
 
-        input_path = os.path.join("/data/xiangan/reid_final/test/query_a", query)
-        output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
+        input_path = os.path.join("/data/anxiang/reid/testB/violet/query", query)
+        output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
-            input_path = os.path.join("/data/xiangan/reid_final/test/gallery_a", clean_name)
-            output_name = os.path.join("/data/xiangan/reid_extra/%s" % OUTPUT_NAME,
+            input_path = os.path.join("/data/anxiang/reid/testB/violet/gallery", clean_name)
+            output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
 
