@@ -152,6 +152,7 @@ def main():
     for idx, name in enumerate(clean_set):
         temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
 
+    print(temp_feat.shape)
     gallery_imgnames = list(clean_set)
     gallery_feats = temp_feat
 
