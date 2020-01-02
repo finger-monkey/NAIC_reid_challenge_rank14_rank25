@@ -143,9 +143,9 @@ def main():
 
     #
     for q_idx in range(num_q):
-        order = indices[q_idx][:70]
+        order = indices[q_idx][:200]
         for gallery_index in order:
-            if np.dot(query_feats[q_idx], gallery_feats[gallery_index].T) > 0.6:
+            if np.dot(query_feats[q_idx], gallery_feats[gallery_index].T) > 0.3:
                 clean_set.add(gallery_imgnames[gallery_index])
             else:
                 continue
