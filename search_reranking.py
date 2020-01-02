@@ -135,6 +135,26 @@ def main():
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
 
+    sim = np.dot(query_feats, gallery_feats.T)
+    num_q, num_g = sim.shape
+    indices = np.argsort(-sim, axis=1)
+
+    clean_set = set()
+
+    #
+    for q_idx in range(num_q):
+        order = indices[q_idx][:1000]
+        for gallery_index in order:
+            clean_set.add(gallery_imgnames[gallery_index])
+
+
+    temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
+    for idx, name in enumerate(clean_set):
+        temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
+
+    gallery_imgnames = list(clean_set)
+    gallery_feats = temp_feat
+
     reid_metric = ReidMetric(num_query=len(query_imgnames))
     query_gallery_feat = torch.from_numpy(np.concatenate((query_feats, gallery_feats), axis=0))
 
