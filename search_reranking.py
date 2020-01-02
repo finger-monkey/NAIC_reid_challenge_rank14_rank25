@@ -143,7 +143,6 @@ def main():
 
     #
     for q_idx in range(num_q):
-        query_id = int(query_imgnames[q_idx].split('_')[0])
         order = indices[q_idx][:70]
         for gallery_index in order:
             clean_set.add(gallery_imgnames[gallery_index])
