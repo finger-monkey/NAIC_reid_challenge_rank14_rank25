@@ -66,7 +66,7 @@ def main():
     query_feats, query_imgnames = process_info(query_info)
 
     #
-    chunk_size = 500
+    chunk_size = 1000
     #
     iter_num = len(query_imgnames) // chunk_size + 1
     #
