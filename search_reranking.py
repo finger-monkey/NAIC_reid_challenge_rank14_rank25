@@ -135,7 +135,7 @@ def get_score(query_feats, query_imgnames, gallery_feats, gallery_imgnames):
 
     #
     for q_idx in range(num_q):
-        order = indices[q_idx][:100]
+        order = indices[q_idx][:200]
         for gallery_index in order:
             clean_set.add(gallery_imgnames[gallery_index])
         else:
