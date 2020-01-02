@@ -77,8 +77,8 @@ def main():
             _query_imgnames = query_imgnames[i * chunk_size:]
             _query_feats = query_feats[i * chunk_size:]
         else:
-            _query_imgnames = query_imgnames[i * chunk_size, (i + 1) * chunk_size]
-            _query_feats = query_feats[i * chunk_size, (i + 1) * chunk_size]
+            _query_imgnames = query_imgnames[i * chunk_size: (i + 1) * chunk_size]
+            _query_feats = query_feats[i * chunk_size: (i + 1) * chunk_size]
 
         # get
         _submission_key = get_result(_query_imgnames, _query_feats, gallery_feats, gallery_imgnames)
