@@ -59,9 +59,11 @@ def main():
     gallery_feats = preprocessing.normalize(gallery_feats)
 
     pickle.dump([query_feats, query_imgnames_1],
-                open('/home/xiangan/dgreid/features/ensemble/query_feature.feat', 'wb'))
+                open('/home/xiangan/dgreid/features/ensemble/query_feature.feat', 'wb'),
+                protocol=4)
     pickle.dump([gallery_feats, gallery_imgnames_1],
-                open('/home/xiangan/dgreid/features/ensemble/gallery_feature.feat', 'wb'))
+                open('/home/xiangan/dgreid/features/ensemble/gallery_feature.feat', 'wb'),
+                protocol=4)
 
 
 if __name__ == '__main__':
