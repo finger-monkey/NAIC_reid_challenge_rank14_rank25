@@ -3,7 +3,7 @@
 # config_file
 config_file=configs/${1}.yml
 # output_dir
-output_dir=/data/xiangan/models/reid/${1}_all
+output_dir=/data/xiangan/models/reid/${1}
 # train_root
 train_root=/data/xiangan/reid_final/all
 # model_path
@@ -19,6 +19,3 @@ python get_features.py \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model_path}')" \
     OUTPUT_DIR "('./features/${1}')"
-
-
-python get_submission.py --name "${1}"
