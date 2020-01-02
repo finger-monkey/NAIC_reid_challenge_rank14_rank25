@@ -146,16 +146,9 @@ def main():
         query_id = int(query_imgnames[q_idx].split('_')[0])
         order = indices[q_idx][:70]
         for gallery_index in order:
-            if np.dot(query_feats[q_idx], gallery_feats[gallery_index].T) > 0.3:
-                name = gallery_imgnames[gallery_index]
-                pid = int(name.split('_')[0])
-                if pid == query_id:
-                    continue
-                else:
-                    clean_set.add(gallery_imgnames[gallery_index])
-            else:
-                continue
-
+            clean_set.add(gallery_imgnames[gallery_index])
+        else:
+            continue
 
     temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
     for idx, name in enumerate(clean_set):
