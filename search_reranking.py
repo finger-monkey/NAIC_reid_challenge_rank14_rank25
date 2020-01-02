@@ -128,9 +128,9 @@ class ReidMetric(Metric):
 
 def main():
     gallery_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat' % SPLIT_NAME, 'rb'))
+        '/home/xiangan/dgreid/features/dgreid_test_003/%s_gallery_feature.feat' % SPLIT_NAME, 'rb'))
     query_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat' % SPLIT_NAME, 'rb'))
+        '/home/xiangan/dgreid/features/dgreid_test_003/%s_query_feature.feat' % SPLIT_NAME, 'rb'))
 
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
@@ -144,9 +144,11 @@ def main():
         camid = image_name.split('_')[1]
         reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
 
-    for k1 in [6, 7]:
-        for k2 in [2, 3]:
-            for l in [0.4, 0.5, 0.6, 0.7, 0.8, 0.85]:
+    reid_metric.compute()
+
+    for k1 in [7]:
+        for k2 in [3]:
+            for l in [0.8]:
                 print(k1, k2, l)
                 kw = {
                     'k1': k1,
