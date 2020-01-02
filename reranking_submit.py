@@ -15,7 +15,7 @@ def process_info(info):
     return feats, imgnames
 
 
-def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames, ):
+def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames):
     sim = np.dot(query_feats, gallery_feats.T)
     num_q, num_g = sim.shape
     indices = np.argsort(-sim, axis=1)
@@ -29,7 +29,7 @@ def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames, ):
         else:
             continue
 
-    temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
+    temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]), dtype=np.float32)
     for idx, name in enumerate(clean_set):
         temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
 
