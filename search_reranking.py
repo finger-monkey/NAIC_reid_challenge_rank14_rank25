@@ -126,15 +126,7 @@ class ReidMetric(Metric):
         return cmc, mAP
 
 
-def main():
-    gallery_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/dgreid_test_003/%s_gallery_feature.feat' % SPLIT_NAME, 'rb'))
-    query_info = pickle.load(open(
-        '/home/xiangan/dgreid/features/dgreid_test_003/%s_query_feature.feat' % SPLIT_NAME, 'rb'))
-
-    gallery_feats, gallery_imgnames = process_info(gallery_info)
-    query_feats, query_imgnames = process_info(query_info)
-
+def get_score(query_feats, query_imgnames, gallery_feats, gallery_imgnames):
     sim = np.dot(query_feats, gallery_feats.T)
     num_q, num_g = sim.shape
     indices = np.argsort(-sim, axis=1)
@@ -143,12 +135,11 @@ def main():
 
     #
     for q_idx in range(num_q):
-        order = indices[q_idx][:70]
+        order = indices[q_idx][:100]
         for gallery_index in order:
             clean_set.add(gallery_imgnames[gallery_index])
         else:
             continue
-
     temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
     for idx, name in enumerate(clean_set):
         temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
@@ -166,11 +157,9 @@ def main():
         camid = image_name.split('_')[1]
         reid_metric.update((torch.reshape(query_gallery_feat[index], (1, -1)), [pid], [camid]))
 
-    reid_metric.compute()
-
     for k1 in [10]:
         for k2 in [2]:
-            for l in [0.3]:
+            for l in [0.6]:
                 print(k1, k2, l)
                 kw = {
                     'k1': k1,
@@ -179,6 +168,17 @@ def main():
                 }
                 reid_metric.compute(re_rank=kw)
 
+
+def main():
+    gallery_info = pickle.load(open(
+        '/home/xiangan/dgreid/features/dgreid_test_003/%s_gallery_feature.feat' % SPLIT_NAME, 'rb'))
+    query_info = pickle.load(open(
+        '/home/xiangan/dgreid/features/dgreid_test_003/%s_query_feature.feat' % SPLIT_NAME, 'rb'))
+
+    gallery_feats, gallery_imgnames = process_info(gallery_info)
+    query_feats, query_imgnames = process_info(query_info)
+    get_score(query_feats[:500], query_imgnames[:500], gallery_feats, gallery_imgnames)
+    get_score(query_feats[500:], query_imgnames[500:], gallery_feats, gallery_imgnames)
 
 if __name__ == '__main__':
     main()
