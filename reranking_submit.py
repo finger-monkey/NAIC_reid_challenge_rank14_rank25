@@ -106,7 +106,7 @@ def main():
     #
     print(len(set(cls.labels_)))
     for id, l in LABEL_DICT.items():
-        print(l)
+        print(len(l))
 
     # # final
     # submission_json = json.dumps(submission_key)
