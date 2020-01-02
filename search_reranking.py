@@ -121,7 +121,7 @@ class ReidMetric(Metric):
             cmc, mAP = eval_func(distmat, q_pids, g_pids, q_camids, g_camids)
 
         print("mAP: {:.1%}".format(mAP))
-        for r in [1, 5, 10]:
+        for r in [1, 5]:
             print("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
         return cmc, mAP
 
