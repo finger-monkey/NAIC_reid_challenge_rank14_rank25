@@ -5,8 +5,11 @@ import numpy as np
 import torch
 from sklearn import preprocessing
 from rerank.rerank_kreciprocal import re_ranking
+from sklearn.cluster import AgglomerativeClustering
 
 NAME = "dgreid_b_003"
+
+LABEL_DICT = {}
 
 
 def process_info(info):
@@ -65,32 +68,52 @@ def main():
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
 
+    # #
+    # chunk_size = 1000
+    # #
+    # iter_num = len(query_imgnames) // chunk_size + 1
+    # #
+    # submission_key = {}
+    # #
+    # for i in range(iter_num):
+    #     if i == iter_num - 1:
+    #         _query_imgnames = query_imgnames[i * chunk_size:]
+    #         _query_feats = query_feats[i * chunk_size:]
+    #     else:
+    #         _query_imgnames = query_imgnames[i * chunk_size: (i + 1) * chunk_size]
+    #         _query_feats = query_feats[i * chunk_size: (i + 1) * chunk_size]
     #
-    chunk_size = 1000
-    #
-    iter_num = len(query_imgnames) // chunk_size + 1
-    #
-    submission_key = {}
-    #
-    for i in range(iter_num):
-        if i == iter_num - 1:
-            _query_imgnames = query_imgnames[i * chunk_size:]
-            _query_feats = query_feats[i * chunk_size:]
+    #     # get
+    #     _submission_key = get_result(_query_imgnames, _query_feats, gallery_feats, gallery_imgnames)
+    #     # update
+    #     submission_key.update(_submission_key)
+
+    cls = AgglomerativeClustering(
+        n_clusters=None,
+        linkage='average',
+        affinity="cosine",
+        distance_threshold=0.7
+    )
+
+    cls.fit(query_feats)
+
+    # generate label dict
+    for idx, _label in enumerate(cls.labels_):
+        if _label not in LABEL_DICT:
+            LABEL_DICT[_label] = [query_imgnames[idx]]
         else:
-            _query_imgnames = query_imgnames[i * chunk_size: (i + 1) * chunk_size]
-            _query_feats = query_feats[i * chunk_size: (i + 1) * chunk_size]
+            assert isinstance(LABEL_DICT[_label], list)
+            LABEL_DICT[_label].append(query_imgnames[idx])
+    #
+    print(len(set(cls.labels_)))
 
-        # get
-        _submission_key = get_result(_query_imgnames, _query_feats, gallery_feats, gallery_imgnames)
-        # update
-        submission_key.update(_submission_key)
+    # # final
+    # submission_json = json.dumps(submission_key)
+    # print(type(submission_json))
+    #
+    # with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
+    #     f.write(submission_json)
 
-    # final
-    submission_json = json.dumps(submission_key)
-    print(type(submission_json))
-
-    with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
-        f.write(submission_json)
 
 if __name__ == '__main__':
     main()
