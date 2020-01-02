@@ -15,53 +15,79 @@ def process_info(info):
     return feats, imgnames
 
 
-gallery_info = pickle.load(open('features/%s/gallery_feature.feat' % NAME, 'rb'))
-query_info = pickle.load(open('features/%s/query_feature.feat' % NAME, 'rb'))
+def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames, ):
+    sim = np.dot(query_feats, gallery_feats.T)
+    num_q, num_g = sim.shape
+    indices = np.argsort(-sim, axis=1)
 
-gallery_feats, gallery_imgnames = process_info(gallery_info)
-query_feats, query_imgnames = process_info(query_info)
+    clean_set = set()
+    #
+    for q_idx in range(num_q):
+        order = indices[q_idx][:200]
+        for gallery_index in order:
+            clean_set.add(gallery_imgnames[gallery_index])
+        else:
+            continue
 
-sim = np.dot(query_feats, gallery_feats.T)
-num_q, num_g = sim.shape
-indices = np.argsort(-sim, axis=1)
+    temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
+    for idx, name in enumerate(clean_set):
+        temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
 
-clean_set = set()
-#
-for q_idx in range(num_q):
-    order = indices[q_idx][:70]
-    for gallery_index in order:
-        clean_set.add(gallery_imgnames[gallery_index])
-    else:
-        continue
+    print(temp_feat.shape)
+    gallery_imgnames = list(clean_set)
+    gallery_feats = temp_feat
 
-temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
-for idx, name in enumerate(clean_set):
-    temp_feat[idx] = gallery_feats[gallery_imgnames.index(name)]
+    #
+    query_feats = torch.from_numpy(query_feats)
+    gallery_feats = torch.from_numpy(gallery_feats)
+    sim = re_ranking(query_feats, gallery_feats, k1=10, k2=2, lambda_value=0.60)
 
-print(temp_feat.shape)
-gallery_imgnames = list(clean_set)
-gallery_feats = temp_feat
+    # sim = np.dot(query_feats, gallery_feats.T)
+    num_q, num_g = sim.shape
+    # indices = np.argsort(-sim, axis=1)
+    indices = np.argsort(sim, axis=1)
 
-#
-query_feats = torch.from_numpy(query_feats)
-gallery_feats = torch.from_numpy(gallery_feats)
-sim = re_ranking(query_feats, gallery_feats, k1=10, k2=2, lambda_value=0.60)
+    submission_key = {}
+    for q_idx in range(num_q):
+        order = indices[q_idx][:200]
+        query_gallery = []
+        for gallery_index in order:
+            query_gallery.append(gallery_imgnames[gallery_index])
+        submission_key[query_imgnames[q_idx]] = query_gallery
 
-# sim = np.dot(query_feats, gallery_feats.T)
-num_q, num_g = sim.shape
-# indices = np.argsort(-sim, axis=1)
-indices = np.argsort(sim, axis=1)
+    return submission_key
 
-submission_key = {}
-for q_idx in range(num_q):
-    order = indices[q_idx][:200]
-    query_gallery = []
-    for gallery_index in order:
-        query_gallery.append(gallery_imgnames[gallery_index])
-    submission_key[query_imgnames[q_idx]] = query_gallery
 
-submission_json = json.dumps(submission_key)
-print(type(submission_json))
+def main():
+    gallery_info = pickle.load(open('features/%s/gallery_feature.feat' % NAME, 'rb'))
+    query_info = pickle.load(open('features/%s/query_feature.feat' % NAME, 'rb'))
 
-with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
-    f.write(submission_json)
+    gallery_feats, gallery_imgnames = process_info(gallery_info)
+    query_feats, query_imgnames = process_info(query_info)
+
+    #
+    chunk_size = 500
+    #
+    iter_num = len(query_imgnames) // chunk_size + 1
+    #
+    submission_key = {}
+    #
+    for i in range(iter_num):
+        if i == iter_num - 1:
+            _query_imgnames = query_imgnames[i * chunk_size:]
+            _query_feats = query_feats[i * chunk_size:]
+        else:
+            _query_imgnames = query_imgnames[i * chunk_size, (i + 1) * chunk_size]
+            _query_feats = query_feats[i * chunk_size, (i + 1) * chunk_size]
+
+        # get
+        _submission_key = get_result(_query_imgnames, _query_feats, gallery_feats, gallery_imgnames)
+        # update
+        submission_key.update(_submission_key)
+
+    # final
+    submission_json = json.dumps(submission_key)
+    print(type(submission_json))
+
+    with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
+        f.write(submission_json)
