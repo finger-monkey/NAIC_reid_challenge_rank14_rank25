@@ -89,10 +89,9 @@ def main():
     #     submission_key.update(_submission_key)
 
     cls = AgglomerativeClustering(
-        n_clusters=None,
+        n_clusters=10,
         linkage='average',
         affinity="cosine",
-        distance_threshold=0.7
     )
 
     cls.fit(query_feats)
@@ -106,6 +105,8 @@ def main():
             LABEL_DICT[_label].append(query_imgnames[idx])
     #
     print(len(set(cls.labels_)))
+    for id, l in LABEL_DICT.items():
+        print(l)
 
     # # final
     # submission_json = json.dumps(submission_key)
