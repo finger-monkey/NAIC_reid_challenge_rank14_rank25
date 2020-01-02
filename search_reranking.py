@@ -143,9 +143,12 @@ def main():
 
     #
     for q_idx in range(num_q):
-        order = indices[q_idx][:300]
+        order = indices[q_idx][:70]
         for gallery_index in order:
-            clean_set.add(gallery_imgnames[gallery_index])
+            if np.dot(query_feats[q_idx], gallery_feats[gallery_index].T) > 0.6:
+                clean_set.add(gallery_imgnames[gallery_index])
+            else:
+                continue
 
 
     temp_feat = np.zeros((len(clean_set), gallery_feats.shape[1]))
@@ -167,9 +170,9 @@ def main():
 
     reid_metric.compute()
 
-    for k1 in [7]:
-        for k2 in [3]:
-            for l in [0.8]:
+    for k1 in [10]:
+        for k2 in [2]:
+            for l in [0.3]:
                 print(k1, k2, l)
                 kw = {
                     'k1': k1,
