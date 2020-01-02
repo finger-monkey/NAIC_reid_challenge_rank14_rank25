@@ -1,17 +1,12 @@
-import json
 import pickle
 
 import numpy as np
-import torch
 from sklearn import preprocessing
 
-from rerank.rerank_kreciprocal import re_ranking
-
 FEATURE_LIST = [
-    "fighting_003", "fighting_002"
+    "dgreid_001", "dgreid_002", "dgreid_b_003", "dgreid_b_004"
 ]
 
-ENSEMBLE_NAME = "fighting_002_003"
 
 def process_info(info):
     feats, imgnames = info
@@ -39,7 +34,6 @@ def get(FEATURE, query_imgnames_1, gallery_imgnames_1):
 
 
 def main():
-
     assert len(FEATURE_LIST) > 1
 
     # feature_1
@@ -64,29 +58,10 @@ def main():
     query_feats = preprocessing.normalize(query_feats)
     gallery_feats = preprocessing.normalize(gallery_feats)
 
-    query_feats = torch.from_numpy(query_feats)
-    gallery_feats = torch.from_numpy(gallery_feats)
-    sim = re_ranking(query_feats, gallery_feats, k1=7, k2=3, lambda_value=0.80)
-    # rerank1 7 3 0.85
-    # rerank2 7 3 0.8
-    # rerank3 6 3 0.8
-
-    num_q, num_g = sim.shape
-    indices = np.argsort(sim, axis=1)
-
-    submission_key = {}
-    for q_idx in range(num_q):
-        order = indices[q_idx][:200]
-        query_gallery = []
-        for gallery_index in order:
-            query_gallery.append(gallery_imgnames_1[gallery_index])
-        submission_key[query_imgnames_1[q_idx]] = query_gallery
-
-    submission_json = json.dumps(submission_key)
-    print(type(submission_json))
-
-    with open('ensemble_%s.json' % ENSEMBLE_NAME, 'w', encoding='utf-8') as f:
-        f.write(submission_json)
+    pickle.dump([query_feats, query_imgnames_1],
+                open('/home/xiangan/dgreid/features/ensemble/query_feature.feat', 'wb'))
+    pickle.dump([gallery_feats, gallery_imgnames_1],
+                open('/home/xiangan/dgreid/features/ensemble/gallery_feature.feat', 'wb'))
 
 
 if __name__ == '__main__':
