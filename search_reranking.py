@@ -143,7 +143,7 @@ def main():
 
     #
     for q_idx in range(num_q):
-        order = indices[q_idx][:1000]
+        order = indices[q_idx][:300]
         for gallery_index in order:
             clean_set.add(gallery_imgnames[gallery_index])
 
