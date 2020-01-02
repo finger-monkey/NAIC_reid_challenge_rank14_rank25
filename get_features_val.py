@@ -17,8 +17,8 @@ import pickle
 
 SPLIT_NAME = "split1"
 
-Q_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/query" % SPLIT_NAME
-G_ROOT = "/data/xiangan/reid_final/four_fold/train_split4_rematch/%s/bounding_box_test" % SPLIT_NAME
+Q_ROOT = "/data/anxiang/reid/train_split4_rematch/%s/query" % SPLIT_NAME
+G_ROOT = "/data/anxiang/reid/train_split4_rematch/%s/bounding_box_test" % SPLIT_NAME
 
 
 def test_collate_fn(batch):
@@ -120,9 +120,9 @@ def main():
     gallery_feat = result[query_num:]
 
     pickle.dump([query_feat, query_name], open(
-        "/home/xiangan/dgreid/features/apex_002_val/%s_query_feature.feat" % SPLIT_NAME, 'wb'))
+        "/home/xiangan/dgreid/features/dgreid_test_003/%s_query_feature.feat" % SPLIT_NAME, 'wb'))
     pickle.dump([gallery_feat, gallery_name], open(
-        "/home/xiangan/dgreid/features/apex_002_val/%s_gallery_feature.feat" % SPLIT_NAME, 'wb'))
+        "/home/xiangan/dgreid/features/dgreid_test_003/%s_gallery_feature.feat" % SPLIT_NAME, 'wb'))
 
 
 if __name__ == '__main__':
