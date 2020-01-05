@@ -3,7 +3,7 @@ import shutil
 
 # config
 ORIGIN_TRAIN_ROOT = "/tmp/data/train/image"
-LABEL_FILE = "/tmp/data/label/train_list.txt"
+LABEL_FILE = "/tmp/data/train/label/train_list.txt"
 
 TRAIN_ROOT = "/tmp/data/all/bounding_box_train"
 
