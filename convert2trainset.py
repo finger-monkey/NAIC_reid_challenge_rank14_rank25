@@ -34,6 +34,9 @@ def main():
             target_path = os.path.join(TRAIN_ROOT, target_name)
             shutil.copy(source_path, target_path)
 
+    os.makedirs("/tmp/data/all/bounding_box_test")
+    os.makedirs("/tmp/data/query")
+
 
 if __name__ == '__main__':
     main()
