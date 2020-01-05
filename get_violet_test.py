@@ -47,8 +47,8 @@ if __name__ == '__main__':
     violet_query_path = "/tmp/data/violet/query"
     violet_gallery_path = '/tmp/data/violet/gallery'
 
-    query_B = "/tmp/test/query_B"
-    gallery_B = "/tmp/test/gallery_B"
+    query_B = "/tmp/data/test/query_B"
+    gallery_B = "/tmp/data/test/gallery_B"
 
     mkdir(origin_query_path)
     mkdir(origin_gallery_path)
