@@ -14,8 +14,8 @@ from data.transforms import build_transforms
 from modeling import build_model
 from utils.logger import setup_logger
 
-Q_ROOT = "/data/anxiang/reid/testB/origin/query"
-G_ROOT = "/data/anxiang/reid/testB/origin/gallery"
+Q_ROOT = "/tmp/data/origin/query"
+G_ROOT = "/tmp/data/origin/bounding_box_test"
 
 
 def test_collate_fn(batch):
@@ -57,7 +57,7 @@ def main():
         os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
 
-    model = build_model(cfg, 13031)
+    model = build_model(cfg, 9968)
     model.load_param(cfg.TEST.WEIGHT)
 
     # gpu_device
