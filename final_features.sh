@@ -14,6 +14,6 @@ python get_features.py \
     DATASETS.ROOT_DIR ${train_root} \
     MODEL.PRETRAIN_CHOICE "('self')" \
     TEST.WEIGHT "('${model_path}')" \
-    OUTPUT_DIR "('/tmp/data/features/final')"
+    OUTPUT_DIR "('/tmp/data/features/model_final')"
 
 

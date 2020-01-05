@@ -7,8 +7,6 @@ from sklearn import preprocessing
 
 from rerank.rerank_kreciprocal import re_ranking
 
-NAME = "dgreid_b_003"
-
 LABEL_DICT = {}
 
 
@@ -45,9 +43,8 @@ def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames):
     gallery_feats = torch.from_numpy(gallery_feats)
     sim = re_ranking(query_feats, gallery_feats, k1=10, k2=2, lambda_value=0.60)
 
-    # sim = np.dot(query_feats, gallery_feats.T)
     num_q, num_g = sim.shape
-    # indices = np.argsort(-sim, axis=1)
+
     indices = np.argsort(sim, axis=1)
 
     submission_key = {}
@@ -62,8 +59,8 @@ def get_result(query_imgnames, query_feats, gallery_feats, gallery_imgnames):
 
 
 def main():
-    gallery_info = pickle.load(open('features/%s/gallery_feature.feat' % NAME, 'rb'))
-    query_info = pickle.load(open('features/%s/query_feature.feat' % NAME, 'rb'))
+    gallery_info = pickle.load(open('/tmp/data/features/model_final/gallery_feature.feat', 'rb'))
+    query_info = pickle.load(open('/tmp/data/features/model_final/query_feature.feat', 'rb'))
 
     gallery_feats, gallery_imgnames = process_info(gallery_info)
     query_feats, query_imgnames = process_info(query_info)
@@ -92,7 +89,7 @@ def main():
     submission_json = json.dumps(submission_key)
     print(type(submission_json))
 
-    with open('rerank_%s.json' % NAME, 'w', encoding='utf-8') as f:
+    with open('/tmp/data/answer/answer.json', 'w', encoding='utf-8') as f:
         f.write(submission_json)
 
 
