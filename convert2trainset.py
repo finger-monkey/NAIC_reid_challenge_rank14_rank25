@@ -27,7 +27,8 @@ def main():
             else:
                 label = line.split(' ')[1]
 
-            target_name = "%s_c1_%s" % (label, image_name)
+            label = int(label)
+            target_name = "%4d_c1_%s" % (label, image_name)
 
             source_path = os.path.join(ORIGIN_TRAIN_ROOT, image_name)
             target_path = os.path.join(TRAIN_ROOT, target_name)
