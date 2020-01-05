@@ -14,8 +14,8 @@ RANK_DIRTY_THRESHOLD = 0.78
 MERGE_THRESHOLD = 0.35
 
 # features
-GALLERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/gallery_feature.feat'
-QUERY_FEAT = '/home/xiangan/dgreid/features/fighting_003_test_violet/query_feature.feat'
+GALLERY_FEAT = '/tmp/data/features/violet/gallery_feature.feat'
+QUERY_FEAT = '/tmp/data/features/violet/query_feature.feat'
 
 # output name
 OUTPUT_NAME = "testB_violet_0.78_0.35"
@@ -126,12 +126,12 @@ def main():
         if query in dirty_query_set:
             continue
 
-        input_path = os.path.join("/data/anxiang/reid/testB/violet/query", query)
+        input_path = os.path.join("/tmp/data/violet/query", query)
         output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                    "%d_c1_%s" % (count, query))
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
-            input_path = os.path.join("/data/anxiang/reid/testB/violet/gallery", clean_name)
+            input_path = os.path.join("/tmp/data/violet/bounding_box_test", clean_name)
             output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
                                        "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
