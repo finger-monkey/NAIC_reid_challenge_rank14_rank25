@@ -6,6 +6,8 @@ MODEL:
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'yes'
   FP16_level: "O1"
+  SAMPLER: "skip_sampler"
+  SAMPLER_SKIP_NUM: 2
 
 INPUT:
   SIZE_TRAIN: [384, 128]
@@ -14,7 +16,7 @@ INPUT:
   PROB: 0.5
   PADDING: 10
   # random patch
-  RANDOM_PATCH_PROB: 0.4
+  RANDOM_PATCH_PROB: 0.3
   PIXEL_MEAN: [0.485, 0.456, 0.406]
   PIXEL_STD: [0.229, -0.224, -0.225]
 DATASETS:
@@ -22,12 +24,12 @@ DATASETS:
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
-  NUM_INSTANCE: 6
+  NUM_INSTANCE: 4
   NUM_WORKERS: 24
 
 SOLVER:
   OPTIMIZER_NAME: 'SGD'
-  MAX_EPOCHS: 80
+  MAX_EPOCHS: 60
   BASE_LR: 5e-3                                               #
 
   # center loss
@@ -40,18 +42,18 @@ SOLVER:
   BIAS_LR_FACTOR: 1
   WEIGHT_DECAY: 0.0005
   WEIGHT_DECAY_BIAS: 0.0005
-  IMS_PER_BATCH: 48
+  IMS_PER_BATCH: 32
 
-  STEPS: [50, 70]
+  STEPS: [30, 50]
   GAMMA: 0.1
 
   WARMUP_FACTOR: 0.01
   WARMUP_ITERS: 10
   WARMUP_METHOD: 'linear'
 
-  CHECKPOINT_PERIOD: 80                                       #
+  CHECKPOINT_PERIOD: 1                                       #
   LOG_PERIOD: 100
-  EVAL_PERIOD: 10                                             #
+  EVAL_PERIOD: 100                                             #
 
 TEST:
   IMS_PER_BATCH: 128
@@ -59,6 +61,6 @@ TEST:
   WEIGHT: "path"
   FEAT_NORM: 'yes'
 
-OUTPUT_DIR: ""
+OUTPUT_DIR: "/tmp/data/model/model_base"
 
 
