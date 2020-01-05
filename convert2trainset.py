@@ -35,7 +35,7 @@ def main():
             shutil.copy(source_path, target_path)
 
     os.makedirs("/tmp/data/all/bounding_box_test")
-    os.makedirs("/tmp/data/query")
+    os.makedirs("/tmp/data/all/query")
 
 
 if __name__ == '__main__':
