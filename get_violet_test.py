@@ -11,8 +11,6 @@ def info(image_path):
     b_mean = mean(image_test[:, :, 0])
     g_mean = mean(image_test[:, :, 1])
     r_mean = mean(image_test[:, :, 2])
-
-    # print('b:%d\tg:%d\tr:%d\t' % (b_mean, g_mean, r_mean))
     return int(b_mean), int(g_mean), int(r_mean)
 
 
@@ -37,13 +35,34 @@ def copy(source_root, origin_target_root, violet_target_root):
 
 
 if __name__ == '__main__':
+
+    def mkdir(path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+
+    origin_query_path = "/tmp/data/origin/query"
+    origin_gallery_path = "/tmp/data/origin/gallery"
+
+    violet_query_path = "/tmp/data/violet/query"
+    violet_gallery_path = '/tmp/data/violet/gallery'
+
+    query_B = "/tmp/test/query_B"
+    gallery_B = "/tmp/test/gallery_B"
+
+    mkdir(origin_query_path)
+    mkdir(origin_gallery_path)
+    mkdir(violet_query_path)
+    mkdir(violet_gallery_path)
+
+    # query
     copy(
-        source_root="/data/anxiang/reid/testB/query_b",
-        origin_target_root="/data/anxiang/reid/testB/origin/query",
-        violet_target_root="/data/anxiang/reid/testB/violet/query",
+        source_root=query_B,
+        origin_target_root=origin_query_path,
+        violet_target_root=violet_query_path,
     )
     copy(
-        source_root="/data/anxiang/reid/testB/gallery_b",
-        origin_target_root="/data/anxiang/reid/testB/origin/gallery",
-        violet_target_root="/data/anxiang/reid/testB/violet/gallery",
+        source_root=gallery_B,
+        origin_target_root=origin_gallery_path,
+        violet_target_root=violet_gallery_path,
     )
