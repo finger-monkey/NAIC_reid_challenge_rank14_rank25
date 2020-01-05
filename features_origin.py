@@ -1,19 +1,18 @@
 import argparse
 import os
+import pickle
 
+import numpy as np
 import torch
 from torch import nn
 from torch.backends import cudnn
+from torch.utils.data import DataLoader
 
 from config import cfg
-from data import make_data_loader
+from data.datasets.dataset_loader import TestImageDataset
+from data.transforms import build_transforms
 from modeling import build_model
 from utils.logger import setup_logger
-from data.transforms import build_transforms
-from data.datasets.dataset_loader import TestImageDataset
-from torch.utils.data import DataLoader
-import numpy as np
-import pickle
 
 Q_ROOT = "/data/anxiang/reid/testB/origin/query"
 G_ROOT = "/data/anxiang/reid/testB/origin/gallery"
@@ -58,7 +57,6 @@ def main():
         os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID  # new add by gu
     cudnn.benchmark = True
 
-    # _1, _2, _3, num_classes = make_data_loader(cfg)
     model = build_model(cfg, 13031)
     model.load_param(cfg.TEST.WEIGHT)
 

@@ -42,10 +42,10 @@ if __name__ == '__main__':
 
 
     origin_query_path = "/tmp/data/origin/query"
-    origin_gallery_path = "/tmp/data/origin/gallery"
+    origin_gallery_path = "/tmp/data/origin/bounding_box_test"
 
     violet_query_path = "/tmp/data/violet/query"
-    violet_gallery_path = '/tmp/data/violet/gallery'
+    violet_gallery_path = '/tmp/data/violet/bounding_box_test'
 
     query_B = "/tmp/data/test/query_B"
     gallery_B = "/tmp/data/test/gallery_B"
