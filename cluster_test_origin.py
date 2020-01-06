@@ -10,7 +10,7 @@ LABEL_DICT = {}
 
 # threshold
 RANK_DIRTY_THRESHOLD = 0.76
-MERGE_THRESHOLD = 0.40
+MERGE_THRESHOLD = 0.43
 
 # features
 GALLERY_FEAT = '/tmp/data/features/origin/gallery_feature.feat'
