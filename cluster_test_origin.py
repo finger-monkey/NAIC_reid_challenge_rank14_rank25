@@ -121,7 +121,7 @@ def main():
 
     for query, clean_list in cleaned_rank_dict_testA.items():
         if len(clean_list) > 20:
-            print(count)
+            print(count, len(clean_list))
         if query in dirty_query_set:
             continue
 
