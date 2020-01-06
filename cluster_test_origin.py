@@ -1,7 +1,6 @@
 import os
 import pickle
-import json
-from tqdm import tqdm
+
 import numpy as np
 from sklearn import preprocessing
 from sklearn.cluster import AgglomerativeClustering
@@ -17,12 +16,10 @@ MERGE_THRESHOLD = 0.40
 GALLERY_FEAT = '/tmp/data/features/origin/gallery_feature.feat'
 QUERY_FEAT = '/tmp/data/features/origin/query_feature.feat'
 
-# output name
-OUTPUT_NAME = "testB_origin_0.76_0.40_final"
-
 
 bank_list = open('banklist').readlines()
 bank_list = [x.strip() for x in bank_list]
+
 
 def process_info(info):
     feats, img_names = info
@@ -117,7 +114,7 @@ def main():
     print('dirty_cout:', dirty_count)
     count = 40000
 
-    output_path = "/data/anxiang/reid_extra/%s" % OUTPUT_NAME
+    output_path = "/tmp/data/extra/origin"
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
@@ -127,13 +124,12 @@ def main():
             continue
 
         input_path = os.path.join("/tmp/data/origin/query", query)
-        output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
-                                   "%d_c1_%s" % (count, query))
+        output_name = os.path.join(output_path, "%d_c1_%s" % (count, query))
+
         open(output_name, 'wb').write(open(input_path, 'rb').read())
         for clean_name in clean_list:
             input_path = os.path.join("/tmp/data/origin/bounding_box_test", clean_name)
-            output_name = os.path.join("/data/anxiang/reid_extra/%s" % OUTPUT_NAME,
-                                       "%d_c1_%s" % (count, clean_name))
+            output_name = os.path.join(output_path, "%d_c1_%s" % (count, clean_name))
             open(output_name, 'wb').write(open(input_path, 'rb').read())
 
         count += 1
