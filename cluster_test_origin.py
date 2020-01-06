@@ -9,7 +9,7 @@ from tqdm import tqdm
 LABEL_DICT = {}
 
 # threshold
-RANK_DIRTY_THRESHOLD = 0.76
+RANK_DIRTY_THRESHOLD = 0.83
 MERGE_THRESHOLD = 0.43
 
 # features
