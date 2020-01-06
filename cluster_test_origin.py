@@ -84,7 +84,7 @@ def main():
 
         #
         cleaned_rank_list = []
-        origin_rank_list = submission_key[cur_query_name][:10]
+        origin_rank_list = submission_key[cur_query_name][:100]
 
         for gallery_name in origin_rank_list:
             try:
@@ -109,6 +109,7 @@ def main():
                 cleaned_count += 1
             else:
                 break
+
         cleaned_rank_dict_testA[cur_query_name] = cleaned_rank_list
     print('cleaned:', cleaned_count)
     print('dirty_cout:', dirty_count)
@@ -119,7 +120,8 @@ def main():
         os.makedirs(output_path)
 
     for query, clean_list in cleaned_rank_dict_testA.items():
-
+        if len(clean_list) > 20:
+            print(count)
         if query in dirty_query_set:
             continue
 
