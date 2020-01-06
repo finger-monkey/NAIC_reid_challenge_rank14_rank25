@@ -1,1 +1,1 @@
-cp /tmp/data/extra/origin* /tmp/data/all/bounding_box_train/
+cp /tmp/data/extra/origin/* /tmp/data/all/bounding_box_train/
