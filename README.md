@@ -40,4 +40,6 @@ http://data.lip6.fr/cadene/pretrainedmodels/se_resnet50-ce0d4300.pth
 
 ## 如何运行
 ## 一键运行脚本run.sh即可
-> # `bash run.sh`
+```bash
+bash run.sh
+```
