@@ -3,6 +3,7 @@ comming soon!
 ### 比赛结果
 > 初赛14/466名(去重后的结果)，复赛25/68名;
 ### 比赛比较重要的一些trick
+这些结果都是线下四折交叉验证的结果，我们线下和线上是一致的，线上的得分没有做记录。
 #### 1. RandomPatch
 `RandomPatch`是一个遮挡类型的数据增强，我们引用了zhou的方法。和RandomErasing类似，也是类似于在图片中随机增加噪音，不过这些噪音不是均值，也不是0，而是随机来自训练集的patch，这可以用一个队列来实现。这个数据增强在本次的比赛中提升很大。
 |   randompatch_prob  | split1(mAP/Rank-1) |   split2  |   split3  |   split4  |     avg     |
